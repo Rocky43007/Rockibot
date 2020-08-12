@@ -18,7 +18,15 @@
   },
   "homepage": "https://github.com/Rocky43007/DiscordBotTest#readme",
   "dependencies": {
+    "@keyv/sqlite": "^2.0.2",
+    "better-sqlite3": "^7.1.0",
+    "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
-    "eslint": "^7.6.0"
+    "enmap": "^5.6.1",
+    "eslint": "^7.6.0",
+    "googleapis": "^39.2.0",
+    "keyv": "^4.0.1",
+    "sequelize": "^6.3.4",
+    "sqlite3": "^5.0.0"
   }
 }
