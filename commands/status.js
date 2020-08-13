@@ -5,10 +5,10 @@ module.exports = {
 	aliases: ['s'],
 	execute(message) {
 		if(message.content === '!s') {
-			return message.react('✅');
+			return message.react('743561624979374323');
 		}
 		if(message.content == '!status') {
-			return message.react('✅');
+			return message.react('743561624979374323');
 		}
 	},
 };

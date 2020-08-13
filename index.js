@@ -25,27 +25,19 @@ client.once('ready', () => {
 
 client.on('message', async message => {
 	if (message.author.bot) return;
-
-	let args;
 	// handle messages in a guild
+	let args;
 	if (message.guild) {
 		let prefix;
-
-		const guildPrefix = await prefixes.get(message.guild.id);
-		if (prefixes.get(message.guild.id)) {
-			prefix = guildPrefix;
+		if (message.content.startsWith(prefixes.get(message.guild.id))) {
+			prefix = prefixes.get(message.guild.id);
 		}
 		else {
 			prefix = globalPrefix;
 		}
-		// if we found a prefix, setup args; otherwise, this isn't a command
-		if (!prefix) return;
+
+		if (!message.content.startsWith(prefix)) return;
 		args = message.content.slice(prefix.length).trim().split(/\s+/);
-	}
-	else {
-		// handle DMs
-		const slice = message.content.startsWith(globalPrefix) ? globalPrefix.length : 0;
-		args = message.content.slice(slice).split(/\s+/);
 	}
 
 	// get the first space-delimited argument after the prefix as the command
@@ -64,7 +56,7 @@ client.on('message', async message => {
 		let reply = `You didn't provide any arguments, ${message.author}!`;
 
 		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+			reply += `\nThe proper usage would be: \`${globalPrefix}${command.name} ${command.usage}\``;
 		}
 
 		return message.channel.send(reply);
