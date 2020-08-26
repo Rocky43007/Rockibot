@@ -1,0 +1,74 @@
+client.setProvider(
+	sqlite.open({ filename: path.join(__dirname, 'database.db') }).then(db => new SQLiteProvider(db)),
+).catch(console.error);
+
+const db = new sqlite3.Database('./db/Prefix.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+	if (err) {
+		return console.error(err.message);
+	}
+	console.log('Connected to the Prefix SQlite database.');
+});
+client.setProvider(
+	new SQLiteProvider(db),
+);
+
+if (!message.member.voice.channel.join()) {
+			if (!message.author.voiceChannel) return client2.sendMessage(message, 'You need to be in a voice channel');
+			client2.joinVoiceChannel(message.author.voiceChannel);
+		}
+
+
+				const receivedEmbed = message.embeds[(findInMessage(message, caseid))];
+		message.channel.send('Case found.');
+		const schannel = await schanneldb.get(message.guild.id);
+		const sChannel = message.guild.channels.cache.find(c => c.name === schannel);
+		if (!sChannel) return;
+		message = await sChannel.fetch_message(caseid);
+		await sChannel.send(message.embeds[0].description);
+
+	}
+
+		if (!casenum[message.guild.id]) {
+			casenum[message.guild.id] = {
+				case: 0,
+			};
+		}
+		casenum[message.guild.id].case++;
+
+		fs.writeFile('./casenum.json', JSON.stringify(casenum), (err) => {
+			if (err) {
+				console.log(err);
+			}
+		});
+		const schannel = await schanneldb.get(message.guild.id);
+		const embed = new discord.MessageEmbed()
+			.setColor('#738ADB')
+			.setAuthor(message.author.tag, message.author.avatarURL())
+			.setTitle(`Suggestion #${casenum[message.guild.id].case}`)
+			.setDescription(suggest);
+
+		const sChannel = message.guild.channels.cache.find(c => c.name === schannel);
+		if (!sChannel) return;
+		message.reply(`Suggestion sent to ${sChannel}.`);
+		sChannel.send({ embed: embed }).then(embedMessage => {
+			console.log(message.id);
+			smID.set(message.guild.id, message.id);
+			embedMessage.react('⬆️'),
+			embedMessage.react('⬇️');
+		});
+	}
+
+
+			const receivedEmbed = message.embeds[(findInMessage(message, casenum))];
+		const embed = new discord.MessageEmbed()
+			.setColor('#71EEB8')
+			.setTitle(`Suggestion #${casenum} Approved`)
+			.addField(`Comment from ${message.author.tag}:`, comments);
+
+		const schannel = await schanneldb.get(message.guild.id);
+		const sChannel = message.guild.channels.cache.find(c => c.name === schannel);
+		if (!sChannel) return;
+		const EditEmbed = smID.get(casenum);
+		const EditEmbed2 = await sChannel.messages.fetch(EditEmbed);
+		await sChannel.messages.fetch(EditEmbed).then(
+			EditEmbed2.edit(embed));

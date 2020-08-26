@@ -1,107 +1,74 @@
-const fs = require('fs');
-const Discord = require('discord.js');
-const { token, default_prefix } = require('./config.json');
-const Canvas = require('canvas');
+const { CommandoClient } = require('discord.js-commando');
+const discord = require('discord.js');
+const path = require('path');
+const { token } = require('./config.json');
 const Keyv = require('keyv');
-const prefixes = new Keyv('sqlite:///home/ricky/DiscordBotTest/db.sqlite');
-const globalPrefix = default_prefix;
+const KeyvProvider = require('commando-provider-keyv');
+const Canvas = require('canvas');
+const logsdb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/logs.sqlite');
 
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
+const client = new CommandoClient({
+	commandPrefix: '!',
+	owner: '361212545924595712',
+	invite: 'https://discord.gg/Ju2gSCY',
+});
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+client.on('messageDelete', async (message) => {
+	const logs = await logsdb.get(message.guild.id);
+	const embed = new discord.MessageEmbed()
+		.setColor('#ff2050')
+		.setAuthor(message.author.tag, message.author.avatarURL())
+		.addField(`Message Deleted in #${message.channel.name}`, message.content)
+		.setFooter(message.createdAt.toLocaleString());
 
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
-}
+	const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+	if (!sChannel) return;
+	sChannel.send(embed);
+});
+client.on('messageUpdate', async (oldMessage, newMessage) => {
+	const logs = await logsdb.get(oldMessage.guild.id);
+	const embed = new discord.MessageEmbed()
+		.setColor('#ff2050')
+		.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+		.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
+		.addField('Before:', oldMessage.content, true)
+		.addField('After:', newMessage.content, true)
+		.setFooter(newMessage.createdAt.toLocaleString());
 
-const cooldowns = new Discord.Collection();
+	const sChannel = newMessage.guild.channels.cache.find(c => c.name === logs);
+	if (!sChannel) return;
+	sChannel.send(embed);
+});
+client.on('message', async m => {
+	m.isDM = (m.guild ? false : true);
+	if (m.content[0] != client.commandPrefix) {
+		return;
+	}
+	else if (m.channel.name === 'general') {
+		m.delete().then(
+			m.reply('**You can\'t use commands here!**'));
+	}
+});
+
+client.registry
+	.registerDefaultTypes()
+	.registerGroups([
+		['first', 'Testing Commands'],
+		['moderation', 'Moderation Commands'],
+		['miscellaneous', 'Basic Commands'],
+		['music', 'Music commands'],
+		['suggestions', 'Suggestion commands'],
+	])
+	.registerDefaultGroups()
+	.registerDefaultCommands()
+	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.once('ready', () => {
-	console.log('Ready!');
-	console.log(`Server Count: ${client.guilds.cache.size}`);
-	client.user.setActivity('with !help | https://discord.gg/Ju2gSCY');
+	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
+	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 });
 
-client.on('message', async message => {
-	if (message.author.bot) return;
-
-	let args;
-	// handle messages in a guild
-	if (message.guild) {
-		let prefix;
-
-		if (message.content.startsWith(globalPrefix)) {
-			prefix = globalPrefix;
-		}
-		else {
-			// check the guild-level prefix
-			const guildPrefix = await prefixes.get(message.guild.id);
-			if (message.content.startsWith(guildPrefix)) prefix = guildPrefix;
-		}
-
-		// if we found a prefix, setup args; otherwise, this isn't a command
-		if (!prefix) return;
-		args = message.content.slice(prefix.length).trim().split(/\s+/);
-	}
-	else {
-		// handle DMs
-		const slice = message.content.startsWith(globalPrefix) ? globalPrefix.length : 0;
-		args = message.content.slice(slice).split(/\s+/);
-	}
-
-	// get the first space-delimited argument after the prefix as the command
-	const commandName = args.shift().toLowerCase();
-
-	const command = client.commands.get(commandName)
-		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-
-	if (!command) return;
-
-	if (command.guildOnly && message.channel.type === 'dm') {
-		return message.reply('I can\'t execute that command inside DMs!');
-	}
-
-	if (command.args && !args.length) {
-		let reply = `You didn't provide any arguments, ${message.author}!`;
-
-		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${globalPrefix}${command.name} ${command.usage}\``;
-		}
-
-		return message.channel.send(reply);
-	}
-
-	if (!cooldowns.has(command.name)) {
-		cooldowns.set(command.name, new Discord.Collection());
-	}
-
-	const now = Date.now();
-	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
-
-	if (timestamps.has(message.author.id)) {
-		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-		if (now < expirationTime) {
-			const timeLeft = (expirationTime - now) / 1000;
-			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
-		}
-	}
-
-	timestamps.set(message.author.id, now);
-	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
-	try {
-		command.execute(message, args);
-	}
-	catch (error) {
-		console.error(error);
-		message.reply('there was an error trying to execute that command!');
-	}
-});
-
+client.setProvider(new KeyvProvider(new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/database.sqlite')));
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
@@ -142,14 +109,9 @@ client.on('guildMemberAdd', async member => {
 	const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg' }));
 	ctx.drawImage(avatar, 25, 25, 200, 200);
 
-	const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
+	const attachment = new discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
 
 	channel.send(`Welcome to the server, ${member}!`, attachment);
 });
 
-client.on('message', message => {
-	if (message.content === '!join') {
-		client.emit('guildMemberAdd', message.member);
-	}
-});
 client.login(token);

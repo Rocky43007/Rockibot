@@ -1,59 +1,67 @@
-client.on('message', async message => {
-	let prefix;
+const { CommandoClient } = require('discord.js-commando');
+const discord = require('discord.js');
+const path = require('path');
+const { token } = require('./config.json');
+const Keyv = require('keyv');
+const KeyvProvider = require('commando-provider-keyv');
 
-	if (prefixes.get(message.guild.id)) prefix = prefixes.get(message.guild.id);
-	else prefix = globalPrefix;
+const client = new CommandoClient({
+	commandPrefix: '!',
+	owner: '361212545924595712',
+	invite: 'https://discord.gg/Ju2gSCY',
+});
 
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+client.on('messageDelete', async (message) => {
+	const embed = new discord.MessageEmbed()
+		.setColor('#ff2050')
+		.setAuthor(message.author.tag, message.author.avatarURL())
+		.addField(`Message Deleted in #${message.channel.name}`, message.content)
+		.setFooter(message.createdAt.toLocaleString());
 
+	const sChannel = message.guild.channels.cache.find(c => c.name === 'mod-log');
+	if (!sChannel) return;
+	sChannel.send(embed);
+});
+client.on('messageUpdate', async (oldMessage, newMessage) => {
+	const embed = new discord.MessageEmbed()
+		.setColor('#ff2050')
+		.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+		.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
+		.addField('Before:', oldMessage.content, true)
+		.addField('After:', newMessage.content, true)
+		.setFooter(newMessage.createdAt.toLocaleString());
 
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
-	const commandName = args.shift().toLowerCase();
-
-	const command = client.commands.get(commandName)
-		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-
-	if (!command) return;
-
-	if (command.guildOnly && message.channel.type === 'dm') {
-		return message.reply('I can\'t execute that command inside DMs!');
+	const sChannel = newMessage.guild.channels.cache.find(c => c.name === 'mod-log');
+	if (!sChannel) return;
+	sChannel.send(embed);
+});
+client.on('message', async m => {
+	m.isDM = (m.guild ? false : true);
+	if (m.content[0] != client.commandPrefix) {
+		return;
 	}
-
-	if (command.args && !args.length) {
-		let reply = `You didn't provide any arguments, ${message.author}!`;
-
-		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
-		}
-
-		return message.channel.send(reply);
-	}
-
-	if (!cooldowns.has(command.name)) {
-		cooldowns.set(command.name, new Discord.Collection());
-	}
-
-	const now = Date.now();
-	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
-
-	if (timestamps.has(message.author.id)) {
-		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-		if (now < expirationTime) {
-			const timeLeft = (expirationTime - now) / 1000;
-			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
-		}
-	}
-
-	timestamps.set(message.author.id, now);
-	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
-	try {
-		command.execute(message, args);
-	}
-	catch (error) {
-		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+	else if (m.channel.name === 'general') {
+		m.delete().then(
+			m.reply('**You can\'t use commands here!**'));
 	}
 });
+
+client.registry
+	.registerDefaultTypes()
+	.registerGroups([
+		['first', 'Testing Commands'],
+		['moderation', 'Moderation Commands'],
+		['miscellaneous', 'Basic Commands'],
+	])
+	.registerDefaultGroups()
+	.registerDefaultCommands()
+	.registerCommandsIn(path.join(__dirname, 'commands'));
+
+client.once('ready', () => {
+	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
+	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
+});
+
+client.setProvider(new KeyvProvider(new Keyv('sqlite:///home/ricky/DiscordBotTest/database.sqlite')));
+
+client.login(token);

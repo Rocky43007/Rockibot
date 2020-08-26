@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'reload',
+	category: 'Miscellaneous',
 	description: 'Reloads a command',
 	args: true,
 	execute(message, args) {
