@@ -1,8 +1,12 @@
 {
   "name": "DiscordBotTest",
-  "version": "1.0.0",
+  "version": "0.3.2-alpha",
   "description": "A place to let me learn how to make a discord bot. Simple really.",
   "main": "index.js",
+  "engines": {
+    "node": "14.x",
+    "npm": "*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
@@ -11,8 +15,11 @@
     "type": "git",
     "url": "git+https://github.com/Rocky43007/DiscordBotTest.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "heroku",
+    "discord.js"
+  ],
+  "author": "Rocky43007",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Rocky43007/DiscordBotTest/issues"
