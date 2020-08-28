@@ -57,7 +57,7 @@ module.exports = class Stats extends Command {
 					.addField('Channels:', `${totalChannels}`)
 					.addField('Shard:', `${totalShards}`)
 					.addField('Creator:', 'Rocky43007#7727')
-					.addField('Version:', '0.0.3-alpha')
+					.addField('Version:', '0.3.2-alpha')
 					.addField('Number of Commands:', `${NumberOfFiles}`)
 					.addField('Memory Usage:', `${getpercentage} (${(usedMemory / Math.pow(1024, 3)).toFixed(2)} GB)`)
 					.addField('Uptime:', `${dateString}`)

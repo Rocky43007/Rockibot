@@ -38,6 +38,7 @@
     "node-fetch": "^2.6.0",
     "prism-media": "^1.2.2",
     "querystring": "^0.2.0",
+    "quick.db": "^7.1.1",
     "sequelize": "^6.3.4",
     "simple-youtube-api": "^5.2.1",
     "sodium": "^3.0.2",

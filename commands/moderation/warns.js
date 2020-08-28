@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
-const fs = require('fs');
-const warns = JSON.parse(fs.readFileSync('./databases/warning.json'));
+const db = require('quick.db');
 
 
 module.exports = class Warns extends Command {
@@ -26,12 +25,12 @@ module.exports = class Warns extends Command {
 		if (!user) {
 			return message.reply('Please specify a user.');
 		}
-		if (!warns[user.id]) {
-			warns[user.id] = {
-				warns: 0,
-			};
+		const warnings = await db.get(`warnings_${message.guild.id}_${user.id}`);
+		if(warnings === null) {
+			message.say(`**${user.username}** has 0 warnings.`);
 		}
-		const warnlevel = warns[user.id].warns;
-		message.say(`${user.tag} has ${warnlevel} warning(s).`);
+		else {
+			message.say(`**${user.username}** has ${warnings} warning(s).`);
+		}
 	}
 };

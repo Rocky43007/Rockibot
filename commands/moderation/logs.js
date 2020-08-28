@@ -14,7 +14,7 @@ module.exports = class modlogs extends Command {
 			args: [
 				{
 					key: 'logs',
-					prompt: 'Which channel do you want to set as the mod-log? (Without the \'#\')',
+					prompt: 'Which channel do you want to set as the mod-log? (Without the `#`)',
 					type: 'string',
 				},
 			],

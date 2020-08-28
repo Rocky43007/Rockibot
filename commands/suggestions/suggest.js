@@ -3,7 +3,7 @@ const fs = require('fs');
 const discord = require('discord.js');
 const Keyv = require('keyv');
 const schanneldb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestc.sqlite');
-const casenum = JSON.parse(fs.readFileSync('./casenum.json'));
+const casenum = JSON.parse(fs.readFileSync('./databases/casenum.json'));
 const suggestdb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestdb.sqlite');
 const suggestnum = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestnum.sqlite');
 const suggestuser = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestuser.sqlite');
@@ -36,7 +36,7 @@ module.exports = class Suggest extends Command {
 		}
 		casenum[message.guild.id].case++;
 
-		fs.writeFile('./casenum.json', JSON.stringify(casenum), (err) => {
+		fs.writeFile('./databases/casenum.json', JSON.stringify(casenum), (err) => {
 			if (err) {
 				console.log(err);
 			}

@@ -1,10 +1,9 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
-const fs = require('fs');
 const ms = require('ms');
-const warns = JSON.parse(fs.readFileSync('./databases/warning.json'));
 const Keyv = require('keyv');
 const logsdb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/logs.sqlite');
+const db = require('quick.db');
 
 module.exports = class Warn extends Command {
 	constructor(client) {
@@ -33,36 +32,22 @@ module.exports = class Warn extends Command {
 		});
 	}
 	async run(message, { user, content }) {
-		const logs = await logsdb.get(message.guild.id);
-		if (message.guild.member(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not ban this user, he has higher permission than I do.');
-		if (!message.guild.me.hasPermission('MANAGE_MESSAGES', 'ADMINISTRATOR')) return message.reply('I need the permission `MANAGE_MESSAGES` or `ADMINISRATOR` for this to work.');
-		if (!warns[user.id]) {
-			warns[user.id] = {
-				warns: 0,
-			};
-		}
-		warns[user.id].warns++;
+		if(!message.member.hasPermission('MANAGE_SERVER')) return message.channel.send('You can\'t use that.');
 
-		fs.writeFile('./warning.json', JSON.stringify(warns), (err) => {
-			if (err) {
-				console.log(err);
-			}
-		});
-		const embed = new discord.MessageEmbed()
-			.setColor('#ff2050')
-			.setAuthor(`${message.guild.name}`, message.guild.iconURL())
-			.addField('Moderation:', 'Warn')
-			.addField('Offender:', `**${user}**`)
-			.addField('Reason:', content)
-			.addField('Moderator:', `${message.author}`)
-			.addField('Warns:', warns[user.id].warns)
-			.setFooter(message.createdAt.toLocaleString());
+		if (!message.guild.me.hasPermission('MANAGE_MESSAGES', 'ADMINISTRATOR')) return message.reply('I need the permission `MANAGE_MESSAGES` or `ADMINISTRATOR` for this to work.');
 
-		const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-		if (!sChannel) return;
-		sChannel.send(embed);
+		if(!user) return message.reply('Please specify a user, via mention or ID.');
 
-		if (warns[user.id] == 3) {
+		if(user.bot) return message.reply('You can\'t warn bots.');
+
+		if(message.author.id === user.id) return message.reply('You can\'t warn yourself.');
+
+		if(message.guild.member(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not warn this user, he has a higher permission than I do.');
+
+
+		const warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
+
+		if(warnings === 3) {
 			const muterole = message.guild.roles.cache.find(r => r.name === 'Muted');
 			if (!muterole) return message.reply('Create the `Muted` role.');
 
@@ -73,11 +58,32 @@ module.exports = class Warn extends Command {
 				user.roles.remove(muterole.id);
 				message.channel.reply(`**${user.tag}** has been unmuted.`);
 			}, ms(mutetime));
-
 		}
 
-		user.send(`You have been warned in ${message.guild.name} for: ${content}`).then(function() {
-			message.say(`**${user}** has been warned for: ${content}.`);
-		});
+		if(warnings === null) {
+			db.set(`warnings_${message.guild.id}_${user.id}`, 1);
+			user.send(`You were warned in ${message.guild.name} for: ${content}`);
+			await message.channel.send(`**${user.username}** has been warned.`);
+		}
+
+		if(warnings !== null) {
+			db.add(`warnings_${message.guild.id}_${user.id}`, 1);
+			user.send(`You were warned in ${message.guild.name} for: ${content}`);
+			await message.channel.send(`**${user.username}** has been warned.`);
+		}
+		const logs = await logsdb.get(message.guild.id);
+		const embed = new discord.MessageEmbed()
+			.setColor('#ff2050')
+			.setAuthor(`${message.guild.name}`, message.guild.iconURL())
+			.addField('Moderation:', 'Warn')
+			.addField('Offender:', `**${user}**`)
+			.addField('Reason:', content)
+			.addField('Moderator:', `${message.author}`)
+			.addField('Warns:', warnings)
+			.setFooter(message.createdAt.toLocaleString());
+
+		const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+		if (!sChannel) return;
+		sChannel.send(embed);
 	}
 };
