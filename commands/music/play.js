@@ -8,6 +8,7 @@ const opts = {
 	maxResults: 10,
 	key: config.youtube_api_key,
 };
+const Spotify = require('')
 
 module.exports = class MusicPlay extends Command {
 	constructor(client) {
