@@ -6,7 +6,7 @@ const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
 const logpath = path.join(__dirname, 'databases/logs.sqlite');
-const logsdb = new Keyv(`sqlite:///${logpath}`);
+const logsdb = new Keyv(`sqlite://${logpath}`);
 
 const client = new CommandoClient({
 	commandPrefix: '!',
