@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const logsdb = new Keyv('sqlite:///./databases/logs.sqlite');
+const logsdb = new Keyv('sqlite://./databases/logs.sqlite');
 
 module.exports = class RemoveData extends Command {
 	constructor(client) {

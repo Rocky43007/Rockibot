@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const schannel = new Keyv('sqlite:///./databases/suggestc.sqlite');
+const schannel = new Keyv('sqlite://./databases/suggestc.sqlite');
 
 module.exports = class suggestionchannel extends Command {
 	constructor(client) {
