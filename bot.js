@@ -114,4 +114,4 @@ client.on('guildMemberAdd', async member => {
 	channel.send(`Welcome to the server, ${member}!`, attachment);
 });
 
-client.login(config.token);
+client.login(process.env.TOKEN);
