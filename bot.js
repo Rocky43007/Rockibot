@@ -1,6 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const discord = require('discord.js');
 const path = require('path');
+const config = requre('./config.json');
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
@@ -113,4 +114,4 @@ client.on('guildMemberAdd', async member => {
 	channel.send(`Welcome to the server, ${member}!`, attachment);
 });
 
-client.login(process.env.TOKEN);
+client.login(config.token);
