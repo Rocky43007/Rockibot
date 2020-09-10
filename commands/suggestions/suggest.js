@@ -2,12 +2,12 @@ const { Command } = require('discord.js-commando');
 const fs = require('fs');
 const discord = require('discord.js');
 const Keyv = require('keyv');
-const schanneldb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestc.sqlite');
+const schanneldb = new Keyv('sqlite:///./databases/suggestc.sqlite');
 const casenum = JSON.parse(fs.readFileSync('./databases/casenum.json'));
-const suggestdb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestdb.sqlite');
-const suggestnum = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestnum.sqlite');
-const suggestuser = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestuser.sqlite');
-const suggestuserIM = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/suggestuserIM.sqlite');
+const suggestdb = new Keyv('sqlite:///./databases/suggestdb.sqlite');
+const suggestnum = new Keyv('sqlite:///./databases/suggestnum.sqlite');
+const suggestuser = new Keyv('sqlite:///./databases/suggestuser.sqlite');
+const suggestuserIM = new Keyv('sqlite:///./databases/suggestuserIM.sqlite');
 module.exports = class Suggest extends Command {
 	constructor(client) {
 		super(client, {

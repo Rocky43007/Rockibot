@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const logsdb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/logs.sqlite');
+const logsdb = new Keyv('sqlite:///./databases/logs.sqlite');
 
 module.exports = class Kick extends Command {
 	constructor(client) {

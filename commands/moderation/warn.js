@@ -2,7 +2,7 @@ const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const ms = require('ms');
 const Keyv = require('keyv');
-const logsdb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/logs.sqlite');
+const logsdb = new Keyv('sqlite:///./databases/logs.sqlite');
 const db = require('quick.db');
 
 module.exports = class Warn extends Command {
