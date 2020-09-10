@@ -4,7 +4,7 @@ const path = require('path');
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
-const logsdb = new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/logs.sqlite');
+const logsdb = new Keyv('sqlite:///./rockibot/databases/logs.sqlite');
 
 const client = new CommandoClient({
 	commandPrefix: '!',

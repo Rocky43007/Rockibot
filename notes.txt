@@ -107,3 +107,6 @@ if (!message.member.voice.channel.join()) {
         }
     }
 }
+
+
+
