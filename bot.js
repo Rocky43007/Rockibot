@@ -1,7 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const discord = require('discord.js');
 const path = require('path');
-const config = requre('./config.json');
+const config = require('./config.json');
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
