@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const fs = require('fs');
 const discord = require('discord.js');
 const Keyv = require('keyv');
+const path = require('path');
 const logpath1 = path.join(__dirname, 'databases/suggestc.sqlite');
 const logpath2 = path.join(__dirname, 'databases/suggestdb.sqlite');
 const logpath3 = path.join(__dirname, 'databases/suggestnum.sqlite');
