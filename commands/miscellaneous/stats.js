@@ -62,7 +62,7 @@ module.exports = class Stats extends Command {
 					.addField('Memory Usage:', `${getpercentage} (${(usedMemory / Math.pow(1024, 3)).toFixed(2)} GB)`)
 					.addField('Uptime:', `${dateString}`)
 					.addField('Discord.js Version:', 'v12.3.1')
-					.addField('Operating System:', 'Ubuntu 20.04 LTS')
+					.addField('Operating System:', 'Ubuntu 18.04.5 LTS')
 					.addField('Kernel:', `${os.release}`)
 					.setFooter(moment().calendar(null, {
 						sameDay: '[Today], LT',
