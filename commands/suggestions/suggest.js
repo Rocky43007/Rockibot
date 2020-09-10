@@ -2,12 +2,17 @@ const { Command } = require('discord.js-commando');
 const fs = require('fs');
 const discord = require('discord.js');
 const Keyv = require('keyv');
-const schanneldb = new Keyv('sqlite:///./databases/suggestc.sqlite');
+const logpath1 = path.join(__dirname, 'databases/suggestc.sqlite');
+const logpath2 = path.join(__dirname, 'databases/suggestdb.sqlite');
+const logpath3 = path.join(__dirname, 'databases/suggestnum.sqlite');
+const logpath4 = path.join(__dirname, 'databases/suggestuser.sqlite');
+const logpath5 = path.join(__dirname, 'databases/suggestuserIM.sqlite');
+const schanneldb = new Keyv(`sqlite:///${logpath1}`);
 const casenum = JSON.parse(fs.readFileSync('./databases/casenum.json'));
-const suggestdb = new Keyv('sqlite:///./databases/suggestdb.sqlite');
-const suggestnum = new Keyv('sqlite:///./databases/suggestnum.sqlite');
-const suggestuser = new Keyv('sqlite:///./databases/suggestuser.sqlite');
-const suggestuserIM = new Keyv('sqlite:///./databases/suggestuserIM.sqlite');
+const suggestdb = new Keyv(`sqlite:///${logpath2}`);
+const suggestnum = new Keyv(`sqlite:///${logpath3}`);
+const suggestuser = new Keyv(`sqlite:///${logpath4}`);
+const suggestuserIM = new Keyv(`sqlite:///${logpath5}`);
 module.exports = class Suggest extends Command {
 	constructor(client) {
 		super(client, {

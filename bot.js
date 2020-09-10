@@ -5,7 +5,8 @@ const config = require('./config.json');
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
-const logsdb = new Keyv('sqlite:///./rockibot/databases/logs.sqlite');
+const logpath = path.join(__dirname, 'databases/logs.sqlite');
+const logsdb = new Keyv(`sqlite:///${logpath}`);
 
 const client = new CommandoClient({
 	commandPrefix: '!',
@@ -68,7 +69,7 @@ client.once('ready', () => {
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 });
 
-client.setProvider(new KeyvProvider(new Keyv('sqlite:///home/ricky/DiscordBotTest/databases/database.sqlite')));
+client.setProvider(new KeyvProvider(new Keyv('sqlite:///./databases/database.sqlite')));
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
