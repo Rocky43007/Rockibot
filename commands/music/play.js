@@ -1,6 +1,20 @@
 const { Command } = require('discord.js-commando');
 const ytdl = require('ytdl-core');
+const SpotifyApi = require('spotify-web-api-node');
 
+export default class Spotify {
+    client = new SpotifyApi({
+        clientId: process.env.SPOTIFY_CLIENT_ID,
+        clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+    })
+
+    async authorize() {
+        const response = await this.client.clientCredentialsGrant()
+
+        this.client.setAccessToken(response.body.access_token)
+
+	}
+}
 module.exports = class MusicPlay extends Command {
 	constructor(client) {
 		super(client, {
@@ -30,11 +44,16 @@ module.exports = class MusicPlay extends Command {
 			return message.reply('Please join a voice channel first!');
 		}
 
-		voiceChannel.join().then(connection => {
+		voiceChannel.join().then(async connection => {
 			if (song.content.includes('https://open.spotify.com/track/')) { 
 				const newlink = song.replace('https://open.spotify.com/track/', '');
-				message.reply(newlink);
-			} 
+				getPlaylist(song); {
+					const result = await this.client.getPlaylistTracks(id)
+			
+					return result.body.items.map(({ track }) => track).then(
+					message.reply(result.body.items.map(({ track }) => track)));
+				}
+			}
 			else {
 			const stream = ytdl(song, { filter: 'audioonly' });
 			const dispatcher = connection.play(stream);
