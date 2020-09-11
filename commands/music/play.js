@@ -1,8 +1,5 @@
 const { Command } = require('discord.js-commando');
-const queues = {};
 const ytdl = require('ytdl-core');
-const search = require('youtube-search');
-const Spotify = require('')
 
 module.exports = class MusicPlay extends Command {
 	constructor(client) {
