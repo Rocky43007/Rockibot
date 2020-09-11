@@ -42,7 +42,7 @@
     "googleapis": "^39.2.0",
     "keyv": "^4.0.1",
     "moment": "^2.27.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "prism-media": "^1.2.2",
     "querystring": "^0.2.0",
     "quick.db": "^7.1.1",
