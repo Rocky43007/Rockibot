@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const Client = new Discord.Client();
 const moment = require('moment');
-const fs = require('fs');
 const os = require('os');
 const { Command } = require('discord.js-commando');
 
@@ -33,7 +32,6 @@ module.exports = class Stats extends Command {
 				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
 				const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
 				const totalShards = results[3].reduce((acc, shardCount) => acc + shardCount, 0);
-				const NumberOfFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')).length;
 				const usedMemory = os.totalmem() - os.freemem(), totalMemory = os.totalmem();
 				const getpercentage = ((usedMemory / totalMemory) * 100).toFixed(2) + '%';
 				const uptime = process.uptime();
@@ -58,7 +56,6 @@ module.exports = class Stats extends Command {
 					.addField('Shard:', `${totalShards}`)
 					.addField('Creator:', 'Rocky43007#7727')
 					.addField('Version:', '0.3.3-prealpha')
-					.addField('Number of Commands:', `${NumberOfFiles}`)
 					.addField('Memory Usage:', `${getpercentage} (${(usedMemory / Math.pow(1024, 3)).toFixed(2)} GB)`)
 					.addField('Uptime:', `${dateString}`)
 					.addField('Discord.js Version:', 'v12.3.1')
