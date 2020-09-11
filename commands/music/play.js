@@ -17,6 +17,7 @@ module.exports = class MusicPlay extends Command {
 				},
 			],
 			guildOnly: true,
+			ownerOnly: true,
 		});
 	}
 	async run(message, { song }) {
@@ -32,7 +33,7 @@ module.exports = class MusicPlay extends Command {
 		voiceChannel.join().then(connection => {
 			if (song.content.includes('https://open.spotify.com/track/')) { 
 				const newlink = song.replace('https://open.spotify.com/track/', '');
-				message.send(newlink);
+				message.reply(newlink);
 			} 
 			else {
 			const stream = ytdl(song, { filter: 'audioonly' });
