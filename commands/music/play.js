@@ -30,8 +30,8 @@ module.exports = class MusicPlay extends Command {
 		}
 
 		voiceChannel.join().then(connection => {
-			if (song.content.includes('https://open.spotify.com/')) { 
-				const newlink = replace('https://open.spotify.com/', '');
+			if (song.content.includes('https://open.spotify.com/track/')) { 
+				const newlink = song.replace('https://open.spotify.com/track/', '');
 				message.send(newlink);
 			} 
 			else {
