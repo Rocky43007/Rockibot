@@ -20,6 +20,7 @@ module.exports = class MusicPlay extends Command {
 		});
 	}
 	async run(message, { song }) {
+		
 		if (message.channel.type === 'dm') return;
 
 		const voiceChannel = message.member.voice.channel;
@@ -29,11 +30,15 @@ module.exports = class MusicPlay extends Command {
 		}
 
 		voiceChannel.join().then(connection => {
+			if (song.content.includes('https://open.spotify.com/')) { 
+				const newlink = replace('https://open.spotify.com/', '');
+				message.send(newlink);
+			} 
+			else {
 			const stream = ytdl(song, { filter: 'audioonly' });
 			const dispatcher = connection.play(stream);
-
 			dispatcher.on('finish');
-			setTimeout(10000);
+			}
 		});
 	}
 };

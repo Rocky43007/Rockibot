@@ -53,9 +53,7 @@ module.exports = class PurgeCommand extends Command {
 			.then(() => {
 				message
 					.reply(`Sucessfully Deleted ${args.purgecount} messages.`)
-					.then(async e => {
-						await e.delete(500);
-					});
+					.then(message.channel.bulkDelete(1));
 			});
 	}
 };
