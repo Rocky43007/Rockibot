@@ -32,9 +32,8 @@ module.exports = class MusicPlay extends Command {
 
 		voiceChannel.join().then(connection => {
 			if (song.content.includes('https://open.spotify.com/track/')) { 
-				const regx = /^((?:https?:)?\/\/)?((?:www|m)\.)? ((?:discord\.gg|discordapp\.com))/g
-				const cdu = regx.test(message.content.replace(/\s+/g, ''))
-				message.reply(cdu);
+				const newlink = song.replace('https://open.spotify.com/track/', '');
+				message.reply(newlink);
 			} 
 			else {
 			const stream = ytdl(song, { filter: 'audioonly' });
