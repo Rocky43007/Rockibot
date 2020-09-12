@@ -8,19 +8,19 @@ const suggestnum = new Keyv(process.env.HEROKU_POSTGRESQL_WHITE_URL);
 const suggestuser = new Keyv(process.env.HEROKU_POSTGRESQL_NAVY_URL);
 const suggestuserIM = new Keyv(process.env.HEROKU_POSTGRESQL_IVORY_URL);
 
-module.exports = class Sdeny extends Command {
+module.exports = class SConsider extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'deny',
+			name: 'consider',
 			group: 'suggestions',
-			memberName: 'deny',
-			description: 'Used to deny a suggestion.',
+			memberName: 'consider',
+			description: 'Used to consider a suggestion.',
 			clientPermissions: ['ADMINISTRATOR', 'SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],
 			args: [
 				{
 					key: 'msgid',
-					prompt: 'Which suggestion would you like to deny? (Use the message id)',
+					prompt: 'Which suggestion would you like to consider? (Use the message id)',
 					type: 'string',
 				},
 				{
@@ -39,9 +39,9 @@ module.exports = class Sdeny extends Command {
 		const casenum = await suggestnum.get(msgid);
 		const authorIM = await suggestuserIM.get(msgid);
 		const embed = new discord.MessageEmbed()
-			.setColor('#8B0000')
+			.setColor('#add8e6')
 			.setAuthor(author, authorIM)
-			.setTitle(`Suggestion #${casenum} Denied`)
+			.setTitle(`Suggestion #${casenum} Considered`)
 			.setDescription(suggest)
 			.addField(`Comment from ${message.author.tag}:`, comments);
 

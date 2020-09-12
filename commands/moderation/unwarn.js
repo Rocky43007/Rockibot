@@ -1,8 +1,7 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
-const ms = require('ms');
 const Keyv = require('keyv');
-const logsdb = new Keyv('sqlite://./databases/logs.sqlite');
+const logsdb = new Keyv(process.env.DATABASE_URL);
 const db = require('quick.db');
 
 module.exports = class unwarn extends Command {

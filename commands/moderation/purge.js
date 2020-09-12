@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 const Keyv = require('keyv');
-const logsdb = new Keyv('sqlite://./databases/logs.sqlite');
+const logsdb = new Keyv(process.env.DATABASE_URL);
 const { Command } = require('discord.js-commando');
 
 module.exports = class PurgeCommand extends Command {

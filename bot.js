@@ -4,7 +4,7 @@ const path = require('path');
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
-const logsdb = new Keyv(`sqlite://./databases/logs.sqlite`);
+const logsdb = new Keyv(process.env.DATABASE_URL);
 
 const client = new CommandoClient({
 	commandPrefix: '!',
@@ -44,7 +44,7 @@ client.on('message', async m => {
 		return;
 	}
 	else if (m.channel.name === 'general') {
-		m.delete().then(
+		m.bulkDelete().then(
 			m.reply('**You can\'t use commands here!**'));
 	}
 });
@@ -67,7 +67,7 @@ client.once('ready', () => {
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 });
 
-client.setProvider(new KeyvProvider(new Keyv('sqlite:///./databases/database.sqlite')));
+client.setProvider(new KeyvProvider(new Keyv(process.env.HEROKU_POSTGRESQL_GRAY_URL)));
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;

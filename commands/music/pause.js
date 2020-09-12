@@ -10,7 +10,7 @@ module.exports = class MusicPause extends Command {
 			guildOnly: true,
 		});
 	}
-	async run(message, connection) {
+	run(message, connection) {
 		if (message.channel.type === 'dm') return;
 
 		const voiceChannel = message.member.voice.channel;

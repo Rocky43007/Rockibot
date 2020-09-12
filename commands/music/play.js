@@ -20,7 +20,7 @@ module.exports = class MusicPlay extends Command {
 			ownerOnly: true,
 		});
 	}
-	async run(message, { song }) {
+	run(message, { song }) {
 		
 		if (message.channel.type === 'dm') return;
 

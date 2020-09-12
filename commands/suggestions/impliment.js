@@ -2,11 +2,11 @@
 const { Command } = require('discord.js-commando');
 const discord = require('discord.js');
 const Keyv = require('keyv');
-const schanneldb = new Keyv('sqlite://./databases/suggestc.sqlite');
-const suggestdb = new Keyv('sqlite://./databases/suggestdb.sqlite');
-const suggestnum = new Keyv('sqlite://./databases/suggestnum.sqlite');
-const suggestuser = new Keyv('sqlite://./databases/suggestuser.sqlite');
-const suggestuserIM = new Keyv('sqlite://./databases/suggestuserIM.sqlite');
+const schanneldb = new Keyv(process.env.HEROKU_POSTGRESQL_CRIMSON_URL);
+const suggestdb = new Keyv(process.env.HEROKU_POSTGRESQL_ROSE_URL);
+const suggestnum = new Keyv(process.env.HEROKU_POSTGRESQL_WHITE_URL);
+const suggestuser = new Keyv(process.env.HEROKU_POSTGRESQL_NAVY_URL);
+const suggestuserIM = new Keyv(process.env.HEROKU_POSTGRESQL_IVORY_URL);
 
 module.exports = class SImpliment extends Command {
 	constructor(client) {
