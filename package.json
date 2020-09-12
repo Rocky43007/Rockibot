@@ -1,5 +1,5 @@
 {
-  "name": "DiscordBotTest",
+  "name": "rocki-bot",
   "version": "0.3.2-alpha",
   "description": "A place to let me learn how to make a discord bot. Simple really.",
   "main": "index.js",
@@ -41,6 +41,7 @@
     "get-youtube-id": "^1.0.1",
     "googleapis": "^39.2.0",
     "keyv": "^4.0.1",
+    "@keyv/postgres": "^1.0.16",
     "moment": "^2.27.0",
     "node-fetch": "^2.6.1",
     "prism-media": "^1.2.2",
