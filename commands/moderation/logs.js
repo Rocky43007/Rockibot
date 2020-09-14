@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const logsdb = new Keyv('postgres://nxybxhywibmdwa:151664db949bc98a7c0e50f00e353c986fb0eaa73cd0d5c7822e05302da58daf@ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/d43cg9va8eungp', { table: 'modlogs' });
+const logsdb = new Keyv(process.env.DATABASE_URL, { table: 'modlogs' });
 
 module.exports = class modlogs extends Command {
 	constructor(client) {
