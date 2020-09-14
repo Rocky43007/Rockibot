@@ -2,12 +2,12 @@ const { Command } = require('discord.js-commando');
 const fs = require('fs');
 const discord = require('discord.js');
 const Keyv = require('keyv');
-const schanneldb = new Keyv(process.env.HEROKU_POSTGRESQL_CRIMSON_URL);
+const schanneldb = new Keyv(process.env.DATABASE_URL, { table: 'schanneldb' });
 const casenum = JSON.parse(fs.readFileSync('./databases/casenum.json'));
-const suggestdb = new Keyv(process.env.HEROKU_POSTGRESQL_ROSE_URL);
-const suggestnum = new Keyv(process.env.HEROKU_POSTGRESQL_WHITE_URL);
-const suggestuser = new Keyv(process.env.HEROKU_POSTGRESQL_NAVY_URL);
-const suggestuserIM = new Keyv(process.env.HEROKU_POSTGRESQL_IVORY_URL);
+const suggestdb = new Keyv(process.env.DATABASE_URL, { table: 'suggestdb' });
+const suggestnum = new Keyv(process.env.DATABASE_URL, { table: 'suggestnum' });
+const suggestuser = new Keyv(process.env.DATABASE_URL, { table: 'suggestuser' });
+const suggestuserIM = new Keyv(process.env.DATABASE_URL, { table: 'suggestuserIM' });
 module.exports = class Suggest extends Command {
 	constructor(client) {
 		super(client, {

@@ -1,7 +1,6 @@
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const schannel = new Keyv(process.env.HEROKU_POSTGRESQL_CRIMSON_URL);
-
+const schannel = new Keyv(process.env.DATABASE_URL, { table: 'schanneldb' });
 module.exports = class suggestionchannel extends Command {
 	constructor(client) {
 		super(client, {

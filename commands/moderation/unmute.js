@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const logsdb = new Keyv(process.env.DATABASE_URL);
+const logsdb = new Keyv(process.env.DATABASE_URL, { table: 'modlogs' });
 
 
 module.exports = class Unmute extends Command {

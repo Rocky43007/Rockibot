@@ -2,11 +2,11 @@
 const { Command } = require('discord.js-commando');
 const discord = require('discord.js');
 const Keyv = require('keyv');
-const schanneldb = new Keyv(process.env.HEROKU_POSTGRESQL_CRIMSON_URL);
-const suggestdb = new Keyv(process.env.HEROKU_POSTGRESQL_ROSE_URL);
-const suggestnum = new Keyv(process.env.HEROKU_POSTGRESQL_WHITE_URL);
-const suggestuser = new Keyv(process.env.HEROKU_POSTGRESQL_NAVY_URL);
-const suggestuserIM = new Keyv(process.env.HEROKU_POSTGRESQL_IVORY_URL);
+const schanneldb = new Keyv(process.env.DATABASE_URL, { table: 'schanneldb' });
+const suggestdb = new Keyv(process.env.DATABASE_URL, { table: 'suggestdb' });
+const suggestnum = new Keyv(process.env.DATABASE_URL, { table: 'suggestnum' });
+const suggestuser = new Keyv(process.env.DATABASE_URL, { table: 'suggestuser' });
+const suggestuserIM = new Keyv(process.env.DATABASE_URL, { table: 'suggestuserIM' });
 
 module.exports = class SConsider extends Command {
 	constructor(client) {
