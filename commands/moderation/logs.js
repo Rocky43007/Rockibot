@@ -22,6 +22,7 @@ module.exports = class modlogs extends Command {
 		});
 	}
 	async run(message, { logs }) {
+		console.log(process.env.DATABASE_URL);
 		await logsdb.set(message.guild.id, logs).then(
 			message.channel.send(`Successfully set mod log to \`${logs}\``),
 		);
