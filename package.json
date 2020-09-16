@@ -57,6 +57,7 @@
     "ytdl-core-discord": "^1.2.1",
     "@keyv/mongo": "1.1.0",
     "mongojs": "3.1.0",
-    "mongodb": "3.6.2"
+    "mongodb": "3.6.2",
+    "bson": "4.1.0"
   }
 }
