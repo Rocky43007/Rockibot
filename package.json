@@ -55,6 +55,6 @@
     "youtube-search": "^1.1.4",
     "ytdl-core": "^3.2.1",
     "ytdl-core-discord": "^1.2.1",
-    "@keyv/mongo": "1.1.2"
+    "@keyv/mongo": "1.1.0"
   }
 }
