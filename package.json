@@ -62,6 +62,7 @@
     "long": "4.0.0",
     "require_optional": "1.0.1",
     "denque": "1.4.1",
-    "thunky":"1.1.0"
+    "thunky":"1.1.0",
+    "each-series":"1.0.0"
   }
 }
