@@ -4,7 +4,7 @@ const path = require('path');
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
-const logsdb = new Keyv(process.env.DATABASE_URL, { table: 'modlogs' });
+const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
 
 const client = new CommandoClient({
 	commandPrefix: '!',
