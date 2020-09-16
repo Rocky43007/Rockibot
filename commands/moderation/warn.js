@@ -2,7 +2,7 @@ const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const ms = require('ms');
 const Keyv = require('keyv');
-const logsdb = new Keyv(process.env.DATABASE_URL, { table: 'modlogs' });
+const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
 const db = require('quick.db');
 
 module.exports = class Warn extends Command {

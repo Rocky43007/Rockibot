@@ -2,12 +2,13 @@ const { Command } = require('discord.js-commando');
 const fs = require('fs');
 const discord = require('discord.js');
 const Keyv = require('keyv');
-const schanneldb = new Keyv(process.env.DATABASE_URL, { table: 'schanneldb' });
+const schanneldb = new Keyv(process.env.MONGODB, { collection: 'schanneldb' });
+const suggestdb = new Keyv(process.env.MONGODB, { collection: 'suggestdb' });
+const suggestnum = new Keyv(process.env.MONGODB, { collection: 'suggestnum' });
+const suggestuser = new Keyv(process.env.MONGODB, { collection: 'suggestuser' });
+const suggestuserIM = new Keyv(process.env.MONGODB, { collection: 'suggestuserIM' });
 const casenum = JSON.parse(fs.readFileSync('./databases/casenum.json'));
-const suggestdb = new Keyv(process.env.DATABASE_URL, { table: 'suggestdb' });
-const suggestnum = new Keyv(process.env.DATABASE_URL, { table: 'suggestnum' });
-const suggestuser = new Keyv(process.env.DATABASE_URL, { table: 'suggestuser' });
-const suggestuserIM = new Keyv(process.env.DATABASE_URL, { table: 'suggestuserIM' });
+
 module.exports = class Suggest extends Command {
 	constructor(client) {
 		super(client, {

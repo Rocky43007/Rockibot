@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const schannel = new Keyv(process.env.DATABASE_URL, { table: 'schanneldb' });
+const schannel = new Keyv(process.env.MONGODB, { collection: 'schanneldb' });
+
 module.exports = class suggestionchannel extends Command {
 	constructor(client) {
 		super(client, {
