@@ -61,6 +61,7 @@
     "bson": "1.1.4",
     "long": "4.0.0",
     "require_optional": "1.0.1",
-    "denque": "1.4.1"
+    "denque": "1.4.1",
+    "thunky":"1.1.0"
   }
 }
