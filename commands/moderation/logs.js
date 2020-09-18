@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
 const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
 
+
 module.exports = class modlogs extends Command {
 	constructor(client) {
 		super(client, {
@@ -22,8 +23,14 @@ module.exports = class modlogs extends Command {
 		});
 	}
 	async run(message, { logs }) {
-		await logsdb.set(message.guild.id, logs).then(
-			message.channel.send(`Successfully set mod log to \`${logs}\``),
-		);
-	}
+		const doc = { guildid: `${message.guild.id}`, logchannel: `${logs}` };
+		const MongoClient = require('mongodb').MongoClient;
+		MongoClient.connect(process.env.MONGODB, function(err, db) {
+			if (err) throw err; 
+			db.collection("modlog").insertOne(doc, function(err, res) {
+				if (err) throw err;
+				message.channel.send(`Successfully set mod log to \`${logs}\``)
+			});
+	});
+}
 };
