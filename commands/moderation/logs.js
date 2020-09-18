@@ -24,14 +24,29 @@ module.exports = class modlogs extends Command {
 		});
 	}
 	async run(message, { logs }) {
-		const doc = { "guildid": `${message.guild.id}`, "logchannel": `${logs}` };
-		MongoClient.connect(process.env.MONGODB, function(err, db) {
-			if (err) throw err; 
-			db.collection('modlog').insertOne(doc, function(err, res) {
-				if (err) throw err;
-				message.channel.send(`Successfully set mod log to \`${logs}\``).then(
-				db.close()); 
-			});
-	});
-}
+		// we create 'users' collection in newdb database
+		const url = process.env.MONGODB;
+ 
+		// create a client to mongodb
+		const MongoClient = require('mongodb').MongoClient;
+
+		// make client connect to mongo service
+		MongoClient.connect(url, function(err, db) {
+    		if (err) throw err;
+    		// db pointing to newdb
+    		console.log("Switched to "+db.databaseName+" database");
+ 
+    		// document to be inserted
+    		const doc = { guildname: message.guild.id, channel: logs };
+    
+    		// insert document to 'users' collection using insertOne
+    		db.collection("modlogs").insertOne(doc, function(err, res) {
+       			 if (err) throw err;
+       			 console.log("Document inserted").then(
+					message.channel.send(`Successfully set mod log to \`${logs}\``));
+        		// close the connection to db when you are done with it
+       	 		db.close();
+			}); 
+		});
+	}
 };
