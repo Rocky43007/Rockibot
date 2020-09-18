@@ -24,7 +24,7 @@ module.exports = class modlogs extends Command {
 		});
 	}
 	async run(message, { logs }) {
-		const doc = { guildid: `${message.guild.id}`, logchannel: `${logs}` };
+		const doc = { "guildid": `${message.guild.id}`, "logchannel": `${logs}` };
 		MongoClient.connect(process.env.MONGODB, function(err, db) {
 			if (err) throw err; 
 			db.collection('modlog').insertOne(doc, function(err, res) {
