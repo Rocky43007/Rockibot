@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
 const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
+const MongoClient = require('mongodb').MongoClient;
 
 
 module.exports = class modlogs extends Command {
@@ -24,8 +25,6 @@ module.exports = class modlogs extends Command {
 	}
 	async run(message, { logs }) {
 		const doc = { guildid: `${message.guild.id}`, logchannel: `${logs}` };
-		const MongoClient = require('mongodb').MongoClient;
-		const uri = process.env.MONGODB;
 		const client = new MongoClient(uri, { useNewUrlParser: true });
 		client.connect(process.env.MONGODB, function(err, db) {
 			if (err) throw err; 
