@@ -53,8 +53,8 @@ client.registry
 	.registerDefaultTypes()
 	.registerGroups([
 		['first', 'Testing Commands'],
-		['moderation', 'Moderation Commands'],
 		['miscellaneous', 'Basic Commands'],
+		['moderation', 'Moderation Commands'],
 		['music', 'Music commands'],
 		['suggestions', 'Suggestion commands'],
 	])
@@ -67,7 +67,7 @@ client.once('ready', () => {
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 });
 
-client.setProvider(new KeyvProvider(new Keyv(process.env.DATABASE_URL, { table: 'prefixes' })));
+client.setProvider(new KeyvProvider(new Keyv(process.env.MONGODB, { collection: 'prefix' })));
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
