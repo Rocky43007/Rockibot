@@ -25,11 +25,14 @@ module.exports = class modlogs extends Command {
 	async run(message, { logs }) {
 		const doc = { guildid: `${message.guild.id}`, logchannel: `${logs}` };
 		const MongoClient = require('mongodb').MongoClient;
-		MongoClient.connect(process.env.MONGODB, function(err, db) {
+		const uri = process.env.MONGODB;
+		const client = new MongoClient(uri, { useNewUrlParser: true });
+		client.connect(process.env.MONGODB, function(err, db) {
 			if (err) throw err; 
 			db.collection("modlog").insertOne(doc, function(err, res) {
 				if (err) throw err;
-				message.channel.send(`Successfully set mod log to \`${logs}\``)
+				message.channel.send(`Successfully set mod log to \`${logs}\``);
+				db.close(); 
 			});
 	});
 }
