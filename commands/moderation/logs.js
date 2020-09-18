@@ -28,7 +28,7 @@ module.exports = class modlogs extends Command {
 		const client = new MongoClient(uri, { useNewUrlParser: true });
 		client.connect(process.env.MONGODB, function(err, db) {
 			if (err) throw err; 
-			db.collection("modlog").insertOne(doc, function(err, res) {
+			db.collection('modlog').insertOne(doc, function(err, res) {
 				if (err) throw err;
 				message.channel.send(`Successfully set mod log to \`${logs}\``);
 				db.close(); 

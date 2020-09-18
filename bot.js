@@ -9,7 +9,7 @@ const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
 const client = new CommandoClient({
 	commandPrefix: '!',
 	owner: '361212545924595712',
-	invite: 'https://discord.gg/Ju2gSCY',
+	invite: 'https://discord.gg/Ju2gSCY'
 });
 
 client.on('messageDelete', async (message) => {
