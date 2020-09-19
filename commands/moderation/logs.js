@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
 const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
-const MongoClient = require('mongodb').MongoClient;
+
 
 
 module.exports = class modlogs extends Command {
@@ -29,23 +29,24 @@ module.exports = class modlogs extends Command {
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
+		const client = new MongoClient(uri, { useNewUrlParser: true });
 
 		// make client connect to mongo service
-		MongoClient.connect(url, function(err, db) {
+		client.connect(err => {
     		if (err) throw err;
     		// db pointing to newdb
-    		console.log("Switched to "+db.databaseName+" database");
+    		console.log("Switched to "+client.databaseName+" database");
  
     		// document to be inserted
     		const doc = { guildname: message.guild.id, channel: logs };
     
     		// insert document to 'users' collection using insertOne
-    		db.collection("modlogs").insertOne(doc, function(err, res) {
+    		client.collection("modlogs").insertOne(doc, function(err, res) {
        			 if (err) throw err;
        			 console.log("Document inserted").then(
 					message.channel.send(`Successfully set mod log to \`${logs}\``));
         		// close the connection to db when you are done with it
-       	 		db.close();
+				client.close();
 			}); 
 		});
 	}
