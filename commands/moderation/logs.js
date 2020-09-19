@@ -41,7 +41,7 @@ module.exports = class modlogs extends Command {
     		const doc = { guildname: message.guild.id, channel: logs };
     
     		// insert document to 'users' collection using insertOne
-    		client.collection("modlogs").insertOne(doc, function(err, res) {
+    		client.db.collection("modlogs").insertOne(doc, function(err, res) {
        			 if (err) throw err;
        			 console.log("Document inserted").then(
 					message.channel.send(`Successfully set mod log to \`${logs}\``));
