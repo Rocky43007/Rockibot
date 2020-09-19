@@ -43,8 +43,8 @@ module.exports = class modlogs extends Command {
     		// insert document to 'users' collection using insertOne
     		client.db("Rockibot-DB").collection("modlogs").insertOne(doc, function(err, res) {
        			 if (err) throw err;
-       			 console.log("Document inserted").then(
-					message.channel.send(`Successfully set mod log to \`${logs}\``));
+       			 console.log("Document inserted");
+				message.channel.send(`Successfully set mod log to \`${logs}\``);
         		// close the connection to db when you are done with it
 				client.close();
 			}); 
