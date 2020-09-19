@@ -32,6 +32,7 @@ module.exports = class Warn extends Command {
 		});
 	}
 	async run(message, { user, content }) {
+		
 		if(!message.member.hasPermission('MANAGE_SERVER')) return message.channel.send('You can\'t use that.');
 
 		if (!message.guild.me.hasPermission('MANAGE_MESSAGES', 'ADMINISTRATOR')) return message.reply('I need the permission `MANAGE_MESSAGES` or `ADMINISTRATOR` for this to work.');
@@ -72,6 +73,12 @@ module.exports = class Warn extends Command {
 			await message.channel.send(`**${user.username}** has been warned.`);
 		}
 		const logs = await logsdb.get(message.guild.id);
+		// we create 'users' collection in newdb database
+		const uri = process.env.MONGO_URI;
+ 
+		// create a client to mongodb
+		const MongoClient = require('mongodb').MongoClient;
+		const client2 = new MongoClient(uri, { useNewUrlParser: true });
 		const embed = new discord.MessageEmbed()
 			.setColor('#ff2050')
 			.setAuthor(`${message.guild.name}`, message.guild.iconURL())
@@ -82,8 +89,18 @@ module.exports = class Warn extends Command {
 			.addField('Warns:', warnings)
 			.setFooter(message.createdAt.toLocaleString());
 
-		const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-		if (!sChannel) return;
-		sChannel.send(embed);
+		// make client connect to mongo service
+		client2.connect(err => {
+    		if (err) throw err;
+    		// db pointing to newdb
+			console.log("Switched to "+client.databaseName+" database");
+			const cursor = client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
+			const results = await cursor.toArray();
+			const sChannel = message.guild.channels.cache.find(c => c.name === results.channel);
+			if (!sChannel) return;
+			sChannel.send(embed);
+        	// close the connection to db when you are done with it
+			client2.close();
+		});
 	}
 };
