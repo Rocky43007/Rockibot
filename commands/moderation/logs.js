@@ -25,7 +25,7 @@ module.exports = class modlogs extends Command {
 	}
 	async run(message, { logs }) {
 		// we create 'users' collection in newdb database
-		const url = process.env.MONGODB;
+		const uri = process.env.MONGODB;
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
