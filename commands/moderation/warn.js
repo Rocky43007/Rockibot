@@ -90,12 +90,10 @@ module.exports = class Warn extends Command {
 			.setFooter(message.createdAt.toLocaleString());
 
 		// make client connect to mongo service
-		client2.connect(async err => {
+		client2.connect(err => {
     		if (err) throw err;
-    		// db pointing to newdb
-			console.log("Switched to "+client.databaseName+" database");
 			const cursor = client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
-			const results = await cursor.toArray();
+			const results = cursor.toArray();
 			const sChannel = message.guild.channels.cache.find(c => c.name === results.channel);
 			if (!sChannel) return;
 			sChannel.send(embed);
