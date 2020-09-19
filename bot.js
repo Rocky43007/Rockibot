@@ -38,16 +38,6 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 	if (!sChannel) return;
 	sChannel.send(embed);
 });
-client.on('message', async m => {
-	m.isDM = (m.guild ? false : true);
-	if (m.content[0] != client.commandPrefix) {
-		return;
-	}
-	else if (m.channel.name === 'general') {
-		m.bulkDelete().then(
-			m.reply('**You can\'t use commands here!**'));
-	}
-});
 
 client.registry
 	.registerDefaultTypes()
