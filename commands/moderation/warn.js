@@ -90,7 +90,7 @@ module.exports = class Warn extends Command {
 			.setFooter(message.createdAt.toLocaleString());
 
 		// make client connect to mongo service
-		client2.connect(err => {
+		client2.connect(async err => {
     		if (err) throw err;
     		// db pointing to newdb
 			console.log("Switched to "+client.databaseName+" database");
