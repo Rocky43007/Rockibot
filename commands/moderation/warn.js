@@ -94,6 +94,7 @@ module.exports = class Warn extends Command {
     		if (err) throw err;
 			const cursor = client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
 			const results = cursor.toArray();
+			console.log(results.channel)
 			const sChannel = message.guild.channels.cache.find(c => c.name === results.channel);
 			if (!sChannel) return;
 			sChannel.send(embed);
