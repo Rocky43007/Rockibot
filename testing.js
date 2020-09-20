@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const token = process.env.TOKEN;
 const Canvas = require('canvas');
-const globalPrefix = process.env.DEFPREFIX;
+const prefix = process.env.DEFPREFIX;
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
