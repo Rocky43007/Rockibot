@@ -23,12 +23,12 @@ module.exports = {
 
 		return Promise.all(promises)
 			.then(results => {
-				console.log(process.memoryUsage().heapUsed / 1024 / 1024);
+				const used = process.memoryUsage().heapUsed / 1024 / 1024;
 				const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
 				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
 				const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
 				const totalShards = results[3].reduce((acc, shardCount) => acc + shardCount, 0);
-				const usedMemory = os.totalmem() - os.freemem(), totalMemory = os.totalmem();
+				const usedMemory = process.heapUsed() - process.heapTotal(), totalMemory = process.heapTotal();
 				const getpercentage = ((usedMemory / totalMemory) * 100).toFixed(2) + '%';
 				const uptime = process.uptime();
 				console.log('Uptime raw:', uptime);
@@ -52,7 +52,7 @@ module.exports = {
 					.addField('Shard:', `${totalShards}`)
 					.addField('Creator:', 'Rocky43007#7727')
 					.addField('Version:', '0.3.2-alpha')
-					.addField('Memory Usage:', `${getpercentage} (${usedMemory} MB)`)
+					.addField('Memory Usage:', `${getpercentage} (${used} MB)`)
 					.addField('Uptime:', `${dateString}`)
 					.addField('Discord.js Version:', 'v12.3.1')
 					.addField('Operating System:', 'Ubuntu 18.04.5 LTS')
