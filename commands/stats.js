@@ -2,18 +2,13 @@ const Discord = require('discord.js');
 const Client = new Discord.Client();
 const moment = require('moment');
 const os = require('os');
-const { Command } = require('discord.js-commando');
 
-module.exports = class Stats extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'stats',
-			group: 'miscellaneous',
-			memberName: 'stats',
-			description: 'Bot stats',
-		});
-	}
-	run(message) {
+module.exports = {
+	name: 'stats',
+	group: 'miscellaneous',
+	memberName: 'stats',
+	description: 'Bot stats',
+	execute(message) {
 		const promises = [
 			Client.shard.fetchClientValues('guilds.cache.size'),
 			Client.shard.broadcastEval('this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)'),
@@ -74,5 +69,5 @@ module.exports = class Stats extends Command {
 			})
 
 			.catch(console.error);
-	}
+	},
 };

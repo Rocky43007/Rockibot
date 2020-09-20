@@ -1,24 +1,10 @@
-const { CommandoClient } = require('discord.js-commando');
+const { client } = require('discord.js');
 const path = require('path');
 const { token } = process.env.TOKEN
 
-const client = new CommandoClient({
-	commandPrefix: '!',
-	owner: '361212545924595712',
-	invite: 'https://discord.gg/Ju2gSCY',
+client.once('ready', () => {
+	console.log('Ready!');
 });
-
-
-client.registry
-	.registerDefaultTypes()
-	.registerGroups([
-		['first', 'Testing Commands'],
-		['moderation', 'Moderation Commands'],
-		['miscellaneous', 'Basic Commands'],
-	])
-	.registerDefaultGroups()
-	.registerDefaultCommands()
-	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
