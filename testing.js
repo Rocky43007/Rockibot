@@ -1,7 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const discord = require('discord.js');
 const path = require('path');
-const { token } = require('./config.json');
+const { token } = process.env.TOKEN
 
 const client = new CommandoClient({
 	commandPrefix: '!',
