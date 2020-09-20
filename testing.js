@@ -19,19 +19,21 @@ client.once('ready', () => {
 	client.user.setActivity('with !help | https://discord.gg/Ju2gSCY');
 });
 
-client.on('message', async message => {
-	if (message.author.bot) return;
+client.on('message', message => {
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-	// get the first space-delimited argument after the prefix as the command
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+
 	if (!client.commands.has(command)) return;
 
-try {
-	client.commands.get(command).execute(message, args);
-} catch (error) {
-	console.error(error);
-	message.reply('there was an error trying to execute that command!');
-}
-
+	try {
+		client.commands.get(command).execute(message, args);
+	} catch (error) {
+		console.error(error);
+		message.reply('there was an error trying to execute that command!');
+	}
+});
 
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
