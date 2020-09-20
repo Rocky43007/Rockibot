@@ -2,8 +2,6 @@ const { CommandoClient } = require('discord.js-commando');
 const discord = require('discord.js');
 const path = require('path');
 const { token } = require('./config.json');
-const Keyv = require('keyv');
-const KeyvProvider = require('commando-provider-keyv');
 
 const client = new CommandoClient({
 	commandPrefix: '!',
@@ -18,7 +16,7 @@ client.on('messageDelete', async (message) => {
 		.addField(`Message Deleted in #${message.channel.name}`, message.content)
 		.setFooter(message.createdAt.toLocaleString());
 
-	const sChannel = message.guild.channels.cache.find(c => c.name === 'mod-log');
+	const sChannel = message.guild.channels.cache.find(c => c.name === 'logs');
 	if (!sChannel) return;
 	sChannel.send(embed);
 });
@@ -31,19 +29,9 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 		.addField('After:', newMessage.content, true)
 		.setFooter(newMessage.createdAt.toLocaleString());
 
-	const sChannel = newMessage.guild.channels.cache.find(c => c.name === 'mod-log');
+	const sChannel = newMessage.guild.channels.cache.find(c => c.name === 'logs');
 	if (!sChannel) return;
 	sChannel.send(embed);
-});
-client.on('message', async m => {
-	m.isDM = (m.guild ? false : true);
-	if (m.content[0] != client.commandPrefix) {
-		return;
-	}
-	else if (m.channel.name === 'general') {
-		m.delete().then(
-			m.reply('**You can\'t use commands here!**'));
-	}
 });
 
 client.registry
@@ -61,7 +49,5 @@ client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 });
-
-client.setProvider(new KeyvProvider(new Keyv('sqlite:///home/ricky/DiscordBotTest/database.sqlite')));
 
 client.login(token);

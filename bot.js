@@ -12,9 +12,6 @@ client.registry
 	.registerGroups([
 		['first', 'Testing Commands'],
 		['miscellaneous', 'Basic Commands'],
-		['moderation', 'Moderation Commands'],
-		['music', 'Music commands'],
-		['suggestions', 'Suggestion commands'],
 	])
 	.registerDefaultGroups()
 	.registerDefaultCommands()
