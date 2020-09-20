@@ -51,7 +51,7 @@ module.exports = {
 					.addField('Shard:', `${totalShards}`)
 					.addField('Creator:', 'Rocky43007#7727')
 					.addField('Version:', '0.3.2-alpha')
-					.addField('Memory Usage:', `${getpercentage} (${(usedMemory / Math.pow(1024, 3)).toFixed(2)} GB)`)
+					.addField('Memory Usage:', `${getpercentage} (${usedMemory} MB)`)
 					.addField('Uptime:', `${dateString}`)
 					.addField('Discord.js Version:', 'v12.3.1')
 					.addField('Operating System:', 'Ubuntu 18.04.5 LTS')
