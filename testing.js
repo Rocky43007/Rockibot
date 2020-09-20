@@ -1,5 +1,4 @@
 const { CommandoClient } = require('discord.js-commando');
-const discord = require('discord.js');
 const path = require('path');
 const { token } = process.env.TOKEN
 
@@ -9,30 +8,6 @@ const client = new CommandoClient({
 	invite: 'https://discord.gg/Ju2gSCY',
 });
 
-client.on('messageDelete', async (message) => {
-	const embed = new discord.MessageEmbed()
-		.setColor('#ff2050')
-		.setAuthor(message.author.tag, message.author.avatarURL())
-		.addField(`Message Deleted in #${message.channel.name}`, message.content)
-		.setFooter(message.createdAt.toLocaleString());
-
-	const sChannel = message.guild.channels.cache.find(c => c.name === 'logs');
-	if (!sChannel) return;
-	sChannel.send(embed);
-});
-client.on('messageUpdate', async (oldMessage, newMessage) => {
-	const embed = new discord.MessageEmbed()
-		.setColor('#ff2050')
-		.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
-		.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
-		.addField('Before:', oldMessage.content, true)
-		.addField('After:', newMessage.content, true)
-		.setFooter(newMessage.createdAt.toLocaleString());
-
-	const sChannel = newMessage.guild.channels.cache.find(c => c.name === 'logs');
-	if (!sChannel) return;
-	sChannel.send(embed);
-});
 
 client.registry
 	.registerDefaultTypes()
