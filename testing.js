@@ -23,35 +23,15 @@ client.on('message', async message => {
 	if (message.author.bot) return;
 
 	// get the first space-delimited argument after the prefix as the command
-	const commandName = args.shift().toLowerCase();
+	if (!client.commands.has(command)) return;
 
-	const command = client.commands.get(commandName)
-		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+try {
+	client.commands.get(command).execute(message, args);
+} catch (error) {
+	console.error(error);
+	message.reply('there was an error trying to execute that command!');
+}
 
-	if (!command) return;
-
-	if (command.guildOnly && message.channel.type === 'dm') {
-		return message.reply('I can\'t execute that command inside DMs!');
-	}
-
-	if (command.args && !args.length) {
-		let reply = `You didn't provide any arguments, ${message.author}!`;
-
-		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${globalPrefix}${command.name} ${command.usage}\``;
-		}
-
-		return message.channel.send(reply);
-	}
-
-	try {
-		command.execute(message, args);
-	}
-	catch (error) {
-		console.error(error);
-		message.reply('there was an error trying to execute that command!');
-	}
-});
 
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
