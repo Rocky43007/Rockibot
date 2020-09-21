@@ -50,11 +50,8 @@ module.exports = class Warn extends Command {
 			if (results.length > 0) {
 				console.log(`Found doucment with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
-		
-					console.log();
-					console.log(`${i + 1}. name: ${result.name}`);
 					console.log(`   _id: ${result._id}`);
-					console.log(`   guildid: ${result.bedrooms}`);
+					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)
 				});
 			} else {
@@ -126,6 +123,8 @@ module.exports = class Warn extends Command {
 				client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, function(err, res) {
 					   if (err) throw err;
 					   console.log("Document found");
+					   console.log(await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+						minimumNumberOfBedrooms: message.guild.id }));
 					   const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					   if (!sChannel) return;
 					   sChannel.send(embed);
