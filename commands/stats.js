@@ -28,7 +28,7 @@ module.exports = {
 				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
 				const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
 				const totalShards = results[3].reduce((acc, shardCount) => acc + shardCount, 0);
-				const usedMemory = process.memoryUsage().heapUsed - process.memoryUsage().heapTotal, totalMemory = process.memoryUsage().heapTotal
+				const usedMemory = process.memoryUsage().heapUsed, totalMemory = process.memoryUsage().heapTotal
 				const getpercentage = ((usedMemory / totalMemory) * 100).toFixed(2) + '%';
 				const uptime = process.uptime();
 				console.log('Uptime raw:', uptime);
