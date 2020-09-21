@@ -48,6 +48,7 @@ module.exports = class Warn extends Command {
 			const results = await cursor.toArray();
 		
 			if (results.length > 0) {
+				const warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
 				const embed = new discord.MessageEmbed()
 				.setColor('#ff2050')
 				.setAuthor(`${message.guild.name}`, message.guild.iconURL())

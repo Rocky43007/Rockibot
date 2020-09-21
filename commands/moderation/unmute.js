@@ -32,6 +32,7 @@ module.exports = class Unmute extends Command {
 		async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
 			minimumNumberOfBedrooms = 0
 		} = {}) {
+			const role = await message.guild.roles.cache.find(r => r.name === 'Muted');
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
@@ -56,7 +57,6 @@ module.exports = class Unmute extends Command {
 					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					if (!sChannel) return;
 					sChannel.send(embed);
-					const role = await message.guild.roles.cache.find(r => r.name === 'Muted');
 					user.roles.remove(role.id).catch(console.error).then(
 						user.send(`You have been unmuted from ${message.guild.name}.`),
 					);

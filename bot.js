@@ -1,10 +1,10 @@
 const { CommandoClient } = require('discord.js-commando');
 const discord = require('discord.js');
 const path = require('path');
-const Keyv = require('keyv');
-const KeyvProvider = require('commando-provider-keyv');
+const MongoDBProvider = require('commando-provider-mongo');
 const Canvas = require('canvas');
 const uri = process.env.MONGO_URI;
+const MongoClient = require('mongodb').MongoClient;
 
 const client = new CommandoClient({
 	commandPrefix: '!',
@@ -134,7 +134,7 @@ client.once('ready', () => {
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 });
 
-client.setProvider(new KeyvProvider(new Keyv(process.env.MONGODB, { collection: 'prefix' })));
+client.setProvider(MongoClient.connect(uri, { useNewUrlParser: true }).then(client => new MongoDBProvider(client, 'prefix')));
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;

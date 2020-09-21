@@ -1,13 +1,6 @@
 const { Command } = require('discord.js-commando');
-const fs = require('fs');
 const discord = require('discord.js');
-const Keyv = require('keyv');
-const schanneldb = new Keyv(process.env.MONGODB, { collection: 'schanneldb' });
-const suggestdb = new Keyv(process.env.MONGODB, { collection: 'suggestdb' });
-const suggestnum = new Keyv(process.env.MONGODB, { collection: 'suggestnum' });
-const suggestuser = new Keyv(process.env.MONGODB, { collection: 'suggestuser' });
-const suggestuserIM = new Keyv(process.env.MONGODB, { collection: 'suggestuserIM' });
-const casenum = JSON.parse(fs.readFileSync('./databases/casenum.json'));
+const db = require('quick.db');
 
 module.exports = class Suggest extends Command {
 	constructor(client) {
@@ -30,37 +23,90 @@ module.exports = class Suggest extends Command {
 		});
 	}
 	async run(message, { suggest }) {
-		if (!casenum[message.guild.id]) {
-			casenum[message.guild.id] = {
-				case: 0,
-			};
+		const casenumber = db.get(`casnumber_${message.guild.id}`);
+		if(casenumber === null) {
+			db.set(`casnumber_${message.guild.id}`, 1);
 		}
-		casenum[message.guild.id].case++;
+		if(casenumber !== null) {
+			db.add(`casenumber_${message.guild.id}`, 1);
+		}
 
-		fs.writeFile('./databases/casenum.json', JSON.stringify(casenum), (err) => {
-			if (err) {
-				console.log(err);
+		const uri = process.env.MONGO_URI;
+ 
+		// create a client to mongodb
+		const MongoClient = require('mongodb').MongoClient;
+		const client = new MongoClient(uri, { useNewUrlParser: true });
+	
+		async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+			minimumNumberOfBedrooms = 0
+		} = {}) {
+			const cursor = client.db("Rockibot-DB").collection("schanneldb")
+				.find({
+					guildname: { $gte: minimumNumberOfBedrooms }
+				})
+		
+			const results = await cursor.toArray();
+		
+			if (results.length > 0) {
+				const casenumber = db.get(`casenumber_${message.guild.id}`);
+				const embed = new discord.MessageEmbed()
+				.setColor('#738ADB')
+				.setAuthor(message.author.tag, message.author.avatarURL())
+				.setTitle(`Suggestion #${casenumber}`)
+				.setDescription(suggest);
+				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
+				results.forEach((result, i) => {
+					console.log(`   _id: ${result._id}`);
+					console.log(`   guildid: ${result.guildname}`);
+					console.log(` 	channel name: ${result.channel}`)
+					const logs = result.channel;
+					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+					if (!sChannel) return;
+					sChannel.send(embed);
+					const author = message.author.tag;
+					const authorIM = message.author.avatarURL();
+					message.reply(`Suggestion sent to ${sChannel}.`);
+					sChannel.send({ embed: embed }).then(async embedMessage => {
+						const client = new MongoClient(uri, { useNewUrlParser: true });
+						client.connect(err => {
+							const casenumber = db.get(`casenumber_${message.guild.id}`);
+							if (err) throw err;
+							// db pointing to newdb
+							console.log("Switched to "+client.databaseName+" database");
+				 
+							// document to be inserted
+							const doc = { messageid: embedMessage.id, author: author, authorim: authorIM, suggestion: suggest, suggestnum: casenumber };
+					
+							// insert document to 'users' collection using insertOne
+							client.db("Rockibot-DB").collection("suggestdb").insertOne(doc, function(err, res) {
+								   if (err) throw err;
+								   console.log("Document inserted");
+								// close the connection to db when you are done with it
+								client.close();
+							}); 
+						embedMessage.react('⬆️'),
+						embedMessage.react('⬇️');
+						});
+					});
+				});
+			} else {
+				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
 			}
-		});
-		const schannel = await schanneldb.get(message.guild.id);
-		const embed = new discord.MessageEmbed()
-			.setColor('#738ADB')
-			.setAuthor(message.author.tag, message.author.avatarURL())
-			.setTitle(`Suggestion #${casenum[message.guild.id].case}`)
-			.setDescription(suggest);
-
-		const sChannel = message.guild.channels.cache.find(c => c.name === schannel);
-		if (!sChannel) return;
-		const author = message.author.tag;
-		const authorIM = message.author.avatarURL();
-		message.reply(`Suggestion sent to ${sChannel}.`);
-		sChannel.send({ embed: embed }).then(async embedMessage => {
-			suggestuser.set(embedMessage.id, author),
-			suggestuserIM.set(embedMessage.id, authorIM),
-			suggestdb.set(embedMessage.id, suggest),
-			suggestnum.set(embedMessage.id, casenum[message.guild.id].case),
-			embedMessage.react('⬆️'),
-			embedMessage.react('⬇️');
+		}
+		client.connect(async err => {
+			if (err) throw err;
+			// db pointing to newdb
+			console.log("Switched to "+client.databaseName+" database");
+			// insert document to 'users' collection using insertOne
+			client.db("Rockibot-DB").collection("schanneldb").find({ guildname: message.guild.id }, async function(err, res) {
+				   if (err) throw err;
+				   console.log("Document found");
+				   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+					minimumNumberOfBedrooms: message.guild.id
+				});
+				// close the connection to db when you are done with it
+				client.close();
+			}); 
 		});
 	}
 };

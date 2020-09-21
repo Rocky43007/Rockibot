@@ -1,6 +1,4 @@
 const { Command } = require('discord.js-commando');
-const Keyv = require('keyv');
-const schannel = new Keyv(process.env.MONGODB, { collection: 'schanneldb' });
 
 module.exports = class suggestionchannel extends Command {
 	constructor(client) {
@@ -23,8 +21,30 @@ module.exports = class suggestionchannel extends Command {
 		});
 	}
 	async run(message, { suggestchannel }) {
-		await schannel.set(message.guild.id, suggestchannel).then(
-			message.channel.send(`Successfully set suggestion channel to \`${suggestchannel}\``),
-		);
+		// we create 'users' collection in newdb database
+		const uri = process.env.MONGO_URI;
+ 
+		// create a client to mongodb
+		const MongoClient = require('mongodb').MongoClient;
+		const client = new MongoClient(uri, { useNewUrlParser: true });
+
+		// make client connect to mongo service
+		client.connect(err => {
+    		if (err) throw err;
+    		// db pointing to newdb
+    		console.log("Switched to "+client.databaseName+" database");
+ 
+    		// document to be inserted
+    		const doc = { guildname: message.guild.id, channel: suggestchannel };
+    
+    		// insert document to 'users' collection using insertOne
+    		client.db("Rockibot-DB").collection("schanneldb").insertOne(doc, function(err, res) {
+       			if (err) throw err;
+       			console.log("Document inserted");
+				message.channel.send(`Successfully set suggestion channel to \`${suggestchannel}\``);
+        		// close the connection to db when you are done with it
+				client.close();
+			}); 
+		});
 	}
 };
