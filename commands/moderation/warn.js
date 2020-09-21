@@ -112,7 +112,7 @@ module.exports = class Warn extends Command {
 			.addField('Warns:', warnings)
 			.setFooter(message.createdAt.toLocaleString());
 			// make client connect to mongo service
-			client.connect(err => {
+			client.connect(async err => {
 				if (err) throw err;
 				// db pointing to newdb
 				console.log("Switched to "+client.databaseName+" database");
