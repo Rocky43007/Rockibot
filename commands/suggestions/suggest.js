@@ -28,7 +28,7 @@ module.exports = class Suggest extends Command {
 			db.set(`casnumber_${message.guild.id}`, 1);
 		}
 		if(casenumber !== null) {
-			db.add(`casenumber_${message.guild.id}`, 1);
+			db.add(`casnumber_${message.guild.id}`, 1);
 		}
 
 		const uri = process.env.MONGO_URI;
@@ -67,6 +67,8 @@ module.exports = class Suggest extends Command {
 					const authorIM = message.author.avatarURL();
 					message.reply(`Suggestion sent to ${sChannel}.`);
 					sChannel.send({ embed: embed }).then(async embedMessage => {
+						embedMessage.react('⬆️'),
+						embedMessage.react('⬇️');
 						const client = new MongoClient(uri, { useNewUrlParser: true });
 						client.connect(err => {
 							const casenumber = db.get(`casenumber_${message.guild.id}`);
@@ -84,8 +86,6 @@ module.exports = class Suggest extends Command {
 								// close the connection to db when you are done with it
 								client.close();
 							}); 
-						embedMessage.react('⬆️'),
-						embedMessage.react('⬇️');
 						});
 					});
 				});

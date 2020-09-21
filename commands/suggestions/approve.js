@@ -55,9 +55,9 @@ module.exports = class SApprove extends Command {
 				})
 		
 			const results = await cursor.toArray();
+			const res = await cursor2.toArray();
 		
-			if (results.length > 0) {
-				const res = await cursor2.toArray();
+			if (results.length > 0 && res.length > 0) {
 				const embed = new discord.MessageEmbed()
 				.setColor('#71EEB8')
 				.setAuthor(res.author, res.authorim)
