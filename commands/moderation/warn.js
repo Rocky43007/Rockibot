@@ -123,8 +123,7 @@ module.exports = class Warn extends Command {
 				client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, function(err, res) {
 					   if (err) throw err;
 					   console.log("Document found");
-					   console.log(await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
-						minimumNumberOfBedrooms: message.guild.id }));
+					   console.log(logs);
 					   const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					   if (!sChannel) return;
 					   sChannel.send(embed);
