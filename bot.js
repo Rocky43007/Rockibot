@@ -4,7 +4,7 @@ const path = require('path');
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const Canvas = require('canvas');
-const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
+const uri = process.env.MONGO_URI;
 
 const client = new CommandoClient({
 	commandPrefix: '!',
@@ -13,30 +13,107 @@ const client = new CommandoClient({
 });
 
 client.on('messageDelete', async (message) => {
-	const logs = await logsdb.get(message.guild.id);
-	const embed = new discord.MessageEmbed()
-		.setColor('#ff2050')
-		.setAuthor(message.author.tag, message.author.avatarURL())
-		.addField(`Message Deleted in #${message.channel.name}`, message.content)
-		.setFooter(message.createdAt.toLocaleString());
-
-	const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-	if (!sChannel) return;
-	sChannel.send(embed);
+	// create a client to mongodb
+	const MongoClient = require('mongodb').MongoClient;
+	const client2 = new MongoClient(uri, { useNewUrlParser: true });	
+	async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+		minimumNumberOfBedrooms = 0
+	} = {}) {
+		const cursor = client.db("Rockibot-DB").collection("modlogs")
+			.find({
+				guildname: { $gte: minimumNumberOfBedrooms }
+			})
+	
+		const results = await cursor.toArray();
+	
+		if (results.length > 0) {
+			const embed = new discord.MessageEmbed()
+			.setColor('#ff2050')
+			.setAuthor(message.author.tag, message.author.avatarURL())
+			.addField(`Message Deleted in #${message.channel.name}`, message.content)
+			.setFooter(message.createdAt.toLocaleString());
+			console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
+			results.forEach((result, i) => {
+				console.log(`   _id: ${result._id}`);
+				console.log(`   guildid: ${result.guildname}`);
+				console.log(` 	channel name: ${result.channel}`)
+				const logs = result.channel;
+				const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+				if (!sChannel) return;
+				sChannel.send(embed);
+			});
+		} else {
+			console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+		}
+	}
+	client2.connect(async err => {
+		if (err) throw err;
+		// db pointing to newdb
+		console.log("Switched to "+client.databaseName+" database");
+		// insert document to 'users' collection using insertOne
+		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
+			   if (err) throw err;
+			   console.log("Document found");
+			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+				minimumNumberOfBedrooms: message.guild.id
+			});
+			// close the connection to db when you are done with it
+			client2.close();
+		}); 
+	});
 });
 client.on('messageUpdate', async (oldMessage, newMessage) => {
-	const logs = await logsdb.get(oldMessage.guild.id);
-	const embed = new discord.MessageEmbed()
-		.setColor('#ff2050')
-		.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
-		.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
-		.addField('Before:', oldMessage.content, true)
-		.addField('After:', newMessage.content, true)
-		.setFooter(newMessage.createdAt.toLocaleString());
+	// create a client to mongodb
+	const MongoClient = require('mongodb').MongoClient;
+	const client2 = new MongoClient(uri, { useNewUrlParser: true });
+	async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+		minimumNumberOfBedrooms = 0
+	} = {}) {
+		const cursor = client.db("Rockibot-DB").collection("modlogs")
+			.find({
+				guildname: { $gte: minimumNumberOfBedrooms }
+			})
+	
+		const results = await cursor.toArray();
+	
+		if (results.length > 0) {
+			const embed = new discord.MessageEmbed()
+			.setColor('#ff2050')
+			.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+			.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
+			.addField('Before:', oldMessage.content, true)
+			.addField('After:', newMessage.content, true)
+			.setFooter(newMessage.createdAt.toLocaleString());
 
-	const sChannel = newMessage.guild.channels.cache.find(c => c.name === logs);
-	if (!sChannel) return;
-	sChannel.send(embed);
+			console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
+			results.forEach((result, i) => {
+				console.log(`   _id: ${result._id}`);
+				console.log(`   guildid: ${result.guildname}`);
+				console.log(` 	channel name: ${result.channel}`)
+				const logs = result.channel;
+				const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+				if (!sChannel) return;
+				sChannel.send(embed);
+			});
+		} else {
+			console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+		}
+	}
+	client2.connect(async err => {
+		if (err) throw err;
+		// db pointing to newdb
+		console.log("Switched to "+client.databaseName+" database");
+		// insert document to 'users' collection using insertOne
+		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
+			   if (err) throw err;
+			   console.log("Document found");
+			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+				minimumNumberOfBedrooms: message.guild.id
+			});
+			// close the connection to db when you are done with it
+			client2.close();
+		}); 
+	});
 });
 
 client.registry
@@ -51,6 +128,7 @@ client.registry
 	.registerDefaultGroups()
 	.registerDefaultCommands()
 	.registerCommandsIn(path.join(__dirname, 'commands'));
+	
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');

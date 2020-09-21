@@ -17,7 +17,6 @@ module.exports = class MusicPlay extends Command {
 				},
 			],
 			guildOnly: true,
-			ownerOnly: true,
 		});
 	}
 	run(message, { song }) {
@@ -31,15 +30,9 @@ module.exports = class MusicPlay extends Command {
 		}
 
 		voiceChannel.join().then(connection => {
-			if (song.content.includes('https://open.spotify.com/track/')) { 
-				const newlink = song.replace('https://open.spotify.com/track/', '');
-				message.reply(newlink);
-			} 
-			else {
 			const stream = ytdl(song, { filter: 'audioonly' });
 			const dispatcher = connection.play(stream);
 			dispatcher.on('finish');
-			}
-		});
-	}
+			});
+		}	
 };

@@ -1,7 +1,6 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
 
 
 module.exports = class Unmute extends Command {
@@ -24,7 +23,48 @@ module.exports = class Unmute extends Command {
 		});
 	}
 	async run(message, { user }) {
-		const logs = await logsdb.get(message.guild.id);
+		const uri = process.env.MONGO_URI;
+ 
+		// create a client to mongodb
+		const MongoClient = require('mongodb').MongoClient;
+		const client = new MongoClient(uri, { useNewUrlParser: true });
+	
+		async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+			minimumNumberOfBedrooms = 0
+		} = {}) {
+			const cursor = client.db("Rockibot-DB").collection("modlogs")
+				.find({
+					guildname: { $gte: minimumNumberOfBedrooms }
+				})
+		
+			const results = await cursor.toArray();
+		
+			if (results.length > 0) {
+				const embed = new discord.MessageEmbed()
+				.setColor('#ff2050')
+				.setAuthor(`${message.guild.name}`, message.guild.iconURL())
+				.addField('Moderation:', 'Unmute')
+				.addField('Offender:', `**${user}**`)
+				.addField('Moderator:', `${message.author}`)
+				.setFooter(message.createdAt.toLocaleString());
+				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
+				results.forEach((result, i) => {
+					console.log(`   _id: ${result._id}`);
+					console.log(`   guildid: ${result.guildname}`);
+					console.log(` 	channel name: ${result.channel}`)
+					const logs = result.channel;
+					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+					if (!sChannel) return;
+					sChannel.send(embed);
+					const role = await message.guild.roles.cache.find(r => r.name === 'Muted');
+					user.roles.remove(role.id).catch(console.error).then(
+						user.send(`You have been unmuted from ${message.guild.name}.`),
+					);
+				});
+			} else {
+				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+			}
+		}
 		if(!message.member.hasPermission('MANAGE_MESSAGES')) {
 			return message.channel.send(`**${message.author.username}**, You do not have enough permission to use this command`);
 		}
@@ -38,21 +78,20 @@ module.exports = class Unmute extends Command {
 		if(user.roles.cache.has(role)) {
 			return message.channel.send(`**${message.author.username}**, The user is already unmuted.`);
 		}
-
-		const embed = new discord.MessageEmbed()
-			.setColor('#ff2050')
-			.setAuthor(`${message.guild.name}`, message.guild.iconURL())
-			.addField('Moderation:', 'Unmute')
-			.addField('Offender:', `**${user}**`)
-			.addField('Moderator:', `${message.author}`)
-			.setFooter(message.createdAt.toLocaleString());
-
-		const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-		if (!sChannel) return;
-		sChannel.send(embed);
-
-		user.roles.remove(role.id).catch(console.error).then(
-			user.send(`You have been unmuted from ${message.guild.name}.`),
-		);
+		client.connect(async err => {
+			if (err) throw err;
+			// db pointing to newdb
+			console.log("Switched to "+client.databaseName+" database");
+			// insert document to 'users' collection using insertOne
+			client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
+				   if (err) throw err;
+				   console.log("Document found");
+				   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+					minimumNumberOfBedrooms: message.guild.id
+				});
+				// close the connection to db when you are done with it
+				client.close();
+			}); 
+		});
 	}
 };
