@@ -87,7 +87,7 @@ module.exports = class Warn extends Command {
 			const client = new MongoClient(uri, { useNewUrlParser: true });
 	
 			// make client connect to mongo service
-			client.connect(async err => {
+			client.connect(err => {
 				if (err) throw err;
 				// db pointing to newdb
 				console.log("Switched to "+client.databaseName+" database");
@@ -97,7 +97,7 @@ module.exports = class Warn extends Command {
 					   if (err) throw err;
 					   console.log("Document found");
 					   const cursor = client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
-					   const results = await cursor.toArray();
+					   const results = cursor.toArray();
 					   const sChannel = message.guild.channels.cache.find(c => c.name === results.channel);
 					   if (!sChannel) return;
 					   sChannel.send(embed);
