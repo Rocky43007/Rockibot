@@ -1,8 +1,4 @@
 const { Command } = require('discord.js-commando');
-const Keyv = require('keyv');
-const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
-
-
 
 module.exports = class modlogs extends Command {
 	constructor(client) {
@@ -24,8 +20,6 @@ module.exports = class modlogs extends Command {
 		});
 	}
 	async run(message, { logs }) {
-		await logsdb.set(message.guild.id, logs).then(
-			message.channel.send(`Successfully set mod log to \`${logs}\``));
 		// we create 'users' collection in newdb database
 		const uri = process.env.MONGO_URI;
  

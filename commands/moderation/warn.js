@@ -1,8 +1,6 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const ms = require('ms');
-const Keyv = require('keyv');
-const logsdb = new Keyv(process.env.MONGODB, { collection: 'modlogs' });
 const db = require('quick.db');
 
 module.exports = class Warn extends Command {
@@ -72,7 +70,7 @@ module.exports = class Warn extends Command {
 			user.send(`You were warned in ${message.guild.name} for: ${content}`);
 			await message.channel.send(`**${user.username}** has been warned.`);
 		}
-		const logs = await logsdb.get(message.guild.id);
+
 		const embed = new discord.MessageEmbed()
 			.setColor('#ff2050')
 			.setAuthor(`${message.guild.name}`, message.guild.iconURL())
@@ -82,8 +80,32 @@ module.exports = class Warn extends Command {
 			.addField('Moderator:', `${message.author}`)
 			.addField('Warns:', warnings)
 			.setFooter(message.createdAt.toLocaleString());
-		const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-		if (!sChannel) return;
-		sChannel.send(embed);
+			const uri = process.env.MONGO_URI;
+ 
+			// create a client to mongodb
+			const MongoClient = require('mongodb').MongoClient;
+			const client = new MongoClient(uri, { useNewUrlParser: true });
+	
+			// make client connect to mongo service
+			client.connect(err => {
+				if (err) throw err;
+				// db pointing to newdb
+				console.log("Switched to "+client.databaseName+" database");
+	 
+				// document to be inserted
+				const cursor = db.collection('inventory').find({ item: 'canvas' });
+		
+				// insert document to 'users' collection using insertOne
+				client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, function(err, res) {
+					   if (err) throw err;
+					   console.log("Document found");
+					   const logs = client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
+					   const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+					   if (!sChannel) return;
+					   sChannel.send(embed);
+					// close the connection to db when you are done with it
+					client.close();
+				}); 
+			});
 	}
 };
