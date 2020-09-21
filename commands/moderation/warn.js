@@ -91,21 +91,12 @@ module.exports = class Warn extends Command {
 				if (err) throw err;
 				// db pointing to newdb
 				console.log("Switched to "+client.databaseName+" database");
-	 
-				// document to be inserted
-				const cursor = client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
-				function iterateFunc(doc) {
-					console.log(JSON.stringify(doc, null, 2));
-				}
-				function errorFunc(error) {
-					console.log(error);
-				}
-				cursor.forEach(iterateFunc, errorFunc);
 		
 				// insert document to 'users' collection using insertOne
 				client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, function(err, res) {
 					   if (err) throw err;
 					   console.log("Document found");
+					   const logs = client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
 					   const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					   if (!sChannel) return;
 					   sChannel.send(embed);
