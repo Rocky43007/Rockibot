@@ -111,7 +111,7 @@ module.exports = class Warn extends Command {
 			user.send(`You were warned in ${message.guild.name} for: ${content}`);
 			await message.channel.send(`**${user.username}** has been warned.`);
 		}
-		
+
 			// make client connect to mongo service
 			client.connect(async err => {
 				if (err) throw err;
@@ -121,7 +121,6 @@ module.exports = class Warn extends Command {
 				client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
 					   if (err) throw err;
 					   console.log("Document found");
-					   console.log(logs);
 					   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
 						minimumNumberOfBedrooms: message.guild.id
 					});
