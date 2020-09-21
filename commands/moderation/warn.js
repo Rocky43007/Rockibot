@@ -104,13 +104,13 @@ module.exports = class Warn extends Command {
 		if(warnings === null) {
 			db.set(`warnings_${message.guild.id}_${user.id}`, 1);
 			user.send(`You were warned in ${message.guild.name} for: ${content}`);
-			await message.channel.send(`**${user.username}** has been warned.`);
+			await message.channel.send(`**${user.tag}** has been warned.`);
 		}
 
 		if(warnings !== null) {
 			db.add(`warnings_${message.guild.id}_${user.id}`, 1);
 			user.send(`You were warned in ${message.guild.name} for: ${content}`);
-			await message.channel.send(`**${user.username}** has been warned.`);
+			await message.channel.send(`**${user.tag}** has been warned.`);
 		}
 
 			// make client connect to mongo service

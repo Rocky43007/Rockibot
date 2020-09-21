@@ -85,13 +85,16 @@ module.exports = class unwarn extends Command {
 		const warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
 
 		if(warnings === null) {
-			await message.channel.send(`**${user.username}** has no warns to remove.`);
+			await message.channel.send(`**${user.tag}** has no warns to remove.`);
+		}
+		if(warnings === 0) {
+			await message.channel.send(`**${user.tag}** has no warns to remove.`);
 		}
 
 		if(warnings !== null) {
 			db.subtract(`warnings_${message.guild.id}_${user.id}`, 1);
 			user.send(`You were warned in ${message.guild.name} for: ${content}`);
-			await message.channel.send(`**${user.username}** has been unwarned.`);
+			await message.channel.send(`**${user.tag}** has been unwarned.`);
 		}
 	}
 };

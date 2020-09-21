@@ -23,13 +23,6 @@ module.exports = class Suggest extends Command {
 		});
 	}
 	async run(message, { suggest }) {
-		const casenumber = db.get(`casnumber_${message.guild.id}`);
-		if(casenumber === null) {
-			db.set(`casnumber_${message.guild.id}`, 1);
-		}
-		if(casenumber !== null) {
-			db.add(`casnumber_${message.guild.id}`, 1);
-		}
 
 		const uri = process.env.MONGO_URI;
  
@@ -40,6 +33,13 @@ module.exports = class Suggest extends Command {
 		async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
 			minimumNumberOfBedrooms = 0
 		} = {}) {
+			const casenumber = db.get(`casenumber_${message.guild.id}`);
+			if(casenumber === null) {
+				db.set(`casenumber_${message.guild.id}`, 1);
+			}
+			if(casenumber !== null) {
+				db.add(`casenumber_${message.guild.id}`, 1);
+			}
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
@@ -62,7 +62,6 @@ module.exports = class Suggest extends Command {
 					const logs = result.channel;
 					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					if (!sChannel) return;
-					sChannel.send(embed);
 					const author = message.author.tag;
 					const authorIM = message.author.avatarURL();
 					message.reply(`Suggestion sent to ${sChannel}.`);
