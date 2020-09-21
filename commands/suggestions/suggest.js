@@ -55,7 +55,7 @@ module.exports = class Suggest extends Command {
 				.setTitle(`Suggestion #${casenumber}`)
 				.setDescription(suggest);
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
-				results.forEach((result, i) => {
+				results.forEach(async (result, i) => {
 					console.log(`   _id: ${result._id}`);
 					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)

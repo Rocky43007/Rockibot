@@ -58,14 +58,15 @@ module.exports = class SImpliment extends Command {
 				.setDescription(res.suggestion)
 				.addField(`Comment from ${message.author.tag}:`, comments);
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
-				results.forEach((result, i) => {
+				results.forEach(async (result, i) => {
 					console.log(`   _id: ${result._id}`);
 					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)
 					const logs = result.channel;
 					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					if (!sChannel) return;
-					sChannel.send(embed);await sChannel.messages.fetch(msgid).then(msg =>
+					sChannel.send(embed);
+					await sChannel.messages.fetch(msgid).then(msg =>
 						msg.edit(embed));
 				});
 			} else {
