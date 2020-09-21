@@ -96,8 +96,9 @@ module.exports = class Warn extends Command {
 				client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, function(err, res) {
 					   if (err) throw err;
 					   console.log("Document found");
-					   const logs = client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
-					   const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+					   const cursor = client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
+					   const results = await cursor.toArray();
+					   const sChannel = message.guild.channels.cache.find(c => c.name === results.channel);
 					   if (!sChannel) return;
 					   sChannel.send(embed);
 					// close the connection to db when you are done with it
