@@ -3,6 +3,7 @@ const { Command } = require('discord.js-commando');
 const ms = require('ms');
 const db = require('quick.db');
 
+
 module.exports = class Warn extends Command {
 	constructor(client) {
 		super(client, {
@@ -30,6 +31,36 @@ module.exports = class Warn extends Command {
 		});
 	}
 	async run(message, { user, content }) {
+		const uri = process.env.MONGO_URI;
+ 
+		// create a client to mongodb
+		const MongoClient = require('mongodb').MongoClient;
+		const client = new MongoClient(uri, { useNewUrlParser: true });
+	
+		async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+			minimumNumberOfBedrooms = 0
+		} = {}) {
+			const cursor = client.db("Rockibot-DB").collection("modlogs")
+				.find({
+					guildname: { $gte: minimumNumberOfBedrooms }
+				})
+		
+			const results = await cursor.toArray();
+		
+			if (results.length > 0) {
+				console.log(`Found doucment with guild id ${minimumNumberOfBedrooms}:`);
+				results.forEach((result, i) => {
+		
+					console.log();
+					console.log(`${i + 1}. name: ${result.name}`);
+					console.log(`   _id: ${result._id}`);
+					console.log(`   guildid: ${result.bedrooms}`);
+					console.log(` 	channel name: ${result.channel}`)
+				});
+			} else {
+				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+			}
+		}
 		
 		if(!message.member.hasPermission('MANAGE_SERVER')) return message.channel.send('You can\'t use that.');
 
@@ -80,25 +111,22 @@ module.exports = class Warn extends Command {
 			.addField('Moderator:', `${message.author}`)
 			.addField('Warns:', warnings)
 			.setFooter(message.createdAt.toLocaleString());
-			const uri = process.env.MONGO_URI;
- 
-			// create a client to mongodb
-			const MongoClient = require('mongodb').MongoClient;
-			const client = new MongoClient(uri, { useNewUrlParser: true });
-	
 			// make client connect to mongo service
 			client.connect(err => {
 				if (err) throw err;
 				// db pointing to newdb
 				console.log("Switched to "+client.databaseName+" database");
-		
+				await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+					minimumNumberOfBedrooms: message.guild.id
+				});
+				const logs = await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+					minimumNumberOfBedrooms: message.guild.id
+				});
 				// insert document to 'users' collection using insertOne
 				client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, function(err, res) {
 					   if (err) throw err;
 					   console.log("Document found");
-					   const cursor = client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id });
-					   const results = cursor.toArray();
-					   const sChannel = message.guild.channels.cache.find(c => c.name === results.channel);
+					   const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					   if (!sChannel) return;
 					   sChannel.send(embed);
 					// close the connection to db when you are done with it
