@@ -68,6 +68,6 @@
     "@keyv/postgres": "1.0.16",
     "saslprep": "1.0.3",
     "sparse-bitfield":"3.0.3",
-    "commando-provider-mongo":"1.1.1"
+    "commando-mongodb":"1.1.0"
   }
 }

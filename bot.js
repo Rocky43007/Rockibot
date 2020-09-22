@@ -1,7 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const discord = require('discord.js');
 const path = require('path');
-const MongoDBProvider = require('commando-provider-mongo');
+const MongoDBProvider = require('commando-mongodb');
 const Canvas = require('canvas');
 const uri = process.env.MONGO_URI;
 const MongoClient = require('mongodb').MongoClient;
