@@ -66,8 +66,8 @@ module.exports = class Suggest extends Command {
 					const authorIM = message.author.avatarURL();
 					message.reply(`Suggestion sent to ${sChannel}.`);
 					sChannel.send({ embed: embed }).then(async embedMessage => {
-						embedMessage.react('⬆️'),
-						embedMessage.react('⬇️');
+						embedMessage.react('⬆️').then(
+						embedMessage.react('⬇️'));
 						const client = new MongoClient(uri, { useNewUrlParser: true });
 						client.connect(err => {
 							const casenumber = db.get(`casenumber_${message.guild.id}`);

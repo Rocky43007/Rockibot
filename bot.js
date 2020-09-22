@@ -134,7 +134,7 @@ client.once('ready', () => {
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 });
 
-client.setProvider(MongoClient.connect(uri, { useNewUrlParser: true }).then(client => new MongoDBProvider(client, 'prefix')));
+client.setProvider(MongoClient.connect(uri, { useNewUrlParser: true }).then(client => new MongoDBProvider(client, 'Rockibot-DB')));
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
