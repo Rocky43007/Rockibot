@@ -104,7 +104,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 		// db pointing to newdb
 		console.log("Switched to "+client.databaseName+" database");
 		// insert document to 'users' collection using insertOne
-		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
+		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: oldMessage.guild.id }, async function(err, res) {
 			   if (err) throw err;
 			   console.log("Document found");
 			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
