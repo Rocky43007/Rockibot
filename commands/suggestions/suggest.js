@@ -33,13 +33,6 @@ module.exports = class Suggest extends Command {
 		async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
 			minimumNumberOfBedrooms = 0
 		} = {}) {
-			const casenumber = db.get(`casenumber_${message.guild.id}`);
-			if(casenumber === null) {
-				db.set(`casenumber_${message.guild.id}`, 1);
-			}
-			if(casenumber !== null) {
-				db.add(`casenumber_${message.guild.id}`, 1);
-			}
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
@@ -66,6 +59,12 @@ module.exports = class Suggest extends Command {
 					const authorIM = message.author.avatarURL();
 					message.reply(`Suggestion sent to ${sChannel}.`);
 					sChannel.send({ embed: embed }).then(async embedMessage => {
+						if(casenumber === null) {
+							db.set(`casenumber_${message.guild.id}`, 1);
+						}
+						if(casenumber !== null) {
+							db.add(`casenumber_${message.guild.id}`, 1);
+						}
 						embedMessage.react('⬆️').then(
 						embedMessage.react('⬇️'));
 						const client = new MongoClient(uri, { useNewUrlParser: true });

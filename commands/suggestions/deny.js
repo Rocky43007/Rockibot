@@ -49,15 +49,9 @@ module.exports = class Sdeny extends Command {
 				})
 		
 			const results = await cursor.toArray();
+			const res = await cursor2.toArray();
 		
-			if (results.length > 0) {
-				const res = await cursor2.toArray();
-				const embed = new discord.MessageEmbed()
-				.setColor('#8B0000')
-				.setAuthor(res.author, res.authorim)
-				.setTitle(`Suggestion #${res.suggestnum} Denied`)
-				.setDescription(res.suggestion)
-				.addField(`Comment from ${message.author.tag}:`, comments);
+			if (results.length > 0 && res.length > 0) {
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach(async (result, i) => {
 					console.log(`   _id: ${result._id}`);
@@ -66,10 +60,23 @@ module.exports = class Sdeny extends Command {
 					const logs = result.channel;
 					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					if (!sChannel) return;
-					sChannel.send(embed);
 					await sChannel.messages.fetch(msgid).then(msg =>
-						msg.edit(embed));
-				});
+						res.forEach(async (res, i) => {
+							console.log(`   _id: ${res._id}`);
+							console.log(`   author: ${res.author}`);
+							console.log(`   authorim: ${res.authorim}`);
+							console.log(` 	suggestnum: ${res.suggestnum}`);
+							console.log(`   suggestion: ${res.suggestion}`);
+							const embed = new discord.MessageEmbed()
+							.setColor('#8B0000')
+							.setAuthor(res.author, res.authorim)
+							.setTitle(`Suggestion #${res.suggestnum} Denied`)
+							.setDescription(res.suggestion)
+							.addField(`Comment from ${message.author.tag}:`, comments);
+							msg.edit(embed);
+						}),
+					);
+					});
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
 			}
