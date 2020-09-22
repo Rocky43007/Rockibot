@@ -39,8 +39,9 @@ module.exports = class Suggest extends Command {
 				})
 		
 			const results = await cursor.toArray();
+			const res = await cursor2.toArray();
 		
-			if (results.length > 0) {
+			if (results.length > 0 && res.length > 0) {
 				const casenumber = db.get(`casenumber_${message.guild.id}`);
 				const embed = new discord.MessageEmbed()
 				.setColor('#738ADB')
