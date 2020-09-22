@@ -91,7 +91,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 				console.log(`   guildid: ${result.guildname}`);
 				console.log(` 	channel name: ${result.channel}`)
 				const logs = result.channel;
-				const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+				const sChannel = oldMessage.guild.channels.cache.find(c => c.name === logs);
 				if (!sChannel) return;
 				sChannel.send(embed);
 			});
@@ -108,7 +108,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 			   if (err) throw err;
 			   console.log("Document found");
 			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
-				minimumNumberOfBedrooms: message.guild.id
+				minimumNumberOfBedrooms: oldMessage.guild.id
 			});
 			// close the connection to db when you are done with it
 			client2.close();

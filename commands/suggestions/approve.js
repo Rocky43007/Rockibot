@@ -58,30 +58,31 @@ module.exports = class SApprove extends Command {
 			const res = await cursor2.toArray();
 		
 			if (results.length > 0 && res.length > 0) {
-				const embed = new discord.MessageEmbed()
-				.setColor('#71EEB8')
-				.setAuthor(res.author, res.authorim)
-				.setTitle(`Suggestion #${res.suggestnum} Approved`)
-				.setDescription(res.suggestion)
-				.addField(`Comment from ${message.author.tag}:`, comments);
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach(async (result, i) => {
 					console.log(`   _id: ${result._id}`);
 					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)
-					res.forEach(async (result, i) => {
-						console.log(`   _id: ${res._id}`);
-						console.log(`   author: ${res.author}`);
-						console.log(`   authorim: ${res.authorim}`);
-						console.log(` 	suggestnum: ${res.suggestnum}`);
-						console.log(`   suggestion: ${res.suggestion}`);
-					});
 					const logs = result.channel;
 					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					if (!sChannel) return;
 					await sChannel.messages.fetch(msgid).then(msg =>
-						msg.edit(embed));
-				});
+						res.forEach(async (res, i) => {
+							console.log(`   _id: ${res._id}`);
+							console.log(`   author: ${res.author}`);
+							console.log(`   authorim: ${res.authorim}`);
+							console.log(` 	suggestnum: ${res.suggestnum}`);
+							console.log(`   suggestion: ${res.suggestion}`);
+							const embed = new discord.MessageEmbed()
+							.setColor('#71EEB8')
+							.setAuthor(res.author, res.authorim)
+							.setTitle(`Suggestion #${res.suggestnum} Approved`)
+							.setDescription(res.suggestion)
+							.addField(`Comment from ${message.author.tag}:`, comments);
+							msg.edit(embed);
+						}),
+					);
+					});
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
 			}
