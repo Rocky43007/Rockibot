@@ -1,3 +1,3 @@
-# DiscordBotTest
+# Rockibot
 
-A place to let me learn how to make a discord bot. Simple really.
+This is the repo for Rockibot, the modular bot I have created using Discordjs/Commando. 
