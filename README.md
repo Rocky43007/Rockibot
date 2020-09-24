@@ -5,20 +5,23 @@
   </p>
   <br />
   <p>
-    <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/739916829828448317?color=7289da&logo=discord&logoColor=white" alt="Discord Server" /></a>
+    <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/739916829828448317?color=7289da&logo=discord&logoColor=white" alt="Support Server" /></a>
     <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/badge/Invite-Invite%20the%20bot!-brightgreen" alt="Invite" /></a>
      <a href="https://github.com/Rocky43007/Rockibot/actions"><img src="https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg" alt="Build status" /></a>
       </p>
 </div>
 
+# About
 
-
-This is the repo for Rockibot, the modular bot I have created using Discordjs/Commando. As of right now, there is only 3 modules:
+Rockibot is a Discord bot created using [Discordjs/Commando](https://github.com/discordjs/Commando/) and [Discord.js](https://github.com/discordjs/Discord.js/). It is a extremely modular bot for those who want some features, and only one bot for it. The database backbone is MongoDB, and the bot is still in it's Alpha stages of  development. Use it if you want, but be warned that the bot is changing everyday, and some features may be removed or data may be lost. Please keep an eye on the updates channel on the support server as I will announce this before implementing the change.
 
 # Basic Commands
 `!invite` - Allows other users to invite the bot to their own server.
+
 `!stats` - Nerdy stats for those who want to see who made the bot, and how much memory is being used, and what version of the bot is being ran.
+
 `!status` - Used to check if the bot is working or not.
+
 `!ping` - See how fast the API reponse is between you and the bot.
 
 # Moderation
@@ -46,6 +49,7 @@ Commands:
 # Music
 Commands:
 *Remove the `<>` when using the command.*
+
 `!join` - Makes the bot join the voice channel the user is in.
 
 `!leave` - Makes the bot leave the voice channel it was in.
@@ -56,6 +60,7 @@ Commands:
 
 # Suggestions
 *Remove the `<>` when using the command.*
+
 `!suggest-channel` - Sets the channel where the suggestions will be found. Usage: `!suggest-channel <Suggestion Channel Name without #>`.
 
 `!suggestion` - Sends a suggestion to the suggestion channel. Usage: `!suggestion <Suggestion>`.
