@@ -54,7 +54,7 @@ client.on('messageDelete', async (message) => {
 		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
 			   if (err) throw err;
 			   console.log("Document found");
-			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client2, {
 				minimumNumberOfBedrooms: message.guild.id
 			});
 			// close the connection to db when you are done with it
@@ -107,7 +107,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: oldMessage.guild.id }, async function(err, res) {
 			   if (err) throw err;
 			   console.log("Document found");
-			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client2, {
 				minimumNumberOfBedrooms: oldMessage.guild.id
 			});
 			// close the connection to db when you are done with it
