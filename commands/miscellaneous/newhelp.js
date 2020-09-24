@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 
-module.exports = class help extends Command {
+module.exports = class help2 extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'help',
+			name: 'newhelp',
 			group: 'miscellaneous',
-			memberName: 'help',
+			memberName: 'newhelp',
 			description: 'Shows the list of commands',
 			args: [
 				{
