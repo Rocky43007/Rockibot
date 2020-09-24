@@ -32,7 +32,7 @@ module.exports = class help2 extends Command {
 			.addField('invite', 'Allows other users to invite the bot to their own server.')
 			message.channel.send(basic);
 		}
-		else if (page === 2) {
+		if (page === 2) {
 			const mod = new Discord.MessageEmbed()
 			.setColor('#ff2050')
 			.setTitle('Rockibot | Moderation Commands')
@@ -48,7 +48,7 @@ module.exports = class help2 extends Command {
 			.addField('warns', 'Allows staff to see how many warns a user has. Usage: `!warns <Mention User or User ID>`.')
 			message.channel.send(mod);
 		}
-		else if (page === 3) {
+		if (page === 3) {
 			const music = new Discord.MessageEmbed()
 			.setColor('#2e77b8')
 			.setTitle('Rockibot | Music Commands')
@@ -59,7 +59,7 @@ module.exports = class help2 extends Command {
 			.addField('pause', 'Pauses the music being played.')
 			message.channel.send(music);
 		}
-		else if (page === 4) {
+		if (page === 4) {
 			const suggestions = new Discord.MessageEmbed()
 			.setColor('#2e77b8')
 			.setTitle('Rockibot | Suggestions Commands')
@@ -72,7 +72,6 @@ module.exports = class help2 extends Command {
 			.addField('deny', 'Says that the suggestion is denied. Usage: `!deny <Suggestion Message ID> <Comments>`.')
 			message.channel.send(suggestions);
 		}
-		else if (page === 0) {
 		const home = new Discord.MessageEmbed()
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
@@ -82,6 +81,5 @@ module.exports = class help2 extends Command {
 		.addField('Page 3: Music Commands', 'These commands are for the music aspect of the bot. Here, you can find information of `!play`, `!join` and more!')
 		.addField('Page 4: Suggestion Commands', 'These commands relate to suggestions! Here, you can find information about `!suggest`, `!suggest-channel` and more!')
 		message.channel.send(home);
-		}
 	}
 };
