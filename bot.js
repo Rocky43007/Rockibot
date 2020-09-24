@@ -126,9 +126,7 @@ client.registry
 		['suggestions', 'Suggestion commands'],
 	])
 	.registerDefaultGroups()
-	.registerDefaultCommands({
-		help: false
-	})	
+	.registerDefaultCommands()	
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 	
 client.once('ready', () => {
