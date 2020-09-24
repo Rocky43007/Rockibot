@@ -38,7 +38,7 @@ module.exports = class help2 extends Command {
 			.addField('stats', 'Nerdy stats for those who want to see who made the bot, and how much memory is being used, and what version the bot is.')
 			.addField('invite', 'Allows other users to invite the bot to their own server.')
 		const suggestions = new Discord.MessageEmbed()
-			.setColor('#2e77b8')
+			.setColor('#71EEB8')
 			.setTitle('Rockibot | Suggestions Commands')
 			.setDescription('Please remove the `<>` when using the commands!')
 			.addField('suggest-channel', 'Sets the channel where the suggestions will be found. Usage: `!suggest-channel <Suggestion Channel Name without #>`.')
@@ -68,22 +68,20 @@ module.exports = class help2 extends Command {
 			.addField('leave', 'Makes the bot leave the voice channel it was in.')
 			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
 			.addField('pause', 'Pauses the music being played.')
-		if (page = 1) {
+		if (page === 1) {
 			message.channel.send(basic);
 		}
-		if (page = 2) {
+		if (page === 2) {
 			message.channel.send(mod);
 		}
-		if (page = 3) {
+		if (page === 3) {
 			message.channel.send(music);
 		}
-		if (page = 4) {
+		if (page === 4) {
 			message.channel.send(suggestions);
 		}
 		else {
 			message.channel.send(home);
 		}
-		
-
 	}
 };
