@@ -1,9 +1,10 @@
 # Rockibot
+<div align="center">
+  <p>
+    <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/222078108977594368?color=7289da&logo=discord&logoColor=white" alt="Support" /></a>
+    <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/discord/222078108977594368?color=7289da&logo=discord&logoColor=white" alt="Invite" /></a>
 
 ![Rockibot Tesing CI](https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg)
-![Invite](https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot)
-![Support](https://discord.gg/rdGrcvW)
-![Version](V0.4.0-alpha)
 
 This is the repo for Rockibot, the modular bot I have created using Discordjs/Commando. As of right now, there is only 3 modules:
 
