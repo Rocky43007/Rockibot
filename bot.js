@@ -22,7 +22,7 @@ client.on('messageDelete', async (message) => {
 		const cursor = client.db("Rockibot-DB").collection("modlogs")
 			.find({
 				guildname: { $gte: minimumNumberOfBedrooms }
-			})
+			}).close()
 	
 		const results = await cursor.toArray();
 	
@@ -49,7 +49,7 @@ client.on('messageDelete', async (message) => {
 	client2.connect(async err => {
 		if (err) throw err;
 		// db pointing to newdb
-		console.log("Switched to "+client.databaseName+" database");
+		console.log("Switched to "+client2.databaseName+" database");
 		// insert document to 'users' collection using insertOne
 		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
 			   if (err) throw err;
@@ -72,7 +72,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 		const cursor = client.db("Rockibot-DB").collection("modlogs")
 			.find({
 				guildname: { $gte: minimumNumberOfBedrooms }
-			})
+			}).close()
 	
 		const results = await cursor.toArray();
 	
@@ -102,7 +102,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 	client2.connect(async err => {
 		if (err) throw err;
 		// db pointing to newdb
-		console.log("Switched to "+client.databaseName+" database");
+		console.log("Switched to "+client2.databaseName+" database");
 		// insert document to 'users' collection using insertOne
 		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: oldMessage.guild.id }, async function(err, res) {
 			   if (err) throw err;
