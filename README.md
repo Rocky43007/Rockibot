@@ -5,8 +5,8 @@
   </p>
   <br />
   <p>
-    <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/739916829828448317?color=7289da&logo=discord&logoColor=white&style=for-the-badge" alt="Support Server" /></a>
-    <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/badge/Invite-Invite%20the%20bot!-brightgreen&style=for-the-badge" alt="Invite" /></a>
+    <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/739916829828448317?color=7289da&logo=discord&logoColor=white" alt="Support Server" /></a>
+    <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/badge/Invite-Invite%20the%20bot!-brightgreen" alt="Invite" /></a>
      <a href="https://github.com/Rocky43007/Rockibot/actions"><img src="https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg" alt="Build status" /></a>
       </p>
 </div>
