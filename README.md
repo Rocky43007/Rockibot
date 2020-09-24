@@ -66,3 +66,5 @@ Commands:
 `!suggestion` - Sends a suggestion to the suggestion channel. Usage: `!suggestion <Suggestion>`.
 
 `!approve`, `!consider`, `!implement`, `!deny` - Approves, Considers, Denies, or says that the suggestion is implemented. Usage: `!approve <Suggestion Message ID> <Comments>`.
+
+Created by Rocky43007#7727
