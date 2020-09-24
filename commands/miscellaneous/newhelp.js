@@ -27,6 +27,7 @@ module.exports = class help2 extends Command {
 		.addField('Page 2: Moderation Commands', 'These commands are for moderating servers, such as `!ban`, `!kick` and more!')
 		.addField('Page 3: Music Commands', 'These commands are for the music aspect of the bot. Here, you can find information of `!play`, `!join` and more!')
 		.addField('Page 4: Suggestion Commands', 'These commands relate to suggestions! Here, you can find information about `!suggest`, `!suggest-channel` and more!')
+
 		const basic = new Discord.MessageEmbed()
 			.setColor('#4e03fc')
 			.setTitle('Rockibot | General Commands')
@@ -37,6 +38,7 @@ module.exports = class help2 extends Command {
 			.addField('status', 'Used to check if the bot is working or not.')
 			.addField('stats', 'Nerdy stats for those who want to see who made the bot, and how much memory is being used, and what version the bot is.')
 			.addField('invite', 'Allows other users to invite the bot to their own server.')
+
 		const suggestions = new Discord.MessageEmbed()
 			.setColor('#71EEB8')
 			.setTitle('Rockibot | Suggestions Commands')
@@ -47,6 +49,7 @@ module.exports = class help2 extends Command {
 			.addField('consider', 'Says that the suggestion is considered. Usage: `!consider <Suggestion Message ID> <Comments>`.')
 			.addField('implement', 'Says that the suggestion is implemented. Usage: `!implement <Suggestion Message ID> <Comments>`.')
 			.addField('deny', 'Says that the suggestion is denied. Usage: `!deny <Suggestion Message ID> <Comments>`.')
+
 		const mod = new Discord.MessageEmbed()
 			.setColor('#ff2050')
 			.setTitle('Rockibot | Moderation Commands')
@@ -60,6 +63,7 @@ module.exports = class help2 extends Command {
 			.addField('warn', 'Allows staff to warn a member. Usage: `!warn <Mention User or User ID> <Reason>`.')
 			.addField('unwarn', 'Allows staff to remove a warn from a member. Usage: `!unwarn <Mention User or User ID> <Reason>`.')
 			.addField('warns', 'Allows staff to see how many warns a user has. Usage: `!warns <Mention User or User ID>`.')
+
 		const music = new Discord.MessageEmbed()
 			.setColor('#2e77b8')
 			.setTitle('Rockibot | Music Commands')
@@ -68,16 +72,17 @@ module.exports = class help2 extends Command {
 			.addField('leave', 'Makes the bot leave the voice channel it was in.')
 			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
 			.addField('pause', 'Pauses the music being played.')
-		if (page === 1) {
+
+		if (message.content.contains === 'newhelp 1') {
 			message.channel.send(basic);
 		}
-		if (page === 2) {
+		if (message.content.contains === 'newhelp 2') {
 			message.channel.send(mod);
 		}
-		if (page === 3) {
+		if (message.content.contains === 'newhelp 3') {
 			message.channel.send(music);
 		}
-		if (page === 4) {
+		if (message.content.contains === 'newhelp 4') {
 			message.channel.send(suggestions);
 		}
 		else {
