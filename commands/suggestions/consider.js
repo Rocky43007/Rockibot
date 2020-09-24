@@ -41,11 +41,11 @@ module.exports = class SConsider extends Command {
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				})
+				}).close()
 			const cursor2 = client.db("Rockibot-DB").collection("suggestdb")
 				.find({
 					messageid: { $gte: messid }
-				})
+				}).close()
 		
 			const results = await cursor.toArray();
 			const res = await cursor2.toArray();

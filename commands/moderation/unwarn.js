@@ -41,7 +41,7 @@ module.exports = class unwarn extends Command {
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				})
+				}).close()
 		
 			const results = await cursor.toArray();
 		
@@ -96,5 +96,20 @@ module.exports = class unwarn extends Command {
 			user.send(`You were warned in ${message.guild.name} for: ${content}`);
 			await message.channel.send(`**${user.tag}** has been unwarned.`);
 		}
+		client.connect(async err => {
+			if (err) throw err;
+			// db pointing to newdb
+			console.log("Switched to "+client.databaseName+" database");
+			// insert document to 'users' collection using insertOne
+			client.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
+				   if (err) throw err;
+				   console.log("Document found");
+				   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+					minimumNumberOfBedrooms: message.guild.id
+				});
+				// close the connection to db when you are done with it
+				client.close();
+			}); 
+		});
 	}
 };

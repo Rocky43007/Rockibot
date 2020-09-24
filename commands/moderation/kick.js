@@ -40,7 +40,7 @@ module.exports = class Kick extends Command {
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				})
+				}).close()
 		
 			const results = await cursor.toArray();
 		

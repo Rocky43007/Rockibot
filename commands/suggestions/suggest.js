@@ -36,11 +36,15 @@ module.exports = class Suggest extends Command {
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				})
+				}).close()
 		
 			const results = await cursor.toArray();
 		
 			if (results.length > 0) {
+				const casenumber = db.get(`casenumber_${message.guild.id}`);
+				if(casenumber === null) {
+					db.set(`casenumber_${message.guild.id}`, 1);
+				}
 				const casenumber = db.get(`casenumber_${message.guild.id}`);
 				const embed = new discord.MessageEmbed()
 				.setColor('#738ADB')
