@@ -1,10 +1,13 @@
 # Rockibot
 <div align="center">
   <p>
-    <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/222078108977594368?color=7289da&logo=discord&logoColor=white" alt="Support" /></a>
-    <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/discord/222078108977594368?color=7289da&logo=discord&logoColor=white" alt="Invite" /></a>
+    <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/739916829828448317?color=7289da&logo=discord&logoColor=white" alt="Discord Server" /></a>
+    <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/badge/Invite-Invite%20the%20bot!-brightgreen" alt="Invite" /></a>
+     <a href="https://github.com/Rocky43007/Rockibot/actions"><img src="https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg" alt="Build status" /></a>
+      </p>
+</div>
 
-![Rockibot Tesing CI](https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg)
+
 
 This is the repo for Rockibot, the modular bot I have created using Discordjs/Commando. As of right now, there is only 3 modules:
 
