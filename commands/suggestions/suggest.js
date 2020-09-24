@@ -45,7 +45,6 @@ module.exports = class Suggest extends Command {
 				if(casenumber === null) {
 					db.set(`casenumber_${message.guild.id}`, 1);
 				}
-				const casenumber = db.get(`casenumber_${message.guild.id}`);
 				const embed = new discord.MessageEmbed()
 				.setColor('#738ADB')
 				.setAuthor(message.author.tag, message.author.avatarURL())
