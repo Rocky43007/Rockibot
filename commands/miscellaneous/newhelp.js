@@ -12,7 +12,8 @@ module.exports = class help2 extends Command {
 				{
 					key: 'page',
 					prompt: 'Which page number would you like to go to?',
-					type: 'string',
+					type: 'integer',
+					default: '0'
 				},
 			],
 		});
