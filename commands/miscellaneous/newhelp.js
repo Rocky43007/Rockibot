@@ -13,6 +13,7 @@ module.exports = class help2 extends Command {
 					key: 'page',
 					prompt: 'Which page number would you like to go to?',
 					type: 'string',
+					default: '0',
 				},
 			],
 		});
@@ -71,21 +72,18 @@ module.exports = class help2 extends Command {
 			.addField('leave', 'Makes the bot leave the voice channel it was in.')
 			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
 			.addField('pause', 'Pauses the music being played.')
-
-		if (page === '1') {
-			message.channel.send(basic);
-		}
-		if (page === '2') {
-			message.channel.send(mod);
-		}
-		if (page === '3') {
-			message.channel.send(music);
-		}
-		if (page === '4') {
-			message.channel.send(suggestions);
-		}
-		else {
-			message.channel.send(home);
-		}
+		switch (page[1]) {
+			case "1":
+				return message.channel.send({ embed: basic })
+			case "2":
+					return message.channel.send({ embed: mod })
+			case "3":
+				return message.channel.send({ embed: music })
+			case "4":
+				return message.channel.send({ embed: suggestions })
+			default:
+				home.setDescription(`Use \`${prefix}help [page]\` to switch pages!`)
+				return message.channel.send({ embed: home })
+			}
 	}
 };
