@@ -18,7 +18,7 @@ module.exports = class help2 extends Command {
 			],
 		});
 	}
-	run(message, page) {
+	run(message, args) {
 		const home = new Discord.MessageEmbed()
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
@@ -72,11 +72,11 @@ module.exports = class help2 extends Command {
 			.addField('leave', 'Makes the bot leave the voice channel it was in.')
 			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
 			.addField('pause', 'Pauses the music being played.')
-		switch (page[1]) {
+		switch (args[1]) {
 			case "1":
 				return message.channel.send({ embed: basic })
 			case "2":
-					return message.channel.send({ embed: mod })
+				return message.channel.send({ embed: mod })
 			case "3":
 				return message.channel.send({ embed: music })
 			case "4":
