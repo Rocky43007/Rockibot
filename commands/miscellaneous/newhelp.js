@@ -12,7 +12,7 @@ module.exports = class help2 extends Command {
 				{
 					key: 'page',
 					prompt: 'Which page number would you like to go to?',
-					type: 'integer',
+					type: 'string',
 					default: '0'
 				},
 			],
@@ -22,7 +22,6 @@ module.exports = class help2 extends Command {
 		const home = new Discord.MessageEmbed()
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
-		.setDescription('Use `!help [page]` to switch pages!')
 		.addField('Page 1: General Commands', 'These commands are given to everyone, and is the module that every user gets when they use the bot.')
 		.addField('Page 2: Moderation Commands', 'These commands are for moderating servers, such as `!ban`, `!kick` and more!')
 		.addField('Page 3: Music Commands', 'These commands are for the music aspect of the bot. Here, you can find information of `!play`, `!join` and more!')
