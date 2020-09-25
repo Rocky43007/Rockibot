@@ -12,8 +12,7 @@ module.exports = class help2 extends Command {
 				{
 					key: 'page',
 					prompt: 'Which page number would you like to go to?',
-					type: 'integer',
-					default: '0',
+					type: 'string',
 				},
 			],
 		});
@@ -73,16 +72,16 @@ module.exports = class help2 extends Command {
 			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
 			.addField('pause', 'Pauses the music being played.')
 
-		if (message.content.contains === 'newhelp 1') {
+		if (page === '1') {
 			message.channel.send(basic);
 		}
-		if (message.content.contains === 'newhelp 2') {
+		if (page === '2') {
 			message.channel.send(mod);
 		}
-		if (message.content.contains === 'newhelp 3') {
+		if (page === '3') {
 			message.channel.send(music);
 		}
-		if (message.content.contains === 'newhelp 4') {
+		if (page === '4') {
 			message.channel.send(suggestions);
 		}
 		else {
