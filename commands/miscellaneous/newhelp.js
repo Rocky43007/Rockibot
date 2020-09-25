@@ -82,7 +82,7 @@ module.exports = class help2 extends Command {
 			case "4":
 				return message.channel.send({ embed: suggestions })
 			default:
-				home.setDescription(`Use \`${prefix}help [page]\` to switch pages!`)
+				home.setDescription(`Use \`!help [page]\` to switch pages!`)
 				return message.channel.send({ embed: home })
 			}
 	}
