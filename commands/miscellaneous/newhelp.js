@@ -12,13 +12,12 @@ module.exports = class help2 extends Command {
 				{
 					key: 'page',
 					prompt: 'Which page number would you like to go to?',
-					type: 'integer',
-					default: '0',
+					type: 'string',
 				},
 			],
 		});
 	}
-	run(message, args) {
+	run(message, page) {
 		const home = new Discord.MessageEmbed()
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
@@ -72,7 +71,7 @@ module.exports = class help2 extends Command {
 			.addField('leave', 'Makes the bot leave the voice channel it was in.')
 			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
 			.addField('pause', 'Pauses the music being played.')
-		switch (args[1]) {
+		switch (page) {
 			case "1":
 				return message.channel.send({ embed: basic })
 			case "2":
