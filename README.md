@@ -25,7 +25,6 @@ Rockibot is a Discord bot created using [Discordjs/Commando](https://github.com/
 `!ping` - See how fast the API reponse is between you and the bot.
 
 # Moderation
-Commands:
 *Remove the `<>` when using the command.*
 
 `!ban` - Bans users from the server. Usage: `!ban <Mention User or User ID> <Reason>`.
@@ -47,7 +46,6 @@ Commands:
 `!warns` - Allows staff to see how many warns a user has. Usage: `!warns <Mention User or User ID>`.
 
 # Music
-Commands:
 *Remove the `<>` when using the command.*
 
 `!join` - Makes the bot join the voice channel the user is in.
