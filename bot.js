@@ -15,10 +15,8 @@ const client = new CommandoClient({
 	owner: '361212545924595712',
 	invite: 'https://discord.gg/Ju2gSCY'
 });
-mongoose.connect(config.mongodbUrl, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-  });
+mongoose.connect(process.env.MONGO_URI, {
+	useNewUrlParser: true });
   client.config = config;
 
 client.on("message", async (message) => {
