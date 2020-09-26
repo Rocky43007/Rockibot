@@ -3,7 +3,7 @@ module.exports = {
   "mongodbUrl": process.env.MONOG_URI, // Mongodb connection url.
   "id": process.env.CLIENTID, // https://discordapp.com/developers/applications/ID/information
   "clientSecret": process.env.CLIENTSECRET, // https://discordapp.com/developers/applications/ID/information
-  "domain": "rockibot.github.io",
+  "domain": "https://rocky43007.github.io/Rockibot/",
 };
 
 /**
