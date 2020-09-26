@@ -1,7 +1,7 @@
 <div align="center"> 
   <br />
   <p>
-    <img src="https://raw.githubusercontent.com/Rocky43007/Rockibot/master/Rockibot%20Logo.png" width="546" alt="Rockibot">
+    <img src="https://raw.githubusercontent.com/Rocky43007/Rockibot/master/Assets/Rockibot%20Logo.png" width="546" alt="Rockibot">
   </p>
   <br />
   <p>
