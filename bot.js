@@ -5,11 +5,53 @@ const MongoDBProvider = require('commando-mongodb');
 const Canvas = require('canvas');
 const uri = process.env.MONGO_URI;
 const MongoClient = require('mongodb').MongoClient;
+const mongoose = require("mongoose");
+const config = require("./docs/config");
+const GuildSettings = require("./docs/models/settings");
+const Dashboard = require("./docs/dashboard/dashboard");
 
 const client = new CommandoClient({
 	commandPrefix: '!',
 	owner: '361212545924595712',
 	invite: 'https://discord.gg/Ju2gSCY'
+});
+mongoose.connect(config.mongodbUrl, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+  });
+  client.config = config;
+
+client.on("message", async (message) => {
+	// Declaring a reply function for easier replies - we grab all arguments provided into the function and we pass them to message.channel.send function.
+	const reply = (...arguments) => message.channel.send(...arguments);
+  
+	// Doing some basic command logic.
+	if (message.author.bot) return;
+	if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
+   
+	// Retriving the guild settings from database.
+	const storedSettings = await GuildSettings.findOne({ gid: message.guild.id });
+	if (!storedSettings) {
+	  // If there are no settings stored for this guild, we create them and try to retrive them again.
+	  const newSettings = new GuildSettings({
+		gid: message.guild.id
+	  });
+	  await newSettings.save().catch(()=>{});
+	  storedSettings = await GuildSettings.findOne({ gid: message.guild.id });
+	}
+  
+	// If the message does not start with the prefix stored in database, we ignore the message.
+	if (message.content.indexOf(storedSettings.prefix) !== 0) return;
+  
+	// We remove the prefix from the message and process the arguments.
+	const args = message.content.slice(storedSettings.prefix.length).trim().split(/ +/g);
+	const command = args.shift().toLowerCase();
+  
+	// If command is ping we send a sample and then edit it with the latency.
+	if (command === "ping") {
+	  const roundtripMessage = await reply("Pong!");
+	  return roundtripMessage.edit(`*${roundtripMessage.createdTimestamp - message.createdTimestamp}ms*`);
+	}
 });
 
 client.on('messageDelete', async (message) => {
@@ -132,6 +174,8 @@ client.registry
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
+	console.log(`Bot is ready. (${client.guilds.cache.size} Guilds - ${client.channels.cache.size} Channels - ${client.users.cache.size} Users)`);
+  	Dashboard(client);
 });
 
 client.setProvider(MongoClient.connect(uri, { useNewUrlParser: true }).then(client => new MongoDBProvider(client, 'Rockibot-DB')));
