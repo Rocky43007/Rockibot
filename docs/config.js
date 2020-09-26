@@ -3,7 +3,8 @@ module.exports = {
   "mongodbUrl": process.env.MONOG_URI, // Mongodb connection url.
   "id": process.env.CLIENTID, // https://discordapp.com/developers/applications/ID/information
   "clientSecret": process.env.CLIENTSECRET, // https://discordapp.com/developers/applications/ID/information
-  "domain": "localhost:8080",
+  "domain": "localhost",
+  "port": 8080
 };
 
 /**
