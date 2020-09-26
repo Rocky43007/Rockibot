@@ -177,7 +177,7 @@ client.on('guildMemberAdd', async member => {
 
 	const attachment = new discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
 
-	channel.send(`Welcome to the server, ${member}!`, attachment);
+	channel.send(`Welcome to the server, ${member.tag}!`, attachment);
 });
 
 client.login(process.env.TOKEN); 
