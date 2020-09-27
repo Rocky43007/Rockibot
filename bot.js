@@ -5,19 +5,12 @@ const MongoDBProvider = require('commando-mongodb');
 const Canvas = require('canvas');
 const uri = process.env.MONGO_URI;
 const MongoClient = require('mongodb').MongoClient;
-const mongoose = require("mongoose");
-const config = require("./docs/config");
-const GuildSettings = require("./docs/models/settings");
-const Dashboard = require("./docs/dashboard/dashboard");
 
 const client = new CommandoClient({
 	commandPrefix: '!',
 	owner: '361212545924595712',
 	invite: 'https://discord.gg/Ju2gSCY'
 });
-mongoose.connect(process.env.MONGO_URI, {
-	useNewUrlParser: true });
-  client.config = config;
 
 client.on("message", async (message) => {
 	// Declaring a reply function for easier replies - we grab all arguments provided into the function and we pass them to message.channel.send function.
@@ -173,7 +166,6 @@ client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
 	console.log(`Bot is ready. (${client.guilds.cache.size} Guilds - ${client.channels.cache.size} Channels - ${client.users.cache.size} Users)`);
-  	Dashboard(client);
 });
 
 client.setProvider(MongoClient.connect(uri, { useNewUrlParser: true }).then(client => new MongoDBProvider(client, 'Rockibot-DB')));
