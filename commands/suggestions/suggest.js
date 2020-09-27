@@ -36,7 +36,7 @@ module.exports = class Suggest extends Command {
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close()
+				}).close();
 		
 			const results = await cursor.toArray();
 		
