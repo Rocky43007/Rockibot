@@ -5,72 +5,12 @@ const MongoDBProvider = require('commando-mongodb');
 const Canvas = require('canvas');
 const uri = process.env.MONGO_URI;
 const MongoClient = require('mongodb').MongoClient;
-const { promisify } = require("util");
-const readdir = promisify(require("fs").readdir);
-const Enmap = require("enmap");
 
 const client = new CommandoClient({
 	commandPrefix: '!',
 	owner: '361212545924595712',
 	invite: 'https://discord.gg/Ju2gSCY'
 });
-client.config = require("./config.js");
-// client.config.token contains the bot's token
-// client.config.prefix contains the message prefix
-
-// Require our logger
-client.logger = require("./util/logger.js");
-
-// Let's start by getting some useful functions that we'll use throughout
-// the bot, like logs and elevation features.
-require("./util/functions.js")(client);
-// Aliases and commands are put in collections where they can be read from,
-// catalogued, listed, etc.
-client.commands = new Enmap();
-client.aliases = new Enmap();
-
-// Discord "recently" introduced Teams, where you can share bot applications between
-// a team of developers, so let's create a new array to push owner ids to.
-client.owners = new Array();
-
-// Now we integrate the use of Evie's awesome EnMap module, which
-// essentially saves a collection to disk. This is great for per-server configs,
-// and makes things extremely easy for this purpose.
-client.settings = new Enmap({ name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true });
-
-// We're doing real fancy node 8 async/await stuff here, and to do that
-// we need to wrap stuff in an anonymous function. It's annoying but it works.
-const init = async () => {
-
-	// Here we load **commands** into memory, as a collection, so they're accessible
-	// here and everywhere else.
-	const cmdFiles = await readdir("./commands/");
-	client.logger.log(`Loading a total of ${cmdFiles.length} commands.`);
-	cmdFiles.forEach(f => {
-	  if (!f.endsWith(".js")) return;
-	  const response = client.loadCommand(f);
-	  if (response) console.log(response);
-	});
-  
-	// Then we load events, which will include our message and ready event.
-	const evtFiles = await readdir("./events/");
-	client.logger.log(`Loading a total of ${evtFiles.length} events.`);
-	evtFiles.forEach(file => {
-	  const eventName = file.split(".")[0];
-	  client.logger.log(`Loading Event: ${eventName}`);
-	  const event = require(`./events/${file}`);
-	  // Bind the client to any event, before the existing arguments
-	  // provided by the discord.js event. 
-	  // This line is awesome by the way. Just sayin'.
-	  client.on(eventName, event.bind(null, client));
-	});
-  
-	// Generate a cache of client permissions for pretty perm names in commands.
-	client.levelCache = {};
-	for (let i = 0; i < client.config.permLevels.length; i++) {
-	  const thisLevel = client.config.permLevels[i];
-	  client.levelCache[thisLevel.name] = thisLevel.level;
-	}
 
 
 client.on("message", async (message) => {
@@ -109,7 +49,7 @@ client.on("message", async (message) => {
 client.on('messageDelete', async (message) => {
 	// create a client to mongodb
 	const MongoClient = require('mongodb').MongoClient;
-	const client2 = new MongoClient(uri, { useNewUrlParser: true });	
+	const client3 = new MongoClient(uri, { useNewUrlParser: true });	
 	async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
 		minimumNumberOfBedrooms = 0
 	} = {}) {
@@ -140,26 +80,26 @@ client.on('messageDelete', async (message) => {
 			console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
 		}
 	}
-	client2.connect(async err => {
+	client3.connect(async err => {
 		if (err) throw err;
 		// db pointing to newdb
-		console.log("Switched to "+client2.databaseName+" database");
+		console.log("Switched to "+client3.databaseName+" database");
 		// insert document to 'users' collection using insertOne
-		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
+		client3.db("Rockibot-DB").collection("modlogs").find({ guildname: message.guild.id }, async function(err, res) {
 			   if (err) throw err;
 			   console.log("Document found");
-			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client2, {
+			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client3, {
 				minimumNumberOfBedrooms: message.guild.id
 			});
 			// close the connection to db when you are done with it
-			client2.close();
+			client3.close();
 		}); 
 	});
 });
 client.on('messageUpdate', async (oldMessage, newMessage) => {
 	// create a client to mongodb
 	const MongoClient = require('mongodb').MongoClient;
-	const client2 = new MongoClient(uri, { useNewUrlParser: true });
+	const client3 = new MongoClient(uri, { useNewUrlParser: true });
 	async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
 		minimumNumberOfBedrooms = 0
 	} = {}) {
@@ -193,19 +133,19 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 			console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
 		}
 	}
-	client2.connect(async err => {
+	client3.connect(async err => {
 		if (err) throw err;
 		// db pointing to newdb
-		console.log("Switched to "+client2.databaseName+" database");
+		console.log("Switched to "+client3.databaseName+" database");
 		// insert document to 'users' collection using insertOne
-		client2.db("Rockibot-DB").collection("modlogs").find({ guildname: oldMessage.guild.id }, async function(err, res) {
+		client3.db("Rockibot-DB").collection("modlogs").find({ guildname: oldMessage.guild.id }, async function(err, res) {
 			   if (err) throw err;
 			   console.log("Document found");
-			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client2, {
+			   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client3, {
 				minimumNumberOfBedrooms: oldMessage.guild.id
 			});
 			// close the connection to db when you are done with it
-			client2.close();
+			client3.close();
 		}); 
 	});
 });
@@ -225,7 +165,7 @@ client.registry
 	
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
-	client.user.setActivity('with !help | discord.gg/Ju2gSCY');
+	client2.user.setActivity('with !help | discord.gg/Ju2gSCY');
 	console.log(`Bot is ready. (${client.guilds.cache.size} Guilds - ${client.channels.cache.size} Channels - ${client.users.cache.size} Users)`);
 });
 
@@ -276,6 +216,3 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.login(process.env.TOKEN);
-};
-  
-init(); 
