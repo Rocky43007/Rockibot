@@ -3997,6 +3997,7 @@ input[type=button].btn-block {
   border-bottom: 1px solid #dee2e6;
 }
 .nav-tabs .nav-item {
+  color: #fff;
   margin-bottom: -1px;
 }
 .nav-tabs .nav-link {
@@ -4034,11 +4035,13 @@ input[type=button].btn-block {
 }
 
 .nav-fill .nav-item {
+  color: #fff;
   flex: 1 1 auto;
   text-align: center;
 }
 
 .nav-justified .nav-item {
+  color: #fff;
   flex-basis: 0;
   flex-grow: 1;
   text-align: center;
@@ -10146,7 +10149,7 @@ body {
 #mainNav .navbar-toggler {
   font-size: 80%;
   padding: 0.75rem;
-  color: #1b1c1c;
+  color: #fff;
   border: 1px solid #64a19d;
 }
 #mainNav .navbar-toggler:focus {
@@ -10158,11 +10161,13 @@ body {
   padding: 0.9rem 0;
 }
 #mainNav .navbar-nav .nav-item:hover {
-  color: fade(#fff, 80%);
+  color: #fff;
+  /*! color: fade(#fff, 80%); */
   outline: none;
   background-color: transparent;
 }
 #mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+  color: #fff;
   outline: none;
   background-color: transparent;
 }
@@ -10176,38 +10181,38 @@ body {
   }
   #mainNav .navbar-brand {
     padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(235, 229, 229, 0.9);
   }
   #mainNav .nav-link {
     transition: none;
     padding: 2rem 1.5rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(235, 229, 229, 0.9);
   }
   #mainNav .nav-link:hover {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(235, 229, 229, 0.9);
   }
   #mainNav .nav-link:active {
-    color: rgba(255, 255, 255, 0.5);;
+    color: rgba(235, 229, 229, 0.9);
   }
   #mainNav.navbar-shrink {
     background-color: #1b1c1c;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #000000;
+    color: rgba(235, 229, 229, 0.9);
   }
   #mainNav.navbar-shrink .nav-link {
-    color: #000000;
+    color: rgba(235, 229, 229, 0.9);
     padding: 1.5rem 1.5rem 1.25rem;
     border-bottom: 0.25rem solid transparent;
   }
   #mainNav.navbar-shrink .nav-link:hover {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(235, 229, 229, 0.9);
   }
   #mainNav.navbar-shrink .nav-link:active {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(235, 229, 229, 0.9);
   }
   #mainNav.navbar-shrink .nav-link.active {
-    color: rgba(255, 255, 255, 0.5);;
+    color: rgba(235, 229, 229, 0.9);
     outline: none;
     border-bottom: 0.25rem solid #64a19d;
   }
