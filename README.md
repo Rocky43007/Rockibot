@@ -1,13 +1,14 @@
 <div align="center"> 
   <br />
   <p>
-    <img src="https://raw.githubusercontent.com/Rocky43007/Rockibot/master/Assets/Rockibot%20Logo.png" width="546" alt="Rockibot">
+    <img src="https://raw.githubusercontent.com/Rocky43007/Rockibot/master/docs/assets/img/Rockibot%20Logo.png" width="546" alt="Rockibot">
   </p>
   <br />
   <p>
     <a href="https://discord.gg/rdGrcvW"><img src="https://img.shields.io/discord/739916829828448317?color=7289da&logo=discord&logoColor=white" alt="Support Server" /></a>
     <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/badge/Invite-Invite%20the%20bot!-brightgreen" alt="Invite" /></a>
      <a href="https://github.com/Rocky43007/Rockibot/actions"><img src="https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg" alt="Build status" /></a>
+    <a href="https://rocky43007.github.io/Rockibot"><img src="https://img.shields.io/badge/Website-Visit%20the%20website!-informational" alt="Website" /></a>
       </p>
 </div>
 
