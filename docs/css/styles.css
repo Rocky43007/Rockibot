@@ -6685,6 +6685,10 @@ button.bg-black:focus {
   border: 0;
 }
 
+.circular--square {
+  border-radius: 50%;
+}
+
 .embed-responsive-21by9::before {
   padding-top: 42.8571428571%;
 }
