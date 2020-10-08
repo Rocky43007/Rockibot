@@ -10148,7 +10148,7 @@ body {
 
 #mainNav {
   min-height: 3.5rem;
-  background-color: #fff;
+  background-color: rgba(27, 28, 28);
 }
 #mainNav .navbar-toggler {
   font-size: 80%;
@@ -10160,7 +10160,7 @@ body {
   outline: none;
 }
 #mainNav .navbar-brand {
-  color: #1b1c1c;
+  color: #fff;
   font-weight: 700;
   padding: 0.9rem 0;
 }
