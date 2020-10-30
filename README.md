@@ -9,6 +9,7 @@
     <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/badge/Invite-Invite%20the%20bot!-brightgreen" alt="Invite" /></a>
      <a href="https://github.com/Rocky43007/Rockibot/actions"><img src="https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg" alt="Build status" /></a>
     <a href="https://rocky43007.github.io/Rockibot"><img src="https://img.shields.io/badge/Website-Visit%20the%20website!-informational" alt="Website" /></a>
+    <a href="http://rockibot.ml"><img src="https://img.shields.io/badge/Dashboard-Visit%20the%20dashboard!-informational" alt="Dashboard" /></a>
       </p>
 </div>
 
