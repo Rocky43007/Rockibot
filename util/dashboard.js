@@ -24,7 +24,7 @@ const path = require("path");
 const Discord = require("discord.js");
 const { CommandoClient } = require('discord.js-commando');
 const client2 = new CommandoClient({
-  commandPrefix: ';',
+  commandPrefix: '!',
   owner: '361212545924595712',
   invite: 'https://discord.gg/Ju2gSCY'
 });

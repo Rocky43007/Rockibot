@@ -57,7 +57,7 @@ module.exports = class stats extends Command {
 					.addField('Channels:', `${totalChannels}`)
 					.addField('Shard:', `${totalShards}`)
 					.addField('Creator:', 'Rocky43007#7727')
-					.addField('Version:', '0.4.0-alpha')
+					.addField('Version:', '1.0.0-beta')
 					.addField('Memory Usage:', `${getpercentage} (${used} MB)`)
 					.addField('Uptime:', `${dateString}`)
 					.addField('Discord.js Version:', 'v12.3.1')

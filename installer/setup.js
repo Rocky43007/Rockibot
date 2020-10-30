@@ -5,14 +5,15 @@ const fs = require("fs");
 let baseConfig = fs.readFileSync("./installer/setup_base.txt", "utf8");
 
 const defaultSettings = {
-  "prefix": "~",
+  "prefix": "!",
   "modLogChannel": "mod-log",
   "modRole": "Moderator",
   "adminRole": "Administrator",
   "systemNotice": "true",
   "welcomeChannel": "welcome",
   "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
-  "welcomeEnabled": "false"
+  "welcomeEnabled": "false",
+  "Modules": "moderation, suggestions"
 };
 
 const settings = new Enmap({ 
