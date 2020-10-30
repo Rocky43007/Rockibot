@@ -2,6 +2,7 @@ canvastesting.js
 notes.txt
 testing.js
 node_modules
+config.js
 # Numerous always-ignore extensions
 *.diff
 *.err

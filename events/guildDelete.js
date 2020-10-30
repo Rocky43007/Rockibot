@@ -1,10 +1,12 @@
-// This event executes when the bot leaves a guild (server).
+// This event executes when a guild (server) is left.
+module.exports = class {
+  constructor(client) {
+    this.client = client;
+  }
 
-module.exports = (client, guild) => {
-  // Update the activity to show the updated number of guilds.
-  client.user.setActivity(`${client.getSettings("default").prefix}help | ${client.guilds.size} Servers`);
-  // Well they're gone. Let's remove them from the settings and log it!
-  client.settings.delete(guild.id);
-  // Log to the console that a guild was left.
-  client.logger.log(`Left guild: ${guild.name} (${guild.id}) with ${guild.memberCount} members`);
+  async run(guild) {
+    this.client.user.setActivity(`for @${this.client.user.username} help | ${this.client.guilds.size} Servers`, { type: "WATCHING" });
+    // Well they're gone. Let's remove them from the settings!
+    this.client.settings.delete(guild.id);
+  }
 };
