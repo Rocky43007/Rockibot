@@ -36,7 +36,7 @@ module.exports = class Mute extends Command {
 		});
 	}
 	async run(message, { user, reason, time }) {
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -48,7 +48,7 @@ module.exports = class Mute extends Command {
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close()
+				});
 		
 			const results = await cursor.toArray();
 		
@@ -88,10 +88,11 @@ module.exports = class Mute extends Command {
 							user.send(`You have been unmuted from ${message.guild.name}.`),
 						);
 					}, args * 60000);
-					
+					cursor.close();
 				});
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
 			}
 		}
 		const args = time;

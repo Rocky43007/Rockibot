@@ -22,7 +22,7 @@ module.exports = class PurgeCommand extends Command {
 	}
 
 	async run(message, args) {
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -34,7 +34,7 @@ module.exports = class PurgeCommand extends Command {
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close()
+				});
 		
 			const results = await cursor.toArray();
 		
@@ -67,8 +67,10 @@ module.exports = class PurgeCommand extends Command {
 					if (!sChannel) return;
 					sChannel.send(embed);
 				});
+				cursor.close();
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
 			}
 		}
 		// Purge Command!

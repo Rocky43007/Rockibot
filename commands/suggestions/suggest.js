@@ -24,7 +24,7 @@ module.exports = class Suggest extends Command {
 	}
 	async run(message, { suggest }) {
 
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -36,7 +36,7 @@ module.exports = class Suggest extends Command {
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close();
+				});
 		
 			const results = await cursor.toArray();
 		
@@ -60,7 +60,7 @@ module.exports = class Suggest extends Command {
 					if (!sChannel) return;
 					const author = message.author.tag;
 					const authorIM = message.author.avatarURL();
-					message.reply(`Suggestion sent to ${sChannel}.`);
+					message.say(`Suggestion sent to ${sChannel}.`);
 					sChannel.send({ embed: embed }).then(async embedMessage => {
 						if(casenumber === null) {
 							db.set(`casenumber_${message.guild.id}`, 1);
@@ -90,8 +90,10 @@ module.exports = class Suggest extends Command {
 						});
 					});
 				});
+				cursor.close();
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
 			}
 		}
 		client.connect(async err => {

@@ -29,7 +29,7 @@ module.exports = class Ban extends Command {
 		});
 	}
 	async run(message, { user, content }) {
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -41,7 +41,7 @@ module.exports = class Ban extends Command {
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close()
+				});
 		
 			const results = await cursor.toArray();
 		
@@ -67,9 +67,11 @@ module.exports = class Ban extends Command {
 						message.guild.member(user).ban();
 						message.say('Successfully banned ' + user);
 					});
+					cursor.close();
 				});
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
 			}
 		}
 		if (message.guild.member(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not ban this user, he has higher permission than I do.');
