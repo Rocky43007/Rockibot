@@ -40,7 +40,7 @@ module.exports = class PurgeCommand extends Command {
 		
 			if (results.length > 0) {
 				await message.channel.messages
-				.fetch({ limit: args.purgecount + 1 })
+				.fetch({ limit: args.purgecount})
 				.then(async messages => {
 				// Fetches the messages
 				await message.channel.bulkDelete(messages);
