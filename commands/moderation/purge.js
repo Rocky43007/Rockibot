@@ -9,7 +9,7 @@ module.exports = class PurgeCommand extends Command {
 			memberName: 'purge',
 			description: 'Purges the Chat',
 			clientPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
+			userPermissions: ['MANAGE_MESSAGES'],
 			args: [
 				{
 					key: 'purgecount',
@@ -56,7 +56,7 @@ module.exports = class PurgeCommand extends Command {
 				.addField('Moderation:', 'Purge')
 				.addField('Amount of text purged:', args.purgecount)
 				.addField('Moderator:', `${message.author}`)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
 					console.log(`   _id: ${result._id}`);

@@ -19,17 +19,18 @@ module.exports = class Mute extends Command {
 				type: 'member',
 			},
 			{
+                                key: 'reason',
+                                label: 'reason',
+                                prompt: 'Why is the user being muted?',
+                                type: 'string',
+                                default: 'No Reason Given.'
+                        },
+			{
 				key: 'time',
 				label: 'time',
 				prompt: 'How long will the user be muted for?',
 				type: 'integer',
-			},
-			{
-				key: 'reason',
-				label: 'reason',
-				prompt: 'Why is the user being muted?',
-				type: 'string',
-				default: 'No Reason Given.',
+				default: '0',
 			}],
 
 			guildOnly: true,
@@ -53,10 +54,6 @@ module.exports = class Mute extends Command {
 			const results = await cursor.toArray();
 		
 			if (results.length > 0) {
-				user.roles.add(role.id).catch(console.error).then(
-					user.send(`You have been muted from ${message.guild.name} for ${args} minute(s) because of: ${reason}`),
-					message.say(`**${user}** has been muted for ${args} minute(s) because of: ${reason}`),
-				);
 				const embed = new discord.MessageEmbed()
 				.setColor('#ff2050')
 				.setAuthor(`${message.guild.name}`, message.guild.iconURL())
@@ -65,14 +62,14 @@ module.exports = class Mute extends Command {
 				.addField('Reason:', reason)
 				.addField('Duration', `${args} minute(s)`)
 				.addField('Moderator:', `${message.author}`)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 				const unmuteembed = new discord.MessageEmbed()
 				.setColor('#ff2050')
 				.setAuthor(`${message.guild.name}`, message.guild.iconURL())
 				.addField('Moderation:', 'Unmute')
 				.addField('Offender:', `**${user}**`)
 				.addField('Moderator:', `${message.author}`)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
 					console.log(`   _id: ${result._id}`);
@@ -82,6 +79,19 @@ module.exports = class Mute extends Command {
 					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
 					if (!sChannel) return;
 					sChannel.send(embed);
+					if (args === '0') {
+	                                   user.roles.add(role.id).catch(console.error).then(
+	                                        user.send(`You have been muted from ${message.guild.name} indefinitely because of: ${reason}`),
+	                                        message.say(`**${user}** has been muted indefinitely because of: ${reason}`),
+ 		                          );
+					return;
+                                	} else {
+					 user.roles.add(role.id).catch(console.error).then(
+                                        user.send(`You have been muted from ${message.guild.name} for ${args} minute(s) because of: ${reason}`),
+                                        message.say(`**${user}** has been muted for ${args} minute(s) because of: ${reason}`),
+                                	);
+					}
+
 					setTimeout(async () => {
 						await user.roles.remove(role).then(
 							sChannel.send(unmuteembed),

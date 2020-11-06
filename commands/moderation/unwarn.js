@@ -54,7 +54,7 @@ module.exports = class unwarn extends Command {
 				.addField('Reason:', content)
 				.addField('Moderator:', `${message.author}`)
 				.addField('Warns:', warnings)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
 					console.log(`   _id: ${result._id}`);

@@ -29,6 +29,11 @@ module.exports = class stats extends Command {
 
 		return Promise.all(promises)
 			.then(results => {
+				const shardid = Client.shard.broadcastEval(`
+                        	[
+                                this.shard.ids[0],
+                        	]
+                        	`);
 				const used = process.memoryUsage().heapUsed / 1024 / 1024;
 				const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
 				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
@@ -52,19 +57,19 @@ module.exports = class stats extends Command {
 				const d = new Date();
 				const embed = new Discord.MessageEmbed()
 					.setColor('#00FFFF')
-					.setTitle('Rocky\'s Modular Bot Stats')
+					.setTitle('Rockibot\'s Stats')
 					.addField('Servers:', `${totalGuilds}`)
 					.addField('Users:', `${totalMembers}`)
 					.addField('Channels:', `${totalChannels}`)
-					.addField('Shard:', `${totalShards}`)
+					.addField('Shard:', `${totalShards} \`[ID: ${Client.shard.ids[0]}]\``)
 					.addField('Creator:', 'Rocky43007#7727')
-					.addField('Version:', '1.0.3-beta')
+					.addField('Version:', '1.0.5-beta')
 					.addField('Memory Usage:', `${getpercentage} (${used} MB)`)
 					.addField('Uptime:', `${dateString}`)
 					.addField('Discord.js Version:', 'v12.4.1')
 					.addField('Operating System:', 'Ubuntu 18.04.5 LTS')
 					.addField('Kernel:', `${os.release}`)
-					.setFooter(d.toLocaleDateString());
+					.setTimestamp();
 
 				return message.channel.send(embed);
 			})

@@ -1,7 +1,6 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 
-
 module.exports = class Ban extends Command {
 	constructor(client) {
 		super(client, {
@@ -44,7 +43,6 @@ module.exports = class Ban extends Command {
 				});
 		
 			const results = await cursor.toArray();
-		
 			if (results.length > 0) {
 				const embed = new discord.MessageEmbed()
 				.setColor('#ff2050')
@@ -53,7 +51,7 @@ module.exports = class Ban extends Command {
 				.addField('Offender:', `**${user}**`)
 				.addField('Reason:', content)
 				.addField('Moderator:', `${message.author}`)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
 					console.log(`   _id: ${result._id}`);
@@ -65,7 +63,7 @@ module.exports = class Ban extends Command {
 					sChannel.send(embed);
 					user.send(`You have been banned from ${message.guild.name} for: ${content}`).then(function() {
 						message.guild.member(user).ban();
-						message.say('Successfully banned ' + user);
+						message.say('Successfully banned ' + user.tag);
 					});
 					cursor.close();
 				});
@@ -74,8 +72,8 @@ module.exports = class Ban extends Command {
 				cursor.close();
 			}
 		}
-		if (message.guild.member.cache.get(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not ban this user, he has higher permission than I do.');
-		if (!message.guild.hasPermission('BAN_MEMBERS', 'ADMINISTRATOR')) return message.reply('I need the permission `BAN MEMBERS` for this to work.');
+		if (message.guild.member(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not ban this user, he has higher permission than I do.');
+		if (!message.guild.me.hasPermission('BAN_MEMBERS', 'ADMINISTRATOR')) return message.reply('I need the permission `BAN_MEMBERS` for this to work.');
 
 		client.connect(async err => {
 			if (err) throw err;

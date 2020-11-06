@@ -271,7 +271,7 @@ client2.on('messageDelete', async (message) => {
 			.setColor('#ff2050')
 			.setAuthor(message.author.tag, message.author.avatarURL())
 			.addField(`Message Deleted in #${message.channel.name}`, message.content)
-			.setFooter(message.createdAt.toLocaleString());
+			.setTimestamp();
 			console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 			results.forEach((result, i) => {
 				console.log(`   _id: ${result._id}`);
@@ -324,7 +324,7 @@ client2.on('messageUpdate', async (oldMessage, newMessage) => {
 			.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
 			.addField('Before:', oldMessage.content, true)
 			.addField('After:', newMessage.content, true)
-			.setFooter(newMessage.createdAt.toLocaleString());
+			.setTimestamp;
 
 			console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 			results.forEach((result, i) => {

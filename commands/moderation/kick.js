@@ -52,7 +52,7 @@ module.exports = class Kick extends Command {
 				.addField('Offender:', `**${user}**`)
 				.addField('Reason:', content)
 				.addField('Moderator:', `${message.author}`)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
@@ -65,7 +65,7 @@ module.exports = class Kick extends Command {
 					sChannel.send(embed);
 					user.send(`You have been kicked from ${message.guild.name} for: ${content}`).then(function() {
 						message.guild.member(user).kick();
-						message.say('Successfully kicked ' + user);
+						message.say('Successfully kicked ' + user.tag);
 					});
 					cursor.close();
 				});
