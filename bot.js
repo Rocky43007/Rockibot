@@ -324,7 +324,7 @@ client2.on('messageUpdate', async (oldMessage, newMessage) => {
 			.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
 			.addField('Before:', oldMessage.content, true)
 			.addField('After:', newMessage.content, true)
-			.setTimestamp;
+			.setTimestamp();
 
 			console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 			results.forEach((result, i) => {
