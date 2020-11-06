@@ -15,8 +15,7 @@
 
 # About
 
-Rockibot is a Discord bot created using [Discordjs/Commando](https://github.com/discordjs/Commando/) and [Discord.js](https://github.com/discordjs/Discord.js/). It is a extremely modular bot for those who want some features, and only one bot for it. The database backbone is MongoDB, and the bot is still in it's Alpha stages of  development. Use it if you want, but be warned that the bot is changing everyday, and some features may be removed or data may be lost. Please keep an eye on the updates channel on the support server as I will announce this before implementing the change.
-
+Rockibot is a Discord bot created using [Discordjs/Commando](https://github.com/discordjs/Commando/) and [Discord.js](https://github.com/discordjs/Discord.js/). It is an extremely modular bot for those who want some features, and only one bot for it. And the modularity can easily be done via the dashboard at [the Rockibot Dashboard](http://rockibot.ml). With the modularity, you can have moderation, suggestions, or both. More modules will be coming soon!
 # Basic Commands
 `!invite` - Allows other users to invite the bot to their own server.
 

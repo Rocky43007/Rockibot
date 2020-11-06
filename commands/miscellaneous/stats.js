@@ -54,7 +54,6 @@ module.exports = class stats extends Command {
 				if (minutes > 0) segments.push(minutes + ' minute' + ((minutes == 1) ? '' : 's'));
 				if (seconds > 0) segments.push(seconds + ' second' + ((seconds == 1) ? '' : 's'));
 				const dateString = segments.join(', ');
-				const d = new Date();
 				const embed = new Discord.MessageEmbed()
 					.setColor('#00FFFF')
 					.setTitle('Rockibot\'s Stats')
