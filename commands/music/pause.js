@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const Discord = require('discord.js');
 
 module.exports = class MusicPause extends Command {
 	constructor(client) {
@@ -16,7 +17,10 @@ module.exports = class MusicPause extends Command {
 		const voiceChannel = message.member.voice.channel;
 
 		if (!voiceChannel) {
-			return message.reply('This command can only be run if you are in a voice channel!');
+		const embed = new Discord.MessageEmbed()
+			.setColor('#c22419')
+			.setTitle('You need to be in a voice channel!')
+		return message.channel.send(embed);
 		}
 		connection.pause();
 	}

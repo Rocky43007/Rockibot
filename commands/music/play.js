@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const ytdl = require('ytdl-core');
+const Discord = require('discord.js');
 
 module.exports = class MusicPlay extends Command {
 	constructor(client) {
@@ -26,7 +27,10 @@ module.exports = class MusicPlay extends Command {
 		const voiceChannel = message.member.voice.channel;
 
 		if (!voiceChannel) {
-			return message.reply('Please join a voice channel first!');
+			const embed = new Discord.MessageEmbed()
+				.setColor('#c22419')
+				.setTitle('You need to be in a voice channel!')
+			return message.channel.send(embed);
 		}
 
 		voiceChannel.join().then(connection => {

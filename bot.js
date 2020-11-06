@@ -233,6 +233,7 @@ const init = async () => {
       ['miscellaneous', 'Basic Commands'],
       ['moderation', 'Moderation Commands'],
       ['suggestions', 'Suggestions Commands'],
+      ['music', 'Music Commands'],
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands()	
@@ -243,12 +244,27 @@ const init = async () => {
 
     if (gdb === 'moderation') {
       message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", false);
     }
     if (gdb === null) {
       message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", true);
+    }
+    if (gdb === 'suggestions') {
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("music", false);
+    }
+    if (gdb === 'music') {
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("suggestions", false);
     }
     if (gdb === 'moderation, suggestions') {
       message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", false);
+    }
+    if (gdb === 'moderation, suggestions, music') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", true);
     }
   });
 
@@ -324,7 +340,7 @@ client2.on('messageUpdate', async (oldMessage, newMessage) => {
 			.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
 			.addField('Before:', oldMessage.content, true)
 			.addField('After:', newMessage.content, true)
-			.setTimestamp;
+			.setTimestamp();
 
 			console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 			results.forEach((result, i) => {
