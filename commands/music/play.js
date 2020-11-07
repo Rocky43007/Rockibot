@@ -45,6 +45,10 @@ module.exports = class MusicPlay extends Command {
 		var server = servers[message.guild.id];
 		server.dispatcher = connection.play(ytdl(server.queue[0], { filter: 'audioonly' }));
 
+		var extstream = server.dispatcher = connection.play(ytdl(server.queue[0], { filter: 'audioonly' }));
+
+		module.exports = { extstream };
+
 		server.queue.shift();
 
 		server.dispatcher.on("finish", function() {
