@@ -15,7 +15,7 @@ module.exports = class MusicSkip extends Command {
 	const intqueue = require('./play.js').extqueue;
 	const intstream = require('./play.js').extstream;
 	var server = servers[message.guild.id];
-	if(intstream) intstream.on("finish".then(
+	if(intstream) intstream.on("finish").then(
 	message.channel.send('**Song skipped!**'));
 	const voiceChannel = message.member.voice.channel;
                 if (!voiceChannel) {
