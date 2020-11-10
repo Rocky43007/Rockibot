@@ -41,17 +41,15 @@ module.exports = class MusicPlay extends Command {
 		var extqueue = server.queue[0];
 		module.exports = { extqueue };
 		voiceChannel.join().then(connection => {
-
+		console.log(extqueue);
 		var server = servers[message.guild.id];
-		server.dispatcher = connection.play(ytdl(server.queue[0], { filter: 'audioonly' }));
-
 		var extstream = server.dispatcher = connection.play(ytdl(server.queue[0], { filter: 'audioonly' }));
-
+		console.log(server.queue[0]);
 		module.exports = { extstream };
 
 		server.queue.shift();
 
-		server.dispatcher.on("finish", function() {
+		extstream.on("finish", function() {
 		if (server.queue[0]){
 		server.dispatcher = connection.play(ytdl(server.queue[0], { filter: 'audioonly' }));
 		};
