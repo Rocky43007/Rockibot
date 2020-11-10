@@ -1,12 +1,14 @@
 const Discord = require('discord.js');
 const { Command } = require('discord.js-commando');
+const Keyv = require('keyv');
+const prefixes = new Keyv('sqlite://./databases/prefix.sqlite');
 
 module.exports = class help2 extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'newhelp',
+			name: 'help',
 			group: 'miscellaneous',
-			memberName: 'newhelp',
+			memberName: 'help',
 			description: 'Shows the list of commands',
 			args: [
 				{
@@ -18,7 +20,8 @@ module.exports = class help2 extends Command {
 			],
 		});
 	}
-	run(message, page) {
+	run(message, { page }) {
+		const serverprefix = prefixes.get(message.guild.id);
 		const home = new Discord.MessageEmbed()
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
@@ -37,6 +40,8 @@ module.exports = class help2 extends Command {
 			.addField('status', 'Used to check if the bot is working or not.')
 			.addField('stats', 'Nerdy stats for those who want to see who made the bot, and how much memory is being used, and what version the bot is.')
 			.addField('invite', 'Allows other users to invite the bot to their own server.')
+			.addField('dashboard', 'Takes you to the bot\'s dashboard.')
+			.addField('vote', 'Takes you to the bot\'s vote page.')
 
 		const suggestions = new Discord.MessageEmbed()
 			.setColor('#71EEB8')

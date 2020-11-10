@@ -61,15 +61,13 @@ module.exports = class Suggest extends Command {
 					sChannel.send({ embed: embed }).then(async embedMessage => {
 						if(casenumber === null) {
 							db.set(`casenumber_${message.guild.id}`, 1);
-						}
-						if(casenumber !== null) {
+						} else {
 							db.add(`casenumber_${message.guild.id}`, 1);
 						}
 						embedMessage.react('⬆️').then(
 						embedMessage.react('⬇️'));
 						const client = new MongoClient(uri, { useNewUrlParser: true });
 						client.connect(err => {
-							const casenumber = db.get(`casenumber_${message.guild.id}`);
 							if (err) throw err;
 							// db pointing to newdb
 							console.log("Switched to "+client.databaseName+" database");
