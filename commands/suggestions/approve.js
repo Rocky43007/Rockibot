@@ -41,7 +41,7 @@ module.exports = class SApprove extends Command {
 		const MongoClient = require('mongodb').MongoClient;
 		const client = new MongoClient(uri, { useNewUrlParser: true });
 	
-		async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+		async function ListingsWithMinimumBedroomsBathroomsMostRecentReviews(client, {
 			minimumNumberOfBedrooms = 0,
 			messid = 0
 		} = {}) {
