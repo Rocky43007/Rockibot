@@ -262,6 +262,14 @@ const init = async () => {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", false);
     }
+    if (gdb === 'moderation, music') {
+      message.guild.setGroupEnabled("suggestions", false);
+    }
+    if (gdb === 'suggestions, music') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("music", true);
+    }
     if (gdb === 'moderation, suggestions, music') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", true);

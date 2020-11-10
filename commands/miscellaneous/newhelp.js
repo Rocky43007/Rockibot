@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const prefixes = new Keyv('sqlite://./databases/prefix.sqlite');
 
 module.exports = class help2 extends Command {
 	constructor(client) {
@@ -21,7 +20,6 @@ module.exports = class help2 extends Command {
 		});
 	}
 	run(message, { page }) {
-		const serverprefix = prefixes.get(message.guild.id);
 		const home = new Discord.MessageEmbed()
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
@@ -76,6 +74,8 @@ module.exports = class help2 extends Command {
 			.addField('leave', 'Makes the bot leave the voice channel it was in.')
 			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
 			.addField('pause', 'Pauses the music being played.')
+			.addField('queue', 'Shows the next song in the queue.')
+			.addField('skip', 'Skips to the next song in the queue.')
 		switch (page) {
 			case "1":
 				return message.channel.send({ embed: basic })
