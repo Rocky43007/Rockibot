@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
-const prefixes = new Keyv('sqlite://./databases/prefix.sqlite');
 
 module.exports = class help2 extends Command {
 	constructor(client) {
@@ -21,7 +20,6 @@ module.exports = class help2 extends Command {
 		});
 	}
 	run(message, { page }) {
-		const serverprefix = prefixes.get(message.guild.id);
 		const home = new Discord.MessageEmbed()
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
