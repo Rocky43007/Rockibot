@@ -29,6 +29,7 @@ module.exports = class help2 extends Command {
 		.addField('Page 2: Moderation Commands', 'These commands are for moderating servers, such as `!ban`, `!kick` and more!')
 		.addField('Page 3: Music Commands', 'These commands are for the music aspect of the bot. Here, you can find information of `!play`, `!join` and more!')
 		.addField('Page 4: Suggestion Commands', 'These commands relate to suggestions! Here, you can find information about `!suggest`, `!suggest-channel` and more!')
+		.addField('Links', '[Dashboard](https://rockibot.ml)\n[Website](https://rocky43007.github.com/Rockibot)')
 
 		const basic = new Discord.MessageEmbed()
 			.setColor('#4e03fc')
@@ -74,8 +75,10 @@ module.exports = class help2 extends Command {
 			.setDescription('Please remove the `<>` when using the commands!')
 			.addField('join', 'Makes the bot join the voice channel the user is in.')
 			.addField('leave', 'Makes the bot leave the voice channel it was in.')
-			.addField('play', 'Plays Youtube links in the voice channel. Usage: !play <Youtube link>.')
+			.addField('play', 'Plays Youtube links in the voice channel. Usage: `!play <Youtube link>`.')
 			.addField('pause', 'Pauses the music being played.')
+			.addField('queue', 'Shows the next song in the queue.')
+			.addField('skip', 'Skips to the next song in the queue.')
 		switch (page) {
 			case "1":
 				return message.channel.send({ embed: basic })
