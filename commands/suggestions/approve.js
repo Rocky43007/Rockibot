@@ -95,7 +95,7 @@ module.exports = class SApprove extends Command {
 			client.db("Rockibot-DB").collection("schanneldb").find({ guildname: message.guild.id }, async function(err, res) {
 				   if (err) throw err;
 				   console.log("Document found");
-				   await findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
+				   await ListingsWithMinimumBedroomsBathroomsMostRecentReviews(client, {
 					minimumNumberOfBedrooms: message.guild.id,
 					messid: msgid
 				});
