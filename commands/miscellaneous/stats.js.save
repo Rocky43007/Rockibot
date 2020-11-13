@@ -62,7 +62,7 @@ module.exports = class stats extends Command {
 					.addField('Channels:', `${totalChannels}`)
 					.addField('Shard:', `${totalShards} \`[ID: ${Client.shard.ids[0]}]\``)
 					.addField('Creator:', 'Rocky43007#7727')
-					.addField('Co-Developer:', 'Abdo#4056')
+					.addField('Co-Developer:', 'Abdo
 					.addField('Version:', '1.1.2-beta')
 					.addField('Memory Usage:', `${getpercentage} (${used} MB)`)
 					.addField('Uptime:', `${dateString}`)

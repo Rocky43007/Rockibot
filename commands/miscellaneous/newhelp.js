@@ -60,7 +60,7 @@ module.exports = class help2 extends Command {
 			.addField('ban', 'Bans users from the server. Usage: `!ban <Mention User or User ID> <Reason>`.')
 			.addField('kick', 'Kicks users from the server. Usage: `!kick <Mention User or User ID> <Reason>`.')
 			.addField('modlog', 'Sets the modeation log channel of the server. Usage: `!modlog <Channel Name without #>`.')
-			.addField('mute', 'Used to mute members on the server. Usage: `!mute <Mention User or User ID> <Time> <Reason>`.')
+			.addField('mute', 'Used to mute members on the server. Usage: `!mute <Mention User or User ID> <Reason> <time>`.')
 			.addField('unmute', 'Un-mutes the mentioned muted user. Usage: `!unmute <Mention User or User ID>`.')
 			.addField('purge', 'Used to remove specific number of messages on the server. Usage: `!purge <Number of messages>`.')
 			.addField('warn', 'Allows staff to warn a member. Usage: `!warn <Mention User or User ID> <Reason>`.')
