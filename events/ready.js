@@ -4,7 +4,7 @@ module.exports = class {
   }
 
   async run() {
-    
+
     // Why await here? Because the ready event isn't actually ready, sometimes
     // guild information will come in *after* ready. 1s is plenty, generally,
     // for all of them to be loaded.
@@ -35,7 +35,4 @@ module.exports = class {
 
     // Log that we're ready to serve, so we know the bot accepts commands.
     this.client.logger.log(`${this.client.user.tag}, ready to serve ${this.client.users.cache.size} users in ${this.client.guilds.cache.size} servers.`, "ready");  }
-
-  
 };
-
