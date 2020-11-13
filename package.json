@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/An-Idiots-Guide/guidebot-class#readme",
   "dependencies": {
+    "@discordjs/opus": "^0.3.3",
+    "@keyv/sqlite": "^2.0.2",
     "better-sqlite-pool": "^0.2.3",
     "better-sqlite3": "^5.4.3",
     "body-parser": "^1.19.0",
@@ -40,6 +42,7 @@
     "memorystore": "^1.6.4",
     "moment": "^2.29.1",
     "moment-duration-format": "^1.3.0",
+    "mongodb": "^3.6.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",

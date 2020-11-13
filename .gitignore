@@ -3,6 +3,12 @@ notes.txt
 testing.js
 node_modules
 config.js
+data
+mconfig.json
+bot.js.save
+bot.js.save.1
+databases
+
 # Numerous always-ignore extensions
 *.diff
 *.err

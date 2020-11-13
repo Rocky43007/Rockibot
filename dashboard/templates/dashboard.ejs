@@ -32,7 +32,7 @@
           text = "Manage";
           enabled = true;
         } else {
-          href = `https://discordapp.com/oauth2/authorize?client_id=${bot.appInfo.id}&scope=bot&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(bot.config.dashboard.callbackURL)}`;
+          href = `https://discord.com/api/oauth2/authorize?client_id=739923682075476089&permissions=0&redirect_uri=http%3A%2F%2Frockibot.ml%2Fcallback&scope=bot`;
           text = "Invite Bot";
           enabled = bot.appInfo.botPublic;
         }

@@ -29,7 +29,7 @@ module.exports = class Sdeny extends Command {
 		});
 	}
 	async run(message, { msgid, comments }) {
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -42,11 +42,11 @@ module.exports = class Sdeny extends Command {
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close()
+				});
 			const cursor2 = client.db("Rockibot-DB").collection("suggestdb")
 				.find({
 					messageid: { $gte: messid }
-				}).close()
+				});
 		
 			const results = await cursor.toArray();
 			const res = await cursor2.toArray();
@@ -77,8 +77,12 @@ module.exports = class Sdeny extends Command {
 						}),
 					);
 					});
+					cursor.close();
+					cursor2.close();
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
+				cursor2.close();
 			}
 		}
 		client.connect(async err => {

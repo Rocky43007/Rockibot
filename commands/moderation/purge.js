@@ -9,7 +9,7 @@ module.exports = class PurgeCommand extends Command {
 			memberName: 'purge',
 			description: 'Purges the Chat',
 			clientPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
+			userPermissions: ['MANAGE_MESSAGES'],
 			args: [
 				{
 					key: 'purgecount',
@@ -22,7 +22,7 @@ module.exports = class PurgeCommand extends Command {
 	}
 
 	async run(message, args) {
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -34,13 +34,13 @@ module.exports = class PurgeCommand extends Command {
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close()
+				});
 		
 			const results = await cursor.toArray();
 		
 			if (results.length > 0) {
 				await message.channel.messages
-				.fetch({ limit: args.purgecount + 1 })
+				.fetch({ limit: args.purgecount})
 				.then(async messages => {
 				// Fetches the messages
 				await message.channel.bulkDelete(messages);
@@ -56,7 +56,7 @@ module.exports = class PurgeCommand extends Command {
 				.addField('Moderation:', 'Purge')
 				.addField('Amount of text purged:', args.purgecount)
 				.addField('Moderator:', `${message.author}`)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
 					console.log(`   _id: ${result._id}`);
@@ -67,8 +67,10 @@ module.exports = class PurgeCommand extends Command {
 					if (!sChannel) return;
 					sChannel.send(embed);
 				});
+				cursor.close();
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
 			}
 		}
 		// Purge Command!

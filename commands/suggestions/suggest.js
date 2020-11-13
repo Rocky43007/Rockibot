@@ -24,7 +24,7 @@ module.exports = class Suggest extends Command {
 	}
 	async run(message, { suggest }) {
 
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -36,15 +36,12 @@ module.exports = class Suggest extends Command {
 			const cursor = client.db("Rockibot-DB").collection("schanneldb")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close();
+				});
 		
 			const results = await cursor.toArray();
 		
 			if (results.length > 0) {
 				const casenumber = db.get(`casenumber_${message.guild.id}`);
-				if(casenumber === null) {
-					db.set(`casenumber_${message.guild.id}`, 1);
-				}
 				const embed = new discord.MessageEmbed()
 				.setColor('#738ADB')
 				.setAuthor(message.author.tag, message.author.avatarURL())
@@ -60,19 +57,17 @@ module.exports = class Suggest extends Command {
 					if (!sChannel) return;
 					const author = message.author.tag;
 					const authorIM = message.author.avatarURL();
-					message.reply(`Suggestion sent to ${sChannel}.`);
+					message.say(`Suggestion sent to ${sChannel}.`);
 					sChannel.send({ embed: embed }).then(async embedMessage => {
 						if(casenumber === null) {
 							db.set(`casenumber_${message.guild.id}`, 1);
-						}
-						if(casenumber !== null) {
+						} else {
 							db.add(`casenumber_${message.guild.id}`, 1);
 						}
 						embedMessage.react('⬆️').then(
 						embedMessage.react('⬇️'));
 						const client = new MongoClient(uri, { useNewUrlParser: true });
 						client.connect(err => {
-							const casenumber = db.get(`casenumber_${message.guild.id}`);
 							if (err) throw err;
 							// db pointing to newdb
 							console.log("Switched to "+client.databaseName+" database");
@@ -90,8 +85,10 @@ module.exports = class Suggest extends Command {
 						});
 					});
 				});
+				cursor.close();
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
 			}
 		}
 		client.connect(async err => {

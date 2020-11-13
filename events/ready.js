@@ -1,6 +1,6 @@
 module.exports = class {
-  constructor(client2) {
-    this.client = client2;
+  constructor(client) {
+    this.client = client;
   }
 
   async run() {

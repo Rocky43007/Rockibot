@@ -28,7 +28,7 @@ module.exports = class Kick extends Command {
 		});
 	}
 	async run(message, { user, content }) {
-		const uri = process.env.MONGO_URI;
+		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
@@ -40,7 +40,7 @@ module.exports = class Kick extends Command {
 			const cursor = client.db("Rockibot-DB").collection("modlogs")
 				.find({
 					guildname: { $gte: minimumNumberOfBedrooms }
-				}).close()
+				});
 		
 			const results = await cursor.toArray();
 		
@@ -52,7 +52,7 @@ module.exports = class Kick extends Command {
 				.addField('Offender:', `**${user}**`)
 				.addField('Reason:', content)
 				.addField('Moderator:', `${message.author}`)
-				.setFooter(message.createdAt.toLocaleString());
+				.setTimestamp();
 
 				console.log(`Found document with guild id ${minimumNumberOfBedrooms}:`);
 				results.forEach((result, i) => {
@@ -65,11 +65,13 @@ module.exports = class Kick extends Command {
 					sChannel.send(embed);
 					user.send(`You have been kicked from ${message.guild.name} for: ${content}`).then(function() {
 						message.guild.member(user).kick();
-						message.say('Successfully kicked ' + user);
+						message.say('Successfully kicked ' + user.tag);
 					});
+					cursor.close();
 				});
 			} else {
 				console.log(`No Document has ${minimumNumberOfBedrooms} in it.`);
+				cursor.close();
 			}
 		}
 

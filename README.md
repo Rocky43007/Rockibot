@@ -9,13 +9,13 @@
     <a href="https://discord.com/oauth2/authorize?client_id=739923682075476089&permissions=8&scope=bot"><img src="https://img.shields.io/badge/Invite-Invite%20the%20bot!-brightgreen" alt="Invite" /></a>
      <a href="https://github.com/Rocky43007/Rockibot/actions"><img src="https://github.com/Rocky43007/Rockibot/workflows/Rockibot%20Tesing%20CI/badge.svg" alt="Build status" /></a>
     <a href="https://rocky43007.github.io/Rockibot"><img src="https://img.shields.io/badge/Website-Visit%20the%20website!-informational" alt="Website" /></a>
+    <a href="http://rockibot.ml"><img src="https://img.shields.io/badge/Dashboard-Visit%20the%20dashboard!-informational" alt="Dashboard" /></a>
       </p>
 </div>
 
 # About
 
-Rockibot is a Discord bot created using [Discordjs/Commando](https://github.com/discordjs/Commando/) and [Discord.js](https://github.com/discordjs/Discord.js/). It is a extremely modular bot for those who want some features, and only one bot for it. The database backbone is MongoDB, and the bot is still in it's Alpha stages of  development. Use it if you want, but be warned that the bot is changing everyday, and some features may be removed or data may be lost. Please keep an eye on the updates channel on the support server as I will announce this before implementing the change.
-
+Rockibot is a Discord bot created using [Discordjs/Commando](https://github.com/discordjs/Commando/) and [Discord.js](https://github.com/discordjs/Discord.js/). It is an extremely modular bot for those who want some features, and only one bot for it. And the modularity can easily be done via the dashboard at [the Rockibot Dashboard](http://rockibot.ml). With the modularity, you can have moderation, suggestions, or both. More modules will be coming soon!
 # Basic Commands
 `!invite` - Allows other users to invite the bot to their own server.
 
