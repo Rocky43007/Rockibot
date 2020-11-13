@@ -1,8 +1,3 @@
-const Discord = require("discord.js");
-const client = new Discord.Client();
-
-const { token } = require("../config.js");
-
 module.exports = class {
   constructor(client2) {
     this.client = client2;
@@ -41,7 +36,6 @@ module.exports = class {
     // Log that we're ready to serve, so we know the bot accepts commands.
     this.client.logger.log(`${this.client.user.tag}, ready to serve ${this.client.users.cache.size} users in ${this.client.guilds.cache.size} servers.`, "ready");  }
 
-    client.users.cache.get("361212545924595712").send(`${content}`);
+  
 };
 
-client.login(token);
