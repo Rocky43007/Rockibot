@@ -1,12 +1,8 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 const { Command } = require('discord.js-commando');
 const discord = require('discord.js');
-const Keyv = require('keyv');
-const schanneldb = new Keyv(process.env.MONGODB, { collection: 'schanneldb' });
-const suggestdb = new Keyv(process.env.MONGODB, { collection: 'suggestdb' });
-const suggestnum = new Keyv(process.env.MONGODB, { collection: 'suggestnum' });
-const suggestuser = new Keyv(process.env.MONGODB, { collection: 'suggestuser' });
-const suggestuserIM = new Keyv(process.env.MONGODB, { collection: 'suggestuserIM' });
+const path = require('path');
+const mconfig = require(path.join(__dirname, 'mconfig.json'));
 
 module.exports = class SApprove extends Command {
 	constructor(client) {
@@ -35,7 +31,7 @@ module.exports = class SApprove extends Command {
 		});
 	}
 	async run(message, { msgid, comments }) {
-		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
+		const uri = mconfig.URI;
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;

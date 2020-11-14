@@ -1,6 +1,8 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 const { Command } = require('discord.js-commando');
 const discord = require('discord.js');
+const path = require('path');
+const mconfig = require(path.join(__dirname, 'mconfig.json'));
 
 module.exports = class SImpliment extends Command {
 	constructor(client) {
@@ -28,7 +30,7 @@ module.exports = class SImpliment extends Command {
 		});
 	}
 	async run(message, { msgid, comments }) {
-		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
+		const uri = mconfig.URI;
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;

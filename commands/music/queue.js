@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
-const db=require("quick.db");
+const db = require("quick.db");
+const getTitleAtUrl=require("get-title-at-url")
 
 module.exports = class MusicPlay extends Command {
         constructor(client) {
@@ -13,19 +14,16 @@ module.exports = class MusicPlay extends Command {
                 });
         }
         run(message) {
-                
-                let songs=''
-        db.get(`queue_${message.guild.id}`).forEach((song) => {
-                        console.log(song)
-                        songs += `${song} \n`
-                })
-                console.log(db.get(`queue_${message.guild.id}`))
-                if(!songs){
-                        message.channel.send("Queue is empty!")
+                if(!db.get(`queue_${message.guild.id}`)){
+                        message.channel.send("The queue is empty!")
                         return
                 }
-
-                message.channel.send("```" + songs + "```")
+        db.get(`queue_${message.guild.id}`).slice(0, 5).forEach((song) => {
+                        getTitleAtUrl(song, title => {
+                                message.channel.send(title)
+                        })
+                })
+                
 
         }       
 };

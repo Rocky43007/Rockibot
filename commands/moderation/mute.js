@@ -1,6 +1,8 @@
 const discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
+const path = require('path');
+const mconfig = require(path.join(__dirname, 'mconfig.json'));
 
 module.exports = class Mute extends Command {
 	constructor(client) {
@@ -37,7 +39,7 @@ module.exports = class Mute extends Command {
 		});
 	}
 	async run(message, { user, reason, time }) {
-		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
+		const uri = mconfig.URI;
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;

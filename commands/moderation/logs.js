@@ -1,4 +1,6 @@
 const { Command } = require('discord.js-commando');
+const path = require('path');
+const mconfig = require(path.join(__dirname, 'mconfig.json'));
 
 module.exports = class modlogs extends Command {
 	constructor(client) {
@@ -21,8 +23,8 @@ module.exports = class modlogs extends Command {
 	}
 	async run(message, { logs }) {
 		// we create 'users' collection in newdb database
-		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
- 
+		const uri = mconfig.URI;
+
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
 		const client = new MongoClient(uri, { useNewUrlParser: true });

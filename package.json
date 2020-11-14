@@ -37,6 +37,7 @@
     "express": "^4.16.2",
     "express-passport": "^0.1.0",
     "express-session": "^1.17.1",
+    "get-title-at-url": "^1.1.8",
     "helmet": "^3.23.3",
     "keyv": "^4.0.3",
     "klaw": "^2.1.1",

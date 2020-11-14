@@ -1,6 +1,8 @@
 const { Command } = require('discord.js-commando');
 const discord = require('discord.js');
 const db = require('quick.db');
+const path = require('path');
+const mconfig = require(path.join(__dirname, 'mconfig.json'));
 
 module.exports = class Suggest extends Command {
 	constructor(client) {
@@ -24,7 +26,7 @@ module.exports = class Suggest extends Command {
 	}
 	async run(message, { suggest }) {
 
-		const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
+		const uri = mconfig.URI;
  
 		// create a client to mongodb
 		const MongoClient = require('mongodb').MongoClient;
