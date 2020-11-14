@@ -22,7 +22,7 @@ const KeyvProvider = require('commando-provider-keyv');
 const discord = require('discord.js');
 const client2 = new CommandoClient({
 	commandPrefix: '!',
-	owner: '361212545924595712',
+	owner: ['361212545924595712', '742782250848092231'],
 	invite: 'https://discord.gg/Ju2gSCY'
 });
 const db = require('quick.db');
