@@ -11,6 +11,10 @@ module.exports = class Invite extends Command {
 		});
 	}
 	run(message) {
-		message.author.send("https://discord.gg/p5yBqkkW")
+        const embed = new Discord.MessageEmbed()
+			.setColor('#00FFFF')
+			.setTitle('Join the support server!')
+			.setURL("https://discord.gg/p5yBqkkW");
+		return message.channel.send(embed);
 	}
 };
