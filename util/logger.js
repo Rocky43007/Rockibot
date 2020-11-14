@@ -3,7 +3,9 @@ Logger class for easy and aesthetically pleasing console logging
 */
 const chalk = require("chalk");
 const moment = require("moment");
-
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const { token } = require("../config.js");
 exports.log = (content, type = "log") => {
   const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;
   switch (type) {
@@ -14,6 +16,7 @@ exports.log = (content, type = "log") => {
       return console.log(`${timestamp} ${chalk.black.bgYellow(type.toUpperCase())} ${content} `);
     }
     case "error": {
+      client.users.cache.get("361212545924595712").send(`${content}`);
       return console.log(`${timestamp} ${chalk.bgRed(type.toUpperCase())} ${content} `);
     }
     case "debug": {
@@ -36,3 +39,6 @@ exports.warn = (...args) => this.log(...args, "warn");
 exports.debug = (...args) => this.log(...args, "debug");
 
 exports.cmd = (...args) => this.log(...args, "cmd");
+
+
+client.login(token);
