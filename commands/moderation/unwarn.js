@@ -13,7 +13,11 @@ module.exports = class unwarn extends Command {
 			memberName: 'unwarn',
 			description: 'Used to unwarn users.',
 			clientPermissions: ['MANAGE_MESSAGES'],
+<<<<<<< Updated upstream
 			userPermissions: ['MANAGE_MESSAGES'],
+=======
+			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
+>>>>>>> Stashed changes
 			args: [
 				{
 					key: 'user',

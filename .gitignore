@@ -8,7 +8,8 @@ mconfig.json
 bot.js.save
 bot.js.save.1
 databases
-
+giveaways.json
+giveaways
 # Numerous always-ignore extensions
 *.diff
 *.err
