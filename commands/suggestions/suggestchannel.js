@@ -9,7 +9,6 @@ module.exports = class suggestionchannel extends Command {
 			group: 'suggestions',
 			memberName: 'suggest-channel',
 			description: 'Used to set the suggestion channel for the server.',
-			clientPermissions: ['ADMINISTRATOR', 'MANAGE_CHANNELS'],
 			userPermissions: ['ADMINISTRATOR'],
 			usage: '!suggest-channel channel-name',
 			args: [

@@ -12,8 +12,8 @@ module.exports = class Mute extends Command {
 			group: 'moderation',
 			memberName: 'mute',
 			description: 'Used to mute users.',
-			clientPermissions: ['ADMINISTRATOR', 'MANAGE_ROLES'],
-			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES', 'MUTE_MEMBERS'],
+			clientPermissions: ['MANAGE_ROLES'],
+			userPermissions: ['MANAGE_MESSAGES'],
 			args: [{
 				key: 'user',
 				label: 'user',
@@ -108,7 +108,7 @@ module.exports = class Mute extends Command {
 			}
 		}
 		const args = time;
-		if(!message.member.hasPermission(['MANAGE_MESSAGES', 'MUTE_MEMBERS'])) {
+		if(!message.member.hasPermission(['MANAGE_MESSAGES'])) {
 			return message.channel.send(`**${message.author.username}**, You do not have enough permission to use this command`);
 		}
 		const role = await message.guild.roles.cache.find(r => r.name === 'Muted');

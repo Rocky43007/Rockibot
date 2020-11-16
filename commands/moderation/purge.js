@@ -10,8 +10,8 @@ module.exports = class PurgeCommand extends Command {
 			group: 'moderation',
 			memberName: 'purge',
 			description: 'Purges the Chat',
-			clientPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
-			userPermissions: ['MANAGE_MESSAGES'],
+			clientPermissions: ['MANAGE_MESSAGES'],
+			userPermissions: ['ADMINISTRATOR'],
 			args: [
 				{
 					key: 'purgecount',

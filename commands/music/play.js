@@ -11,6 +11,7 @@ module.exports = class MusicPlay extends Command {
       group: "music",
       memberName: "play",
       description: "Allows bot to play music for the user in a voice channel.",
+      clientPermissions: ['SPEAK'],
       args: [
         {
           key: "song",

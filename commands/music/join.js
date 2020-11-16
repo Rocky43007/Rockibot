@@ -9,6 +9,7 @@ module.exports = class MusicJoin extends Command {
 			group: 'music',
 			memberName: 'join',
 			description: 'Allows bot to join user in voice channel.',
+			clientPermissions: ['CONNECT'],
 			guildOnly: true,
 		});
 	}

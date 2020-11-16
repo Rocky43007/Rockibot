@@ -11,7 +11,7 @@ module.exports = class Sdeny extends Command {
 			group: 'suggestions',
 			memberName: 'deny',
 			description: 'Used to deny a suggestion.',
-			clientPermissions: ['ADMINISTRATOR', 'SEND_MESSAGES'],
+			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],
 			args: [
 				{

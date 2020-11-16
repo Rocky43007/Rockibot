@@ -12,8 +12,8 @@ module.exports = class unwarn extends Command {
 			group: 'moderation',
 			memberName: 'unwarn',
 			description: 'Used to unwarn users.',
-			clientPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
+			clientPermissions: ['MANAGE_MESSAGES'],
+			userPermissions: ['MANAGE_MESSAGES'],
 			args: [
 				{
 					key: 'user',
@@ -75,7 +75,7 @@ module.exports = class unwarn extends Command {
 		}
 		if(!message.member.hasPermission('MANAGE_SERVER')) return message.channel.send('You can\'t use that.');
 
-		if (!message.guild.me.hasPermission('MANAGE_MESSAGES', 'ADMINISTRATOR')) return message.reply('I need the permission `MANAGE_MESSAGES` or `ADMINISTRATOR` for this to work.');
+		if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.reply('I need the permission `MANAGE_MESSAGES` or `ADMINISTRATOR` for this to work.');
 
 		if(!user) return message.reply('Please specify a user, via mention or ID.');
 

@@ -12,7 +12,7 @@ module.exports = class SApprove extends Command {
 			group: 'suggestions',
 			memberName: 'approve',
 			description: 'Used to approve a suggestion.',
-			clientPermissions: ['ADMINISTRATOR', 'SEND_MESSAGES'],
+			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],
 			args: [
 				{

@@ -9,7 +9,6 @@ module.exports = class modlogs extends Command {
 			group: 'moderation',
 			memberName: 'modlogs',
 			description: 'Used to set the mod-log of the server.',
-			clientPermissions: ['ADMINISTRATOR'],
 			userPermissions: ['ADMINISTRATOR'],
 			args: [
 				{

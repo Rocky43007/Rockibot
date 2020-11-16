@@ -11,8 +11,8 @@ module.exports = class Kick extends Command {
 			group: 'moderation',
 			memberName: 'kick',
 			description: 'Used to kick users. What did ya expect?',
-			clientPermissions: ['ADMINISTRATOR', 'KICK_MEMBERS'],
-			userPermissions: ['ADMINISTRATOR', 'KICK_MEMBERS'],
+			clientPermissions: ['KICK_MEMBERS'],
+			userPermissions: ['KICK_MEMBERS'],
 			args: [
 				{
 					key: 'user',
@@ -78,7 +78,7 @@ module.exports = class Kick extends Command {
 		}
 
 		if (message.guild.member(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not ban this user, he has higher permission than I do.');
-		if (!message.guild.me.hasPermission('KICK_MEMBERS', 'ADMINISTRATOR')) return message.reply('I need the permission `KICK_MEMBERS` for this to work.');
+		if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.reply('I need the permission `KICK_MEMBERS` for this to work.');
 		client.connect(async err => {
 			if (err) throw err;
 			// db pointing to newdb

@@ -12,7 +12,7 @@ module.exports = class Suggest extends Command {
 			group: 'suggestions',
 			memberName: 'suggest',
 			description: 'Used to send a suggestion.',
-			clientPermissions: ['ADMINISTRATOR', 'SEND_MESSAGES'],
+			clientPermissions: ['SEND_MESSAGES'],
 			usage: '!suggest suggestion',
 			args: [
 				{

@@ -9,8 +9,8 @@ module.exports = class Warns extends Command {
 			group: 'moderation',
 			memberName: 'warns',
 			description: 'Used to check how many warns a user has.',
-			clientPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
+			clientPermissions: ['MANAGE_MESSAGES'],
+			userPermissions: ['MANAGE_MESSAGES'],
 			args: [
 				{
 					key: 'user',

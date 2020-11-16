@@ -11,7 +11,7 @@ module.exports = class SImpliment extends Command {
 			group: 'suggestions',
 			memberName: 'impliment',
 			description: 'Used to implement a suggestion.',
-			clientPermissions: ['ADMINISTRATOR', 'SEND_MESSAGES'],
+			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],
 			args: [
 				{

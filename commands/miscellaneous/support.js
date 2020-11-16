@@ -14,7 +14,7 @@ module.exports = class Invite extends Command {
         const embed = new Discord.MessageEmbed()
 			.setColor('#00FFFF')
 			.setTitle('Join the support server!')
-			.setURL("https://discord.gg/p5yBqkkW");
+			.setURL("https://discord.gg/rdGrcvW");
 		return message.channel.send(embed);
 	}
 };

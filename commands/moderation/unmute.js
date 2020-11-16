@@ -11,8 +11,8 @@ module.exports = class Unmute extends Command {
 			group: 'moderation',
 			memberName: 'unmute',
 			description: 'Used to unmute users.',
-			clientPermissions: ['ADMINISTRATOR', 'MANAGE_ROLES'],
-			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
+			clientPermissions: ['MANAGE_ROLES'],
+			userPermissions: ['MANAGE_MESSAGES'],
 			args: [{
 				key: 'user',
 				label: 'user',
