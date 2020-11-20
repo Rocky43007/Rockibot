@@ -48,6 +48,7 @@ module.exports = class gstart extends Command {
                 return
             }
             else{
+                message.reply("A DM has been sent to "+padvertiser.name+".")
                 client.users.cache.get(padvertiser.discord_id).send(`Hello! A stand named ${user.name} owned by ${message.author.username} wants to advertise with you for ${offer} PizzaTokens. React with ✅ to accept, react with ❌ to decline. Consider declining and getting contact with the seller to negotiate a price.`).then(botMessage => {
                     botMessage.react("✅")
                     botMessage.react("❌")
