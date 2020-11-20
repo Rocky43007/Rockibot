@@ -38,7 +38,9 @@ module.exports = class gstart extends Command {
 			sellerObjects.forEach(seller => {
 				sellers += `${seller.name} \n`
 			})
-
+			if(!sellers){
+				return "You do not have any sellers."
+			}
 			return "```"+sellers+"```"
 		}
         Seller.findOne({discord_id:message.author.id}).then(user => {

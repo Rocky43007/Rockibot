@@ -443,7 +443,7 @@ process.on("unhandledRejection", err => {
 setInterval(async () => {
   let users = await Seller.find()
   await Advertiser.find().then(async advertiser => {
-    advertiser.pizzaTokens+= advertiser.sellers.length * 500
+    advertiser.pizzaTokens+= (advertiser.sellers.length * 500) + 500
 
     await advertiser.save()
   })
