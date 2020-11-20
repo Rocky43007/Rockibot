@@ -20,7 +20,7 @@ module.exports = class gstart extends Command {
 		});
 	}
 	async run(message) {
-		Seller.findOne({discord_id:message.author.id}).then(user => {
+		Seller.findOne({discord_id:message.author.id}).then(async user => {
             user.pizzaTokens += 10;
             await user.save()
             message.reply("Money collected.")
