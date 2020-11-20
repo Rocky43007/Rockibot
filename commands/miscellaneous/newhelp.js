@@ -28,7 +28,7 @@ module.exports = class help2 extends Command {
 		.addField('Page 3: Music Commands', 'These commands are for the music aspect of the bot. Here, you can find information of `!play`, `!join` and more!')
 		.addField('Page 4: Suggestion Commands', 'These commands relate to suggestions! Here, you can find information about `!suggest`, `!suggest-channel` and more!')
 		.addField('Page 5: PizzaTown Commands', 'These commands are for PizzaTown! Here, you can find information about `!pstart`, `!menu` and more!')
-		.addField('Links', '[Dashboard](https://rockibot.ml)\n[Website](https://rocky43007.github.com/Rockibot)')
+		.addField('Links', '[Website](https://rockibot.ml)\n[Dashboard](https://dash.rockibot.ml)')
 
 		const basic = new Discord.MessageEmbed()
 			.setColor('#4e03fc')
