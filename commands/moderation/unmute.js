@@ -12,11 +12,7 @@ module.exports = class Unmute extends Command {
 			memberName: 'unmute',
 			description: 'Used to unmute users.',
 			clientPermissions: ['MANAGE_ROLES'],
-<<<<<<< Updated upstream
 			userPermissions: ['MANAGE_MESSAGES'],
-=======
-			userPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
->>>>>>> Stashed changes
 			args: [{
 				key: 'user',
 				label: 'user',

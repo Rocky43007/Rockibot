@@ -11,11 +11,7 @@ module.exports = class PurgeCommand extends Command {
 			memberName: 'purge',
 			description: 'Purges the Chat',
 			clientPermissions: ['MANAGE_MESSAGES'],
-<<<<<<< Updated upstream
-			userPermissions: ['ADMINISTRATOR'],
-=======
 			userPermissions: ['MANAGE_MESSAGES'],
->>>>>>> Stashed changes
 			args: [
 				{
 					key: 'purgecount',

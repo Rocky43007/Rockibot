@@ -30,6 +30,7 @@
     "chalk": "^2.3.0",
     "commando-mongodb": "^1.1.0",
     "commando-provider-keyv": "^2.1.0",
+    "discord-giveaways": "^4.2.1",
     "discord.js": "^12.4.1",
     "discord.js-commando": "github:discordjs/Commando",
     "ejs": "^2.5.7",
