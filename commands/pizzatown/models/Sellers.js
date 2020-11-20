@@ -40,6 +40,10 @@ const sellerSchema = new mongoose.Schema({
     stores:{
         type:[storeSchema],
         default:[{profitmultiplier:2}]
+    },
+    collect:{
+        type:Boolean,
+        default:true
     }
 })
 
