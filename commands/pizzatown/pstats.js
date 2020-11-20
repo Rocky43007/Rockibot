@@ -45,7 +45,7 @@ module.exports = class gstart extends Command {
             const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats`)
-            .setAuthor(`${user.name}'s Stand.`, message.author.displayAvatarURL({format:"png", dynamic:true}))
+            .setAuthor(`${user.name}'s Stand`, message.author.displayAvatarURL({format:"png", dynamic:true}))
             .addFields(
                 {name:"PizzaTokens", value:`${user.pizzaTokens}`},
                 {name:"Stores", value:"Check your stores with !stores"},
@@ -58,11 +58,12 @@ module.exports = class gstart extends Command {
 				const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats`)
-            .setAuthor(`${user.name}'s Stand.`, message.author.displayAvatarURL({format:"png", dynamic:true}))
+            .setAuthor(`${user.name}'s Stand`, message.author.displayAvatarURL({format:"png", dynamic:true}))
             .addFields(
                 {name:"PizzaTokens", value:`${user.pizzaTokens}`},
                 {name:"Sellers", value:formatSellers(user.sellers)},
-            )
+			)
+			message.channel.send(embed)
 			}).catch(() => {
 				message.reply("You don't have an account!")
 			})
