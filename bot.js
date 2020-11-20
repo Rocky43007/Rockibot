@@ -20,13 +20,17 @@ const MongoClient = require('mongodb').MongoClient;
 const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const discord = require('discord.js');
+const mongoose=require("mongoose");
+const {Seller}=require("./commands/pizzatown/models/Sellers")
 const client2 = new CommandoClient({
 	commandPrefix: '!',
 	owner: ['361212545924595712', '742782250848092231'],
 	invite: 'https://discord.gg/Ju2gSCY'
 });
 const db = require('quick.db');
+const Advertiser = require("./commands/pizzatown/models/Advertiser");
 console.log(uri);
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex:true });
 class GuideBot extends Client {
   constructor(options) {
     super(options);
@@ -234,6 +238,8 @@ const init = async () => {
       ['moderation', 'Moderation Commands'],
       ['suggestions', 'Suggestions Commands'],
       ['music', 'Music Commands'],
+  ['giveaways', 'Giveaway Commands'],
+  ['pizzatown', 'PizzaTown Commands']
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands({help: false})	
@@ -279,7 +285,7 @@ const init = async () => {
 client2.on('messageDelete', async (message) => {
 	// create a client to mongodb
 	const MongoClient = require('mongodb').MongoClient;
-	const client3 = new MongoClient(uri, { useNewUrlParser: true }, {server: {poolSize: 1}});
+	const client3 = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true }, {server: {poolSize: 1}});
 	async function findListingsWithMinimumBedroomsBathroomsAndMostRecentReviews(client, {
 		minimumNumberOfBedrooms = 0
 	} = {}) {
@@ -433,3 +439,33 @@ process.on("uncaughtException", (err) => {
 process.on("unhandledRejection", err => {
   console.error("Uncaught Promise Error: ", err);
 });
+
+setInterval(async () => {
+  let users = await Seller.find()
+  await Advertiser.find().then(async advertiser => {
+    advertiser.pizzaTokens+= advertiser.sellers.length * 500
+
+    await advertiser.save()
+  })
+  users.forEach(async user => {
+    let userprofit=0;
+    user.menu.forEach(pizza => {
+      let sales = 0;
+      
+      sales += 10 * (pizza.production);
+      
+      sales -= 5 * (pizza.cost);
+
+      let profit = (sales * pizza.cost) / pizza.production;
+      userprofit += Math.round(profit)
+    })
+    let profitmultiplication = 0;
+    user.stores.forEach(store => {
+      profitmultiplication += store.profitmultiplier
+    })
+    userprofit *= profitmultiplication;
+    console.log(userprofit)
+    user.pizzaTokens += userprofit;
+    await user.save()
+  })
+}, 3600000)
