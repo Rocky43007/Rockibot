@@ -32,7 +32,7 @@ module.exports = class gstart extends Command {
             message.channel.send("You are not in the Rockibot support server join https://discord.gg/fDGMCkp9cC to advertise your advertising agency!")
             return
         }
-		Advertiser.findOne({discord_id:message.author.id}).then(user => {
+		Advertiser.findOne({discord_id:message.author.id}).then(async user => {
             console.log(user)
             if(user.pizzaTokens < 1000){
                 message.reply("You cannot afford to advertise!")
