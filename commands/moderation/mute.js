@@ -13,11 +13,7 @@ module.exports = class Mute extends Command {
 			memberName: 'mute',
 			description: 'Used to mute users.',
 			clientPermissions: ['MANAGE_ROLES'],
-<<<<<<< Updated upstream
-			userPermissions: ['MANAGE_MESSAGES'],
-=======
 			userPermissions: ['MANAGE_MESSAGES', 'MUTE_MEMBERS'],
->>>>>>> Stashed changes
 			args: [{
 				key: 'user',
 				label: 'user',
