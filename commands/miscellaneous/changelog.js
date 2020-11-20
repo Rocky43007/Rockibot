@@ -17,10 +17,10 @@ module.exports = class Invite extends Command {
 			.setColor('#00FFFF')
 			.setTitle('Rockibot\'s Changelog!')
 			.setDescription(`
-			\`v1.1.0-beta\` has been released!
+			\`v1.2.0-beta\` has been released!
 			**Change Log:**
-			1) You can now vote for the bot using \`!vote\`! <:rockibothappy:750764415401590926> 
-			2) Addition of music commands again! Now with \`!queue\` and \`!skip\`! You can go add the music module via the dashboard by putting \`, music\` after either \`suggestions\`, \`moderation, suggestions\` or \`moderation\`!`)
+			1) Addition of Pizza Town to the bot!
+			2) Fix of music commands and addition of \`!clear\` which clears the queue.`)
 			.setTimestamp();
 		return message.channel.send(embed);
             // do what you need with lastMessage below
