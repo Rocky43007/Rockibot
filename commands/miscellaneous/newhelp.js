@@ -27,6 +27,7 @@ module.exports = class help2 extends Command {
 		.addField('Page 2: Moderation Commands', 'These commands are for moderating servers, such as `!ban`, `!kick` and more!')
 		.addField('Page 3: Music Commands', 'These commands are for the music aspect of the bot. Here, you can find information of `!play`, `!join` and more!')
 		.addField('Page 4: Suggestion Commands', 'These commands relate to suggestions! Here, you can find information about `!suggest`, `!suggest-channel` and more!')
+		.addField('Page 5: PizzaTown Commands', 'These commands are for PizzaTown! Here, you can find information about `!pstart`, `!menu` and more!')
 		.addField('Links', '[Dashboard](https://rockibot.ml)\n[Website](https://rocky43007.github.com/Rockibot)')
 
 		const basic = new Discord.MessageEmbed()
@@ -77,6 +78,23 @@ module.exports = class help2 extends Command {
 			.addField('pause', 'Pauses the music being played.')
 			.addField('queue', 'Shows the next song in the queue.')
 			.addField('skip', 'Skips to the next song in the queue.')
+			.addField('clear', 'Clears the queue.')
+		const pizzatown = new Discord.MessageEmbed()
+			.setColor('#66ff00')
+			.setTitle('Rockibot | PizzaTown Commands')
+			.setDescription('Please remove the `<>` when using the commands!')
+			.addField('findadvertisers', 'Allows advertisers to advertise their advertising agency to sellers.')
+			.addField('lookforstands', 'Allows advertisers to advertise their advertising agency to sellers.')
+			.addField('menu', 'View your shack\'s menu.')
+			.addField('menuadd', 'Adds an item to your menu.')
+			.addField('menuedelete', 'Deletes an item from your menu.')
+			.addField('menuedit', 'Edits an item from your menu.')
+			.addField('pstart', 'Starts your pizza town journey.')
+			.addField('pstats', 'Shows your pizza town stats.')
+			.addField('storebuy', 'Buys a store.')
+			.addField('stores', 'Views your stores.')
+
+
 		switch (page) {
 			case "1":
 				return message.channel.send({ embed: basic })
@@ -86,8 +104,10 @@ module.exports = class help2 extends Command {
 				return message.channel.send({ embed: music })
 			case "4":
 				return message.channel.send({ embed: suggestions })
+			case "5":
+				return message.channel.send({ embed: pizzatown})
 			default:
-				home.setDescription(`Use \`!help [page]\` to switch pages!`)
+				home.setDescription(`Use \`${message.guild.commandPrefix}help [page]\` to switch pages!`)
 				return message.channel.send({ embed: home })
 			}
 	}
