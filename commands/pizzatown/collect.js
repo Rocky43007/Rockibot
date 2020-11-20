@@ -28,7 +28,7 @@ module.exports = class gstart extends Command {
                 setTimeout(async () => {
                     user.collect = true;
                     await user.save()
-                }, 30000)
+                }, 300000)
                 message.reply("100 PizzaTokens collected. Wait for 5 minutes to collect 100 PizzaTokens.")
             }
             else{
