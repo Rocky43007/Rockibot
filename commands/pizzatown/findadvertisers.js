@@ -49,6 +49,8 @@ module.exports = class gstart extends Command {
             }
             else{
                 message.reply("A DM has been sent to "+padvertiser.name+".")
+                user.pizzaTokens -= offer;
+                await user.save()
                 client.users.cache.get(padvertiser.discord_id).send(`Hello! A stand named ${user.name} owned by ${message.author.username} wants to advertise with you for ${offer} PizzaTokens. React with ✅ to accept, react with ❌ to decline. Consider declining and getting contact with the seller to negotiate a price.`).then(botMessage => {
                     botMessage.react("✅")
                     botMessage.react("❌")
@@ -59,16 +61,16 @@ module.exports = class gstart extends Command {
                         const reaction = collection.first();
 
                         if(reaction.emoji.name === '✅'){
-                            user.pizzaTokens -= offer;
                             padvertiser.pizzaTokens += offer;
                             padvertiser.sellers.push(user)
-                            await user.save()
                             await padvertiser.save()
                             message.author.send(`Your offer with ${padvertiser.name} has been accepted. `)
                             client.users.cache.get(padvertiser.discord_id).send(`Offer accepted.`)
 
                         }
                         else{
+                            user.pizzaTokens += offer;
+                            await user.save()
                             message.author.send(`Your offer with ${padvertiser.name} has been declined`)
                             client.users.cache.get(padvertiser.discord_id).send(`Offer declined.`)
                         }
@@ -84,4 +86,4 @@ module.exports = class gstart extends Command {
 	}
 };
 
-client.login(require("/home/rocky/RockibotBeta/config.js").token)
+client.login(require("../../config").token)
