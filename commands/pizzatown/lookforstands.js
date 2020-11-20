@@ -38,7 +38,9 @@ module.exports = class gstart extends Command {
                 message.reply("You cannot afford to advertise!")
             }
             else{
+                user.pizzaTokens -= 1000
                 client.channels.cache.get('777943853897875498').send(`${user.name}: ${ad}`)
+                await user.save()
             }
         }).catch((err) => {
             console.log(err)
