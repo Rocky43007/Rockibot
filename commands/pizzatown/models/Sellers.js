@@ -43,10 +43,6 @@ const sellerSchema = new mongoose.Schema({
     stores:{
         type:[storeSchema],
         default:[{profitmultiplier:2}]
-    },
-    collectdate:{
-        type:Date,
-        default:Date.now()
     }
 })
 
