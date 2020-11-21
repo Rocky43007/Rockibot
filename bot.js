@@ -396,15 +396,19 @@ client2.once('ready', () => {
 });
 
 
+const webhookClient = new discord.WebhookClient(client.config.webID, client.config.webToken);
   // Here we login the client.
-  client2.login(client.config.token);
-
+  client2.login(client.config.token).then(
+    webhookClient.send(`🟢 Shard ${client.shard.ids[0]} online!`, {
+      username: 'Rockibot Shard Logging',
+    })
+  );
   // End top-level async/await function.
 };
 
 init();
 
-client.on("disconnect", () => client.logger.warn("Bot is disconnecting..."))
+client2.on("disconnect", () => client.logger.warn("Bot is disconnecting..."))
   .on("reconnecting", () => client.logger.log("Bot reconnecting...", "log"))
   .on("error", e => client.logger.error(e))
   .on("warn", info => client.logger.warn(info));
