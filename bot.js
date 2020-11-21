@@ -443,8 +443,14 @@ process.on("unhandledRejection", err => {
 setInterval(async () => {
   let users = await Seller.find()
   await Advertiser.find().then(async advertisers => {
-    advertisers.forEach(advertiser => {
+    advertisers.forEach(async advertiser => {
       advertiser.pizzaTokens += (advertiser.sellers.length * 1000) + 500 
+	advertiser.sellers.forEach(async seller => {
+		seller.pizzaTokens +=  (advertiser.sellers.length * 100) + 500 
+		await seller.save()
+	})
+	   await advertiser.save()
+	    
     })
   })
   users.forEach(async user => {
