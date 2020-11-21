@@ -239,7 +239,6 @@ const init = async () => {
       ['suggestions', 'Suggestions Commands'],
       ['music', 'Music Commands'],
   ['giveaways', 'Giveaway Commands'],
-  ['pizzatown', 'PizzaTown Commands']
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands({help: false})	
@@ -449,6 +448,11 @@ setInterval(async () => {
   await Advertiser.find().then(async advertisers => {
     advertisers.forEach(advertiser => {
       advertiser.pizzaTokens += (advertiser.sellers.length * 1000) + 500 
+      advertiser.sellers.forEach(seller => {
+        seller.pizzaTokens += (advertiser.sellers.length * 1000)+ 500
+        await seller.save()
+      })
+      await advertiser.save()
     })
   })
   users.forEach(async user => {
