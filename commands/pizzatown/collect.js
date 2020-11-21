@@ -23,7 +23,7 @@ module.exports = class gstart extends Command {
         Seller.findOne({ discord_id: message.author.id }).then(async user => {
             if (Date.now() > user.collectdate) {
                 user.pizzaTokens += 100;
-                user.collectdate = Date.now() + 30000;
+                user.collectdate = Date.now() + 300000;
                 await user.save()
                 message.reply("100 PizzaTokens collected. Wait for 5 minutes to collect 100 PizzaTokens.")
             }
