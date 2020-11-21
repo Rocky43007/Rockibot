@@ -21,14 +21,10 @@ module.exports = class gstart extends Command {
     }
     async run(message) {
         Seller.findOne({ discord_id: message.author.id }).then(async user => {
-            if (user.collect) {
+            if (Date.now() > user.collectdate) {
                 user.pizzaTokens += 100;
-                user.collect = false;
+                user.collectdate = Date.now() + 30000;
                 await user.save()
-                setTimeout(async () => {
-                    user.collect = true;
-                    await user.save()
-                }, 300000)
                 message.reply("100 PizzaTokens collected. Wait for 5 minutes to collect 100 PizzaTokens.")
             }
             else{
@@ -42,3 +38,4 @@ module.exports = class gstart extends Command {
 };
 
 client.login(require("../../config").token)
+

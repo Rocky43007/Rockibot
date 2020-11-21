@@ -15,7 +15,7 @@ module.exports = class Dashboard extends Command {
                 const embed = new Discord.MessageEmbed()
                         .setColor('#00FFFF')
                         .setTitle('Vist Rockibot\'s Dashboard!')
-                        .setURL('http://rockibot.ml');
+                        .setURL('https://dash.rockibot.ml');
                 return message.channel.send(embed);
         }
 };
