@@ -13,4 +13,8 @@ shard.on('message', (message) => {
         manager.shards.get(parseInt(regex.exec(message)[1])).respawn();
   }
 });
+shard.on('death', (death) => {
+console.log(`Shard ${death.id} killed. Restarting....`);
+});
+
 });
