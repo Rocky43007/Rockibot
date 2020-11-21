@@ -45,7 +45,7 @@ module.exports = class gstart extends Command {
                 message.channel.send("You don't have an item with an id of "+number+"!");
                 return
             }
-            user.menu.splice(id - 1)
+            user.menu.splice(id - 1, 1)
             await user.save()
 
             message.channel.send(`Item ${id} was deleted from your menu.`)

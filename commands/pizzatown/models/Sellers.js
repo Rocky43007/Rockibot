@@ -33,7 +33,10 @@ const sellerSchema = new mongoose.Schema({
         type:Number,
         default:1000
     },
-    menu: [pizzaSchema],
+    menu: {
+        type:[pizzaSchema],
+        default:[]
+    },
     discord_id:{
         type:String
     }, 
@@ -41,9 +44,9 @@ const sellerSchema = new mongoose.Schema({
         type:[storeSchema],
         default:[{profitmultiplier:2}]
     },
-    collect:{
-        type:Boolean,
-        default:true
+    collectdate:{
+        type:Date,
+        default:Date.now()
     }
 })
 

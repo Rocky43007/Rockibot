@@ -442,29 +442,29 @@ process.on("unhandledRejection", err => {
 
 setInterval(async () => {
   let users = await Seller.find()
-  await Advertiser.find().then(async advertiser => {
-    advertiser.pizzaTokens+= (advertiser.sellers.length * 500) + 500
-
-    await advertiser.save()
+  await Advertiser.find().then(async advertisers => {
+    advertisers.forEach(advertiser => {
+      advertiser.pizzaTokens += (advertiser.sellers.length * 1000) + 500 
+    })
   })
   users.forEach(async user => {
     let userprofit=0;
     user.menu.forEach(pizza => {
       let sales = 0;
       
-      sales += 10 * (pizza.production);
+      sales += 20 * (pizza.production);
       
       sales -= 5 * (pizza.cost);
 
-      let profit = (sales * pizza.cost) / pizza.production;
+      let profit = (sales * pizza.production / 2) / pizza.production;
       userprofit += Math.round(profit)
     })
     let profitmultiplication = 0;
     user.stores.forEach(store => {
       profitmultiplication += store.profitmultiplier
     })
+
     userprofit *= profitmultiplication;
-    console.log(userprofit)
     user.pizzaTokens += userprofit;
     await user.save()
   })
