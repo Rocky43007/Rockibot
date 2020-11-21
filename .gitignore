@@ -21,6 +21,9 @@ giveaways
 *.vi
 *~
 *.sass-cache
+postgrestest.js
+postgres.json
+aliases.js
 
 # OS or Editor folders
 .DS_Store
