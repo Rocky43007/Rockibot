@@ -10429,7 +10429,7 @@ body {
 }
 
 
-.btn:hover {display: block;}
+.btn:hover {display: inline-block;}
 
 
 .about-section {
