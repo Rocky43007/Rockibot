@@ -448,9 +448,9 @@ setInterval(async () => {
 client.users.cache.get("742782250848092231").send("Hourly income given out")
   let users = await Seller.find()
   await Advertiser.find().then(async advertisers => {
-    advertisers.forEach(advertiser => {
+    advertisers.forEach(async advertiser => {
       advertiser.pizzaTokens += (advertiser.sellers.length * 1000) + 500 
-      advertiser.sellers.forEach(seller => {
+      advertiser.sellers.forEach(async seller => {
         seller.pizzaTokens += (advertiser.sellers.length * 1000)+ 500
         await seller.save()
       })

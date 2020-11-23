@@ -16,17 +16,26 @@ module.exports = class gstart extends Command {
 	}
 	async run(message) {
 		const format = (object) => {
-			return `
-	Name: ${object.name}
-	Cost: ${object.cost}
-	Production Cost: ${object.production}
-			`
+			return object ? `
+Name: ${object.name}
+Cost: ${object.cost}
+Production Cost: ${object.production}
+			` : ``
 		}
         Seller.findOne({discord_id:message.author.id}).then(user => {
-			let menu=""
-			for(let i=0; i<user.menu.length; i++){
-				menu += `${i+1}. ${format(user.menu[i])} \n`
+			if(!user){
+				const embed = new Discord.MessageEmbed()
+	.setColor('#c22419')
+	.setTitle("You are not a seller!")
+        return message.channel.send(embed);
 			}
+			let menu=""
+			const iterations = user.menu.length > 5 ? 5 : user.menu.length
+			console.log(iterations)
+				for(let i=0; i<iterations; i++){
+					menu += `${i+1}. ${format(user.menu[i])} \n`
+				}
+				
 			if(!menu){
 				const embed = new Discord.MessageEmbed()
        				.setColor('#c22419')
@@ -37,14 +46,9 @@ module.exports = class gstart extends Command {
 			const membed = new Discord.MessageEmbed()
                                 .setColor('#71EEB8')
                                 .setTitle(`${user.name}'s Menu`)
-                                .setDescription("```"+ menu +"```")
-				.setFooter(`Use '${message.guild.commandPrefix}menuadd' to add food!`) 
+								.setDescription("```"+ menu +"```")
+								.setFooter(`Use '${message.guild.commandPrefix}menuadd' to add food! ${user.menu.length > 5 ? `Along with ${user.menu.length} items...` : ""}`) 
 			message.channel.send(membed)
-        }).catch(() => {
-	const embed = new Discord.MessageEmbed()
-	.setColor('#c22419')
-	.setTitle("You are not a seller!")
-        return message.channel.send(embed);
         })
 	}
 };

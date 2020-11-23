@@ -86,4 +86,4 @@ module.exports = class gstart extends Command {
 	}
 };
 
-client.login(require("../../config").token)
+client.login(require("/home/rocky/RockibotBeta/config.js").token)

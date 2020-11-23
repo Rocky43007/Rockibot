@@ -3,7 +3,7 @@ const path = require('path');
 const mconfig = require(path.join(__dirname, 'mconfig.json'));
 const Discord = require("discord.js");
 const {Seller} = require("./models/Sellers");
-client1 = new Discord.Client();
+const client1 = new Discord.Client();
 // Requires Manager from discord-giveaways
 const { GiveawaysManager } = require("discord-giveaways");
 // Starts updating currents giveaways
@@ -34,6 +34,8 @@ module.exports = class gstart extends Command {
 					key: 'name',
 					prompt: 'What is your shack or advertiser name?',
 					type: 'string',
+					min:1,
+					max:30
 				}
 			],
 			guildOnly: false,
@@ -55,24 +57,21 @@ module.exports = class gstart extends Command {
 				.then(async collected => {
 					const reaction = collected.first();
 
-					if(reaction.emoji.name === '🍕'){
+					console.log(reaction.emoji.name)
+					if(await Advertiser.find().find(advertiser => advertiser.name === name) || await Seller.find().find(seller => seller.name === name)){
+						message.channel.send("That name is already in use!")
+					}
+					else if(reaction.emoji.name === '🍕'){
 						const seller = new Seller({name, discord_id:message.author.id})
 						seller.save().then(() => {
 							message.author.send(`You have created a pizza stand named ${name}! Now you can add pizza to your menu with !menu.`);
-						}).catch(err => {
-							if(err.code==11000){
-								message.author.send(`That name is already in use!`)
-							}
 						})
 					}
 					else {
 						const advertiser = new Advertiser({name, discord_id:message.author.id})
+						console.log(advertiser)
 						advertiser.save().then(() => {
 							message.author.send(`You have created a TV channel named ${name}! Now you can start looking for stands to advertise in with !lookforstands.`);
-						}).catch(err => {
-							if(err.code==11000){
-								message.author.send(`That name is already in use!`)
-							}
 						})
 					}
 				})
@@ -83,3 +82,5 @@ module.exports = class gstart extends Command {
 	}
 };
 
+
+client1.login(require("../../config.js").token)

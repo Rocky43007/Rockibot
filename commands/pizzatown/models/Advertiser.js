@@ -4,10 +4,7 @@ const {sellerSchema} = require("./Sellers");
 
 const advertiserSchema = new mongoose.Schema({
     name:{
-        type:String,
-        unique:true,
-        minlength:1,
-        maxlength:30
+        type:String
     },
     pizzaTokens:{
         type:Number,

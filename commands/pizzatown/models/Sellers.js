@@ -24,10 +24,7 @@ const storeSchema = new mongoose.Schema({
 
 const sellerSchema = new mongoose.Schema({
     name:{
-        type:String,
-        unique:true,
-        min:1,
-        max:30
+        type:String
     },
     pizzaTokens:{
         type:Number,
@@ -43,6 +40,10 @@ const sellerSchema = new mongoose.Schema({
     stores:{
         type:[storeSchema],
         default:[{profitmultiplier:2}]
+    },
+    collectdate:{
+        type:Date,
+        default:Date.now()
     }
 })
 
