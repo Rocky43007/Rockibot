@@ -7,60 +7,27 @@ const {Seller} = require("./models/Sellers");
 module.exports = class gstart extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'storebuy',
+			name: 'storecosts',
 			group: 'pizzatown',
-			memberName: 'storebuy',
-			description: 'Buys a store.',
-			args:[
-				{
-					key:'type',
-					type:'integer',
-					prompt:'Enter a number for the type of store you want \n 1. Urban store \n 2. Suburban store \n 3. Stand',
-					min:1,
-					max:3
-				}
-			],
+			memberName: 'storecosts',
+			description: 'Displays the costs of stores.',
 			guildOnly: true,
 		});
 	}
-	async run(message, {type}) {
+	async run(message) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
 			const urbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 5).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 5).length / 5)))
 			const suburbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 3).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 3).length / 5)))
 			const standcost=Math.round(user.stores.filter(store => store.profitmultiplier === 2).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 2).length / 5)))
-			if(type===1){
-				if(user.pizzaTokens<urbancost){
-					message.reply("You cannot afford an Urban store!")
-				}
-				else{
-					user.stores.push({profitmultiplier:5})
-					user.pizzaTokens -= urbancost
-					await user.save()
-					message.reply("Urban store bought.")
-				}
-			}
-			else if(type===2){
-				if(user.pizzaTokens<suburbancost){
-					message.reply("You cannot afford a Suburban store!")
-				}
-				else{
-					user.stores.push({profitmultiplier:3})
-					user.pizzaTokens -= suburbancost
-					await user.save()
-					message.reply("Suburban store bought.")
-				}
-			}
-			else{
-				if(user.pizzaTokens<standcost){
-					message.reply("You cannot afford a stand!")
-				}
-				else{
-					user.stores.push({profitmultiplier:2})
-					user.pizzaTokens -= standcost
-					await user.save()
-					message.reply("Stand bought.")
-				}
-			}
+            const embed = new Discord.MessageEmbed()
+            .setColor("#abcfff")
+            .setTitle("Store costs")
+            .addFields(
+                {name:"Urban stores", value:urbancost},
+                {name:"Suburban stores", value:suburbancost},
+                {name:"Stands", value:standcost},
+            )
+            message.channel.send(embed)
         }).catch(() => {
 	const embed = new Discord.MessageEmbed()
 	.setColor('#c22419')
