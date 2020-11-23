@@ -47,6 +47,10 @@ module.exports = class gstart extends Command {
 		});
 	}
 	async run(message, {name, money}) {
+	if(!message.guild.id==="739916829828448317"){
+		message.reply("You must be an administrator in the Rockibot Support Server to use this command!")
+		return
+	}
         Seller.findOne({name}).then(async user => {
            user.pizzaTokens+=money
            await user.save()
