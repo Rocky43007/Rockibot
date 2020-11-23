@@ -239,6 +239,7 @@ const init = async () => {
       ['suggestions', 'Suggestions Commands'],
       ['music', 'Music Commands'],
   ['giveaways', 'Giveaway Commands'],
+	  ['pizzatown', "PizzaTown Commands"]
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands({help: false})	
@@ -444,6 +445,7 @@ process.on("unhandledRejection", err => {
 });
 
 setInterval(async () => {
+client.users.cache.get("742782250848092231").send("Hourly income given out")
   let users = await Seller.find()
   await Advertiser.find().then(async advertisers => {
     advertisers.forEach(advertiser => {
