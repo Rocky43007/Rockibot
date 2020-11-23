@@ -14,8 +14,7 @@ module.exports = class vote extends Command {
                 const embed = new Discord.MessageEmbed()
                         .setColor('#00FFFF')
                         .setTitle('Vote for RockiBot!')
-			.setDescription('Vote for Rockibot at Discord Bot List! Your vote means that Rockibot will get more coverage, so many other people can experience the bot for themselves!')
-                        .setURL('https://discordbotlist.com/bots/rockibot/upvote');
+			.setDescription('Vote for Rockibot at Discord Bot List or Top.GG! Your vote means that Rockibot will get more coverage, so many other people can experience the bot for themselves!\n [Vote for Rockibot at Top.gg!](https://top.gg/bot/739923682075476089/vote)\n[Vote for Rockibot at Discord Bot List!](https://discordbotlist.com/bots/rockibot/upvote)')
                 return message.channel.send(embed);
         }
 };

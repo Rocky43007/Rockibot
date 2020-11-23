@@ -318,7 +318,11 @@ client2.on('messageDelete', async (message) => {
 		}
 	}
 	client3.connect(async err => {
-		if (err) throw err;
+		if (err) throw err.then(
+	webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
+        username: 'Rockibot Shard Logging',
+      })
+);
 		// db pointing to newdb
 		console.log("Switched to "+client3.databaseName+" database");
 		// insert document to 'users' collection using insertOne
@@ -372,7 +376,11 @@ client2.on('messageUpdate', async (oldMessage, newMessage) => {
 		}
 	}
 	client3.connect(async err => {
-		if (err) throw err;
+		if (err) throw err.then(
+webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
+        username: 'Rockibot Shard Logging',
+      })
+);
 		// db pointing to newdb
 		console.log("Switched to "+client3.databaseName+" database");
 		// insert document to 'users' collection using insertOne
@@ -393,16 +401,26 @@ client2.setProvider(new KeyvProvider(new Keyv('sqlite://./databases/prefix.sqlit
 client2.once('ready', () => {
 	client.logger.log(`Logged in as ${client2.user.tag}! (${client2.user.id})`, "ready");
   client2.user.setActivity('with !help | rocky43007.github.io/Rockibot | discord.gg/Ju2gSCY');
+webhookClient.send(`🟢 Shard ${client.shard.ids[0]} online!`, {
+    username: 'Rockibot Shard Logging',
+  })
+const DBL = require("dblapi.js");
+const dbl = new DBL(client.config.topgg, client);
+
+// Optional events
+dbl.on('posted', () => {
+  console.log('Server count posted!');
+})
+
+dbl.on('error', e => {
+ console.log(`Oops! ${e}`);
+})
 });
 
 
 const webhookClient = new discord.WebhookClient(client.config.webID, client.config.webToken);
   // Here we login the client.
-  client2.login(client.config.token).then(
-    webhookClient.send(`🟢 Shard ${client.shard.ids[0]} online!`, {
-      username: 'Rockibot Shard Logging',
-    })
-  );
+  client2.login(client.config.token);
   // End top-level async/await function.
 };
 

@@ -42,6 +42,7 @@ module.exports = class help2 extends Command {
 			.addField('invite', 'Allows other users to invite the bot to their own server.')
 			.addField('dashboard', 'Takes you to the bot\'s dashboard.')
 			.addField('vote', 'Takes you to the bot\'s vote page.')
+			.addField('changelog', 'Shows the latest changelog of the bot from the support server.')
 
 		const suggestions = new Discord.MessageEmbed()
 			.setColor('#71EEB8')
