@@ -494,7 +494,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
       profitmultiplication += store.profitmultiplier
     })
 
-    userprofit *= profitmultiplication;
+    userprofit *= Math.round(profitmultiplication / 3);
     user.pizzaTokens += userprofit;
     await user.save()
   })

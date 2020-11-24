@@ -58,7 +58,7 @@ module.exports = class gstart extends Command {
 			user.stores.forEach(store => {
 				profitmultiplier += store.profitmultiplier
 			})
-			uprofit *= profitmultiplier
+			uprofit *= Math.round(profitmultiplier / 3)
             const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
