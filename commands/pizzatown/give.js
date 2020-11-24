@@ -42,7 +42,7 @@ module.exports = class gstart extends Command {
                 }
                
             ],
-            userPermissions:['ADMINISTRATOR'],
+            ownerOnly:true,
 			guildOnly: true,
 		});
 	}
