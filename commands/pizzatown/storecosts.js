@@ -16,9 +16,9 @@ module.exports = class gstart extends Command {
 	}
 	async run(message) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
-			const urbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 5).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 5).length / 5)))
-			const suburbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 3).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 3).length / 5)))
-			const standcost=Math.round(user.stores.filter(store => store.profitmultiplier === 2).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 2).length / 5)))
+			const urbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 5).length * (10000 * (user.stores.filter(store => store.profitmultiplier === 5).length / 5)))
+			const suburbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 3).length * (10000 * (user.stores.filter(store => store.profitmultiplier === 3).length / 5)))
+			const standcost=Math.round(user.stores.filter(store => store.profitmultiplier === 2).length * (10000 * (user.stores.filter(store => store.profitmultiplier === 2).length / 5)))
             const embed = new Discord.MessageEmbed()
             .setColor("#abcfff")
             .setTitle("Store costs")
