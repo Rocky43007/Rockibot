@@ -42,6 +42,8 @@ module.exports = class gstart extends Command {
 		});
 	}
 	async run(message, { name }) {
+		const sellers = await Seller.find()
+		const advertisers = await Advertiser.find()
 		if(await Advertiser.findOne({discord_id:message.author.id}) || await Seller.findOne({discord_id:message.author.id})){
 			message.channel.send("You already have an account!")
 			return
@@ -49,7 +51,6 @@ module.exports = class gstart extends Command {
 		const filter = (reaction, user) => {
 			return ['📺', '🍕'].includes(reaction.emoji.name) && user.id === message.author.id;
 		};
-		console.log(Advertiser, Seller)
 		message.author.send("Would you like to be a TV advertiser or Pizza Seller? You have 15 minutes.").then(botMessage => {
 			botMessage.react("📺")
 			botMessage.react("🍕")
@@ -58,7 +59,7 @@ module.exports = class gstart extends Command {
 					const reaction = collected.first();
 
 					console.log(reaction.emoji.name)
-					if(await Advertiser.find().find(advertiser => advertiser.name === name) || await Seller.find().find(seller => seller.name === name)){
+					if(sellers.find(seller => seller.name === name) || advertisers.find(advertiser => advertiser.name === name)){
 						message.channel.send("That name is already in use!")
 					}
 					else if(reaction.emoji.name === '🍕'){

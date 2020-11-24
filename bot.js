@@ -321,7 +321,8 @@ client2.on('messageDelete', async (message) => {
 		if (err) throw err.then(
 	webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
         username: 'Rockibot Shard Logging',
-      })
+      }),
+	client.shard.send(`restart ${client.shard.ids[0]}`)
 );
 		// db pointing to newdb
 		console.log("Switched to "+client3.databaseName+" database");
@@ -379,7 +380,8 @@ client2.on('messageUpdate', async (oldMessage, newMessage) => {
 		if (err) throw err.then(
 webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
         username: 'Rockibot Shard Logging',
-      })
+      }),
+client.shard.send(`restart ${client.shard.ids[0]}`)
 );
 		// db pointing to newdb
 		console.log("Switched to "+client3.databaseName+" database");

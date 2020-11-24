@@ -88,6 +88,7 @@ module.exports = class gstart extends Command {
 			)
 			message.channel.send(embed)
 			}).catch((err) => {
+				console.log(err)
 				message.reply("You don't have an account!")
 			})
         })
