@@ -31,6 +31,8 @@ const db = require('quick.db');
 const Advertiser = require("./commands/pizzatown/models/Advertiser");
 console.log(uri);
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex:true });
+const leveling = require('discord-leveling');
+
 class GuideBot extends Client {
   constructor(options) {
     super(options);
@@ -239,7 +241,8 @@ const init = async () => {
       ['suggestions', 'Suggestions Commands'],
       ['music', 'Music Commands'],
   ['giveaways', 'Giveaway Commands'],
-	  ['pizzatown', "PizzaTown Commands"]
+	  ['pizzatown', "PizzaTown Commands"],
+ ['leveling', 'Leveling Commands'],
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands({help: false})	
@@ -319,7 +322,7 @@ client2.on('messageDelete', async (message) => {
 	}
 	client3.connect(async err => {
 		if (err) throw err.then(
-	webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
+	webhookClient.send(`🔴 MongoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
         username: 'Rockibot Shard Logging',
       }),
 	client.shard.send(`restart ${client.shard.ids[0]}`)
@@ -378,7 +381,7 @@ client2.on('messageUpdate', async (oldMessage, newMessage) => {
 	}
 	client3.connect(async err => {
 		if (err) throw err.then(
-webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
+webhookClient.send(`🔴 MongoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
         username: 'Rockibot Shard Logging',
       }),
 client.shard.send(`restart ${client.shard.ids[0]}`)
@@ -419,7 +422,17 @@ dbl.on('error', e => {
 })
 });
 
-
+client2.on("message", async message => {
+  if (message.author.bot) return;
+   var profile = await leveling.Fetch(message.author.id)
+  leveling.AddXp(message.author.id, 1)
+  //If user xp higher than 100 add level
+  if (profile.xp + 10 > 100) {
+    await leveling.AddLevel(message.author.id, 1)
+    await leveling.SetXp(message.author.id, 0)
+    message.reply(`You just leveled up!! You are now level: ${profile.level + 1}`)
+  }
+});
 const webhookClient = new discord.WebhookClient(client.config.webID, client.config.webToken);
   // Here we login the client.
   client2.login(client.config.token);

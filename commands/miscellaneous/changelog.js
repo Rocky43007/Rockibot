@@ -17,12 +17,16 @@ module.exports = class Invite extends Command {
 			.setColor('#00FFFF')
 			.setTitle('Rockibot\'s Changelog!')
 			.setDescription(`
-			\`v1.2.0-beta\` has been released!
+			\`v1.3.1-beta\` has been released!
 			**Change Log:**
-			1) Addition of Pizza Town to the bot!
-			2) Fix of music commands and addition of \`!clear\` which clears the queue.`)
+			1) There's now a leveling system! You gain 1 XP per message. You can see your level and XP with \`!level\`, and see the server leaderboard with \`!leaderboard\` or \`!lb\`! You require 100 XP per level.
+
+			**Bugs that are being worked on:** 
+			1) Pizza Town's income is wack.
+			2) Music is wack as well. \`!play\` doesn't play anything.`)
 			.setTimestamp();
 		return message.channel.send(embed);
             // do what you need with lastMessage below
 	}
 };
+
