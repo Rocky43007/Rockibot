@@ -242,7 +242,6 @@ const init = async () => {
       ['music', 'Music Commands'],
   ['giveaways', 'Giveaway Commands'],
 	  ['pizzatown', "PizzaTown Commands"],
- ['leveling', 'Leveling Commands'],
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands({help: false})	
@@ -422,17 +421,6 @@ dbl.on('error', e => {
 })
 });
 
-client2.on("message", async message => {
-  if (message.author.bot) return;
-   var profile = await leveling.Fetch(message.author.id)
-  leveling.AddXp(message.author.id, 1)
-  //If user xp higher than 100 add level
-  if (profile.xp + 10 > 100) {
-    await leveling.AddLevel(message.author.id, 1)
-    await leveling.SetXp(message.author.id, 0)
-    message.reply(`You just leveled up!! You are now level: ${profile.level + 1}`)
-  }
-});
 const webhookClient = new discord.WebhookClient(client.config.webID, client.config.webToken);
   // Here we login the client.
   client2.login(client.config.token);
@@ -499,7 +487,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
       
       sales -= 5 * (pizza.cost);
 
-      let profit = (sales * pizza.production / 2) / pizza.production;
+      let profit = (sales * ((pizza.production * 1.5) - pizza.cost))
       userprofit += Math.round(profit)
     })
     let profitmultiplication = 0;

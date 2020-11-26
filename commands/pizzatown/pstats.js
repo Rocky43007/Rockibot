@@ -50,7 +50,7 @@ module.exports = class gstart extends Command {
 
 				sales -= pizza.cost * 5
 
-				let profit = (sales * pizza.production / 2) / pizza.production;
+				let profit = (sales * ((pizza.production * 1.5) - pizza.cost));
 
 				uprofit += Math.round(profit)
 			})
