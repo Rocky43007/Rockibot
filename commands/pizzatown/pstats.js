@@ -72,11 +72,11 @@ module.exports = class gstart extends Command {
 
             message.channel.send(embed)
         }).catch((err) => {
-            Advertiser.findOne({discord_id:message.author.id}).then(user => {
+            Advertiser.findOne({discord_id:message.author.id}).then(async user => {
 				console.log(user)
 				console.log(user.sellers)
 				let uprofit = 0;
-			uprofit += (user.sellers.length * 1000) + 500
+			uprofit += (user.sellers.length *  await Advertiser.find().length * 100000)+ 500
 				const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
