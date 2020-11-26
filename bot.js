@@ -487,7 +487,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
       
       sales -= 5 * (pizza.cost);
 
-      let profit = (sales * ((pizza.production * 1.5) - pizza.cost))
+      let profit = (sales * (pizza.cost - pizza.production))
       userprofit += Math.round(profit)
     })
     let profitmultiplication = 0;
