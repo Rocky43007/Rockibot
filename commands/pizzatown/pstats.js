@@ -44,21 +44,19 @@ module.exports = class gstart extends Command {
         Seller.findOne({discord_id:message.author.id}).then(user => {
 			let uprofit = 0;
 			user.menu.forEach(pizza => {
-				let sales = 0;
-
-				sales += pizza.production * 20
-
-				sales -= pizza.cost * 5
-
-				let profit = (sales * pizza.production / 2) / pizza.production;
-
-				uprofit += Math.round(profit)
+				if(pizza.production===pizza.cost) return
+				user.stores.forEach(store => {
+					if(store.profitmultiplier===2){
+						uprofit += store.profitmultiplier * ((pizza.production / (pizza.cost)) * 10)
+					}
+					else if(store.profitmultiplier===3){
+						uprofit += store.profitmultiplier *  (pizza.production / (pizza.cost)) * pizza.production
+					}
+					else {
+						uprofit += store.profitmultiplier * (pizza.production)
+					}
+				})
 			})
-			let profitmultiplier = 0;
-			user.stores.forEach(store => {
-				profitmultiplier += store.profitmultiplier
-			})
-			uprofit *= Math.round(profitmultiplier / 3)
             const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
@@ -72,11 +70,11 @@ module.exports = class gstart extends Command {
 
             message.channel.send(embed)
         }).catch((err) => {
-            Advertiser.findOne({discord_id:message.author.id}).then(user => {
+            Advertiser.findOne({discord_id:message.author.id}).then(async user => {
 				console.log(user)
 				console.log(user.sellers)
 				let uprofit = 0;
-			uprofit += (user.sellers.length * 1000) + 500
+			uprofit += (user.sellers.length *  (await Advertiser.find().length * 100000))+ 500
 				const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)

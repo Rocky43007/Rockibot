@@ -25,9 +25,9 @@ module.exports = class gstart extends Command {
 	}
 	async run(message, {type}) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
-			const urbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 5).length * (10000 * (user.stores.filter(store => store.profitmultiplier === 5).length / 5)))
-			const suburbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 3).length * (10000 * (user.stores.filter(store => store.profitmultiplier === 3).length / 5)))
-			const standcost=Math.round(user.stores.filter(store => store.profitmultiplier === 2).length * (10000 * (user.stores.filter(store => store.profitmultiplier === 2).length / 5)))
+			const urbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 5).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 5).length / 5)) + 5000)
+			const suburbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 3).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 3).length / 5)) + 3000)
+			const standcost=Math.round(user.stores.filter(store => store.profitmultiplier === 2).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 2).length / 5)) + 1000)
 			if(type===1){
 				if(user.pizzaTokens<urbancost){
 					message.reply("You cannot afford an Urban store!")

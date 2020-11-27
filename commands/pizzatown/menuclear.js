@@ -24,31 +24,19 @@ client1.giveawaysManager = manager;
 module.exports = class gstart extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'menudelete',
+			name: 'menuclear',
 			group: 'pizzatown',
-			memberName: 'menudeletes',
-            description: 'Deletes an item from your menu.',
-            args:[
-                {
-                    key:'id',
-                    prompt:'What is id of the item you want to remove?',
-                    type:'integer',
-                    min:0
-                }
-            ],
+			memberName: 'menuclear',
+            description: 'Deletes every item from your menu.',
+
 			guildOnly: true,
 		});
 	}
-	async run(message, {id}) {
+	async run(message) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
-            if(user.menu.length<id||id<1){
-                message.channel.send("You don't have an item with an id of "+number+"!");
-                return
-            }
-            user.menu.splice(id - 1, 1)
+            user.menu.length = []
             await user.save()
-
-            message.channel.send(`Item ${id} was deleted from your menu.`)
+            message.reply("Menu cleared.")
         }).catch(() => {
             message.reply("You are not a seller!")
         })

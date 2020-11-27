@@ -29,3 +29,4 @@ module.exports = class Invite extends Command {
             // do what you need with lastMessage below
 	}
 };
+

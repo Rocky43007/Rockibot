@@ -31,6 +31,8 @@ const db = require('quick.db');
 const Advertiser = require("./commands/pizzatown/models/Advertiser");
 console.log(uri);
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex:true });
+const leveling = require('discord-leveling');
+
 class GuideBot extends Client {
   constructor(options) {
     super(options);
@@ -239,7 +241,7 @@ const init = async () => {
       ['suggestions', 'Suggestions Commands'],
       ['music', 'Music Commands'],
   ['giveaways', 'Giveaway Commands'],
-	  ['pizzatown', "PizzaTown Commands"]
+	  ['pizzatown', "PizzaTown Commands"],
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands({help: false})	
@@ -319,7 +321,7 @@ client2.on('messageDelete', async (message) => {
 	}
 	client3.connect(async err => {
 		if (err) throw err.then(
-	webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
+	webhookClient.send(`🔴 MongoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
         username: 'Rockibot Shard Logging',
       }),
 	client.shard.send(`restart ${client.shard.ids[0]}`)
@@ -378,7 +380,7 @@ client2.on('messageUpdate', async (oldMessage, newMessage) => {
 	}
 	client3.connect(async err => {
 		if (err) throw err.then(
-webhookClient.send(`🔴 MonoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
+webhookClient.send(`🔴 MongoDB Connection to Shard ${client.shard.ids[0]} Reached 500. Restarting....`, {
         username: 'Rockibot Shard Logging',
       }),
 client.shard.send(`restart ${client.shard.ids[0]}`)
@@ -418,7 +420,6 @@ dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 })
 });
-
 
 const webhookClient = new discord.WebhookClient(client.config.webID, client.config.webToken);
   // Here we login the client.
@@ -469,33 +470,31 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
   let users = await Seller.find()
   await Advertiser.find().then(async advertisers => {
     advertisers.forEach(async advertiser => {
-      advertiser.pizzaTokens += (advertiser.sellers.length * 1000) + 500 
+      advertiser.pizzaTokens += (advertiser.sellers.length *  (await Advertiser.find().length * 100000))+ 500
       advertiser.sellers.forEach(async seller => {
-        seller.pizzaTokens += (advertiser.sellers.length * 1000)+ 500
+        seller.pizzaTokens += (advertiser.sellers.length *  (await Advertiser.find().length * 10000))+ 500
         await seller.save()
       })
       await advertiser.save()
     })
   })
   users.forEach(async user => {
-    let userprofit=0;
-    user.menu.forEach(pizza => {
-      let sales = 0;
-      
-      sales += 20 * (pizza.production);
-      
-      sales -= 5 * (pizza.cost);
-
-      let profit = (sales * pizza.production / 2) / pizza.production;
-      userprofit += Math.round(profit)
-    })
-    let profitmultiplication = 0;
-    user.stores.forEach(store => {
-      profitmultiplication += store.profitmultiplier
-    })
-
-    userprofit *= Math.round(profitmultiplication / 3);
-    user.pizzaTokens += userprofit;
+    let uprofit = 0;
+			user.menu.forEach(pizza => {
+				if(pizza.production===pizza.cost) return
+				user.stores.forEach(store => {
+					if(store.profitmultiplier===2){
+						uprofit += store.profitmultiplier * ((pizza.production / (pizza.cost)) * 10)
+					}
+					else if(store.profitmultiplier===3){
+						uprofit += store.profitmultiplier *  (pizza.production / (pizza.cost)) * pizza.production
+					}
+					else {
+						uprofit += store.profitmultiplier * (pizza.production)
+					}
+				})
+			})
+    user.pizzaTokens += uprofit;
     await user.save()
   })
 }, 3600000)
