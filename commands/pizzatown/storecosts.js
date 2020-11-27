@@ -7,10 +7,10 @@ const {Seller} = require("./models/Sellers");
 module.exports = class gstart extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'storebuy',
+			name: 'storecosts',
 			group: 'pizzatown',
-			memberName: 'storebuy',
-			description: 'Buys a store.',
+			memberName: 'storecosts',
+			description: 'Shows store costs.',
 			guildOnly: true,
 		});
 	}
