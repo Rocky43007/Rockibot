@@ -19,7 +19,8 @@ module.exports = class gstart extends Command {
 			const urbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 5).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 5).length / 5)) + 5000)
 			const suburbancost=Math.round(user.stores.filter(store => store.profitmultiplier === 3).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 3).length / 5)) + 3000)
 			const standcost=Math.round(user.stores.filter(store => store.profitmultiplier === 2).length * (1000 * (user.stores.filter(store => store.profitmultiplier === 2).length / 5)) + 1000)
-			const embed = new Discord.MessageEmbed()
+            const embed = new Discord.MessageEmbed()
+            message.channel.send(embed)
 	.setColor('#c22419')
     .setTitle("Store costs")
     .addFields(
