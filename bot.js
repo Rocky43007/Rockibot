@@ -479,24 +479,22 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
     })
   })
   users.forEach(async user => {
-    let userprofit=0;
-    user.menu.forEach(pizza => {
-      let sales = 0;
-      
-      sales += 20 * (pizza.production);
-      
-      sales -= 5 * (pizza.cost);
-
-      let profit = (sales * (pizza.cost - pizza.production))
-      userprofit += Math.round(profit)
-    })
-    let profitmultiplication = 0;
-    user.stores.forEach(store => {
-      profitmultiplication += store.profitmultiplier
-    })
-
-    userprofit *= Math.round(profitmultiplication / 3);
-    user.pizzaTokens += userprofit;
+    let uprofit = 0;
+			user.menu.forEach(pizza => {
+				if(pizza.production===pizza.cost) return
+				user.stores.forEach(store => {
+					if(store.profitmultiplier===2){
+						uprofit += store.profitmultiplier * ((pizza.production / (pizza.cost)) * 10)
+					}
+					else if(store.profitmultiplier===3){
+						uprofit += store.profitmultiplier *  (pizza.production / (pizza.cost)) * pizza.production
+					}
+					else {
+						uprofit += store.profitmultiplier * (pizza.production)
+					}
+				})
+			})
+    user.pizzaTokens += uprofit;
     await user.save()
   })
 }, 3600000)

@@ -41,7 +41,7 @@ module.exports = class gstart extends Command {
 	}
 	async run(message, {id}) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
-            if(user.menu.length<id){
+            if(user.menu.length<id||id<1){
                 message.channel.send("You don't have an item with an id of "+number+"!");
                 return
             }

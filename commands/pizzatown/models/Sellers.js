@@ -47,4 +47,4 @@ const sellerSchema = new mongoose.Schema({
     }
 })
 
-module.exports = {Seller:mongoose.model("Sellers", sellerSchema), sellerSchema}
+module.exports = {Seller:mongoose.model("Sellers", sellerSchema), sellerSchema, storeSchema}

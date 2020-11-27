@@ -54,8 +54,8 @@ module.exports = class gstart extends Command {
 	}
 	async run(message, {name, cost, prodcost}) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
-            if(user.menu.length>=user.stores.length){
-                message.channel.send(`Your menu item limit is ${user.stores.length}! Purchase more stores to increase that!`)
+            if(user.menu.length>=(Math.round(user.stores.length / 5) + 1)){
+                message.channel.send(`Your menu item limit is ${Math.round(user.stores.length / 5) + 1}! Purchase another ${((Math.round(user.stores.length / 5) + 1) * 5) - user.stores.length} stores to increase that!`)
                 return
             }
             user.menu.push({name, cost, production:prodcost})
