@@ -65,7 +65,7 @@ module.exports = class gstart extends Command {
                 {name:"PizzaTokens", value:`${user.pizzaTokens}`},
                 {name:"Stores", value:"Check your stores with !stores"},
 				{name:"Menu", value:"Check your menu with !menu."},
-				{name:"Hourly Income", value:`${uprofit}`}
+				{name:"Hourly Income", value:`${uprofit} (Not Including advertisement profit)`}
             )
 
             message.channel.send(embed)
@@ -74,7 +74,7 @@ module.exports = class gstart extends Command {
 				console.log(user)
 				console.log(user.sellers)
 				let uprofit = 0;
-			    uprofit += (user.sellers.length *  (await (await Advertiser.find()).length * 100000))+ 500
+			    uprofit += (user.sellers.length *  (await (await Advertiser.find()).length * 10000))+ 500
 				const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
