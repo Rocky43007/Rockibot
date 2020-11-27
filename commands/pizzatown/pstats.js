@@ -75,7 +75,7 @@ module.exports = class gstart extends Command {
 				console.log(user.sellers)
 				let uprofit = 0;
 				console.log((user.sellers.length *  (await Advertiser.find().length * 100000))+ 500)
-			uprofit += (user.sellers.length *  (await Advertiser.find().length * 100000))+ 500
+			if(user.sellers.length) uprofit += (user.sellers.length *  (await Advertiser.find().length * 100000))+ 500
 				const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
