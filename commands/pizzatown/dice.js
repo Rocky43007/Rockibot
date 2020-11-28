@@ -35,8 +35,6 @@ module.exports = class gstart extends Command {
     async run(message) {
         Seller.findOne({ discord_id:message.author.id }).then(async user => {
             var x = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
-            var y = Math.floor(Math.random() * ((6 - 1) + 1) + 1);
-            var dicetotal = x + y;
             if(user.pizzaTokens < 300){
                 const membed = new Discord.MessageEmbed()
                     .setColor('#ff0000')
@@ -44,19 +42,19 @@ module.exports = class gstart extends Command {
                 message.channel.send(membed)
                 return
             }
-            if(dicetotal>=300){
+            if(x * 100>=300){
                 const membed = new Discord.MessageEmbed()
                     .setColor('#00ff00')
-                    .setTitle(`You earned ${dicetotal * 100 - 300} PizzaTokens!`)
+                    .setTitle(`You earned ${x * 100 - 300} PizzaTokens!`)
                 message.channel.send(membed)
             }
             else{
                 const membed = new Discord.MessageEmbed()
                     .setColor('#ff0000')
-                    .setTitle(`You lost ${dicetotal * 100 - 300} PizzaTokens!`)
+                    .setTitle(`You lost ${x * 100 - 300} PizzaTokens!`)
                 message.channel.send(membed)
             }
-            user.pizzaTokens += dicetotal * 100 - 300;
+            user.pizzaTokens += x * 100 - 300;
             await user.save()
         }).catch(() => {
             Advertiser.findOne({ discord_id:message.author.id }).then(async user => {
