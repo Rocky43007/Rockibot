@@ -28,6 +28,7 @@ module.exports = class gstart extends Command {
                 {name:"Suburban costs", value:suburbancost},
                 {name:"Stand costs", value:standcost},
             )
+            message.channel.send(embed)
         }).catch(() => {
 	const embed = new Discord.MessageEmbed()
 	.setColor('#c22419')
