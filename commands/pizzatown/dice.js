@@ -30,6 +30,10 @@ module.exports = class gstart extends Command {
             memberName: 'dice',
             description: 'Roll a dice.',
             guildOnly: false,
+	    throttling:{
+		usages:1, 
+		duration:10
+		}
         });
     }
     async run(message) {

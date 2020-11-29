@@ -44,6 +44,10 @@ module.exports = class gstart extends Command {
 
             ],
             guildOnly: false,
+		throttling:{ 
+                usages:1, 
+                duration:10
+                }
         });
     }
     async run(message, { face, money }) {
