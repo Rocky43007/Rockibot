@@ -76,7 +76,7 @@ module.exports = class Ban extends Command {
 		}
 		if (message.guild.member(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not ban this user, he has higher permission than I do.');
 		if (!message.guild.me.hasPermission('BAN_MEMBERS')) return message.reply('I need the permission `BAN_MEMBERS` for this to work.');
-
+		if (user.id === message.author.id) return message.repy('You cannot ban yourself!');
 		client.connect(async err => {
 			if (err) throw err;
 			// db pointing to newdb

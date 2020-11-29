@@ -73,16 +73,13 @@ module.exports = class gstart extends Command {
             Advertiser.findOne({discord_id:message.author.id}).then(user => {
 				console.log(user)
 				console.log(user.sellers)
-				let uprofit = 0;
-			uprofit += (user.sellers.length * 1000) + 500
 				const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
             .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
             .setAuthor(`${user.name}'s Stand.`, message.author.displayAvatarURL({format:"png", dynamic:true}))
             .addFields(
                 {name:"PizzaTokens", value:`${user.pizzaTokens}`},
-				{name:"Sellers", value:formatSellers(user.sellers)},
-				{name:"Hourly Income", value:`${uprofit}`}
+				{name:"Sellers", value:formatSellers(user.sellers)}
 			)
 			message.channel.send(embed)
 			}).catch((err) => {
