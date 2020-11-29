@@ -51,7 +51,7 @@ module.exports = class gstart extends Command {
             else{
                 const membed = new Discord.MessageEmbed()
                     .setColor('#ff0000')
-                    .setTitle(`You lost ${x * 100 - 300} PizzaTokens!`)
+                    .setTitle(`You lost ${300 - x * 100} PizzaTokens!`)
                 message.channel.send(membed)
             }
             user.pizzaTokens += x * 100 - 300;
