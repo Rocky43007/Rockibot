@@ -404,7 +404,7 @@ client2.setProvider(new KeyvProvider(new Keyv('sqlite://./databases/prefix.sqlit
 
 client2.once('ready', () => {
 	client.logger.log(`Logged in as ${client2.user.tag}! (${client2.user.id})`, "ready");
-  client2.user.setActivity('with !help | rocky43007.github.io/Rockibot | discord.gg/Ju2gSCY');
+  client2.user.setActivity('with !help | rockibot.ml | discord.gg/Ju2gSCY');
 webhookClient.send(`🟢 Shard ${client.shard.ids[0]} online!`, {
     username: 'Rockibot Shard Logging',
   })
