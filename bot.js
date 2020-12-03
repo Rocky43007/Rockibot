@@ -471,7 +471,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
   await Advertiser.find().then(async advertisers => {
     advertisers.forEach(async advertiser => {
       advertiser.sellers.forEach(async seller => {
-        seller.pizzaTokens += (advertiser.sellers.length *  (await Advertiser.find().length * 1000))+ 500
+        seller.pizzaTokens += (advertiser.sellers.length *  1000)
         await seller.save()
       })
     })
