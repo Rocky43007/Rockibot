@@ -50,22 +50,24 @@ module.exports = class gstart extends Command {
         }
         Seller.findOne({ name }).then(user => {
             let uprofit = 0;
-            user.menu.forEach(pizza => {
-                let sales = 0;
-
-                sales += pizza.production * 20
-
-                sales -= pizza.cost * 5
-
-                let profit = (sales * pizza.production / 2) / pizza.production;
-
-                uprofit += Math.round(profit)
-            })
-            let profitmultiplier = 0;
-            user.stores.forEach(store => {
-                profitmultiplier += store.profitmultiplier
-            })
-            uprofit *= profitmultiplier
+			user.menu.forEach(pizza => {
+				if(pizza.production===pizza.cost) return
+				user.stores.forEach(store => {
+					if(store.profitmultiplier===2){
+						uprofit += store.profitmultiplier * ((pizza.production / (pizza.cost)) * 10)
+					}
+					else if(store.profitmultiplier===3){
+						uprofit += store.profitmultiplier *  (pizza.production / (pizza.cost)) * pizza.production
+					}
+					else {
+						uprofit += store.profitmultiplier * (pizza.production)
+					}
+				})
+			})
+			uprofit+=15*user.bathrooms + 15
+			uprofit+=5*user.sodaMachine + 5
+			uprofit+=10*user.toppingBar + 10
+			uprofit+=15*user.playPlace + 15
             const embed = new Discord.MessageEmbed()
                 .setColor("#ccaaaa")
                 .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)

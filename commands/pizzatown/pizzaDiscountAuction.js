@@ -87,4 +87,4 @@ module.exports = class gstart extends Command {
 };
 
 
-client.login(require("../../config").partyToken)
+client.login(require("../../config").token)

@@ -492,6 +492,10 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
 					}
 				})
 			})
+			uprofit+=15*user.bathrooms + 15
+			uprofit+=5*user.sodaMachine + 5
+			uprofit+=10*user.toppingBar + 10
+			uprofit+=15*user.playPlace + 15
     user.pizzaTokens += uprofit;
     await user.save()
   })

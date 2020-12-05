@@ -41,10 +41,22 @@ const sellerSchema = new mongoose.Schema({
         type:[storeSchema],
         default:[{profitmultiplier:2}]
     },
-    collectdate:{
-        type:Date,
-        default:Date.now()
-    }
+    bathrooms:{
+        type:Number,
+        default:0
+    },
+    sodaMachine:{
+        type:Number,
+        default:0
+    },
+    toppingBar:{
+        type:Number,
+        default:0
+    },
+    playPlace:{
+        type:Number,
+        default:0
+    },
 })
 
 module.exports = {Seller:mongoose.model("Sellers", sellerSchema), sellerSchema, storeSchema}
