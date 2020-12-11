@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/now-ui-kit.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../../assets/img/Idea1.ico" />
+    <title>Rockibot</title>
+    <meta property="og:title" content="Rockibot" />
+    <meta property="og:description" content="Rockibot is a versatile modular bot with multiple functions, advanced moderation and suggestion features, music playback, and more to come!"/>
+    <meta property="og:site_name" content="Rockibot">
+</head>
+<body>
+<%- include('../partials/header') %>
+<div class="heading">
+    <h1 class="display-5 title">It's time to use Rockibot in your server.</h1>
+    <p class="subtitle">Rockibot is a multi-purpose bot ready to skill up and boost up your Discord server!<br />It features moderation, administration, music and much more! And all controlable from our web dashboard!</p>
+    <a class="btn btn-primary btn-lg" href="https://discord.com/api/oauth2/authorize?client_id=739923682075476089&permissions=271936598&redirect_uri=http%3A%2F%2Frockibot.ml%2Fcallback&scope=bot" target="_blank" role="button">Get started</a>
+    <a class="btn btn-secondary btn-lg" href="https://discord.com/invite/rdGrcvW" target="_blank" role="button">Join the Support Server</a>
+    <br /><br /><br /><br /><br /><br />
+</div>
+<section id="features">
+<div class="features">
+    <div class="title">Features of Rockibot</div>
+    <div class="subtitle">Here are some of the best features in Rockibot!</div>
+    <div class="cards">
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Modularity</h5>
+            <p class="card-text">Rockibot is extremely modular! The goal was to create one bot, that would do everything. And with Rockibot being modular, if you don't want a feature, like moderation, you can remove it!</p>
+        </div>
+    </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Web Dashboard</h5>
+                <p class="card-text">Rockibot is all controlled from a Web Dashboard! Want to control what modules you have on your server? It's all easily done via a dropdown list!</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<div class="statistics">
+    <div class="cards">
+        <div class="card statistic" style="width: 18rem;">
+            <div class="card-body">
+                <p class="card-title" style="font-size: 50px !important;line-height: 15px !important;letter-spacing: -0.06em !important;font-weight: bold !important;"><%= stats.servers %></h1>
+                <p style="font-weight: bold !important;font-size: 20px !important;">servers</p>
+            </div>
+        </div>
+        <div class="card statistic" style="width: 18rem;">
+            <div class="card-body">
+                <p class="card-title" style="font-size: 50px !important;line-height: 15px !important;letter-spacing: -0.06em !important;font-weight: bold !important;"><%= stats.members %></h1>
+                <p style="font-weight: bold !important;font-size: 20px !important;">users</p>
+            </div>
+        </div>
+        <div class="card statistic" style="width: 18rem;">
+            <div class="card-body">
+                <p class="card-title" style="font-size: 50px !important;line-height: 15px !important;letter-spacing: -0.06em !important;font-weight: bold !important;"><%= stats.text %></h1>
+                <p style="font-weight: bold !important;font-size: 20px !important;">channels</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page_end">
+    <div class="start">
+        <div class="card">
+            <div class="card-body gs-card">
+                <div class="title">Ready to try Rockibot?</div>
+                <div class="subtitle">Invite Rockibot and start giving your server cool perks and less bots to control and run!</div>
+                <br />
+                <a class="btn btn-primary btn-lg" href="https://discord.com/api/oauth2/authorize?client_id=739923682075476089&permissions=271936598&redirect_uri=http%3A%2F%2Frockibot.ml%2Fcallback&scope=bot" role="button">Get started</a>
+            </div><br />
+        </div>
+    </div>
+   <%- include('../partials/footer') %>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="js/now-ui-kit.min.js"></script>
+</body>
+</html>

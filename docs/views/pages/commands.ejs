@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/now-ui-kit.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/img/Idea1.ico" />
+    <title>Commands | Rockibot</title>
+    <meta property="og:description" content="Rockibot is a versatile modular bot with multiple functions, advanced moderation and suggestion features, music playback, and more to come!"/>
+    <meta property="og:site_name" content="Rockibot">
+</head>
+<body>
+<%- include('../partials/header') %>
+<div class="page_end">
+    <div class="start">
+        <div class="card">
+            <div class="card-body gs-card">
+                <div class="title">Required Permissions</div>
+                <div class="subtitle">Rockibot requires the following permissions:  <code>MANAGE ROLES, MANAGE CHANNELS, KICK MEMBERS, BAN MEMBERS, READ MEMBERS, SEND MESSAGES, MANAGE MESSAGES, EMBED LINKS, READ MESSAGE HISTORY, ADD REACTIONS, USE EXTERNAL EMOJIS, CONNECT, SPEAK</code></div>
+                <br />
+                <div class="title">Default Prefix</div>
+                <div class="subtitle">Rockibot has the common default prefix of <code>!</code> and <code>@Rockibot</code></div>
+                <br />
+                <table id="rockibot-commands-table" cellpadding="10" border="2" bordercolor="darkgray">
+                    <tbody>
+                        <tr id="rockibot-commands-table-head">
+                          <th>Command</th>
+                          <th>Aliases</th>
+                          <th>Arguments</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td>stats</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>View some detailed statistics about Rockibot.</td>
+                        </tr>
+                        <tr>
+                          <td>invite</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>Obtain the link to invite Rockibot.</td>
+                        </tr>
+                        <tr>
+                          <td>ping</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>Get the latency between Rockibot and Discord as well as the latency of the host.</td>
+                        </tr>
+                        <tr>
+                            <td>changelog</td>
+                            <td>cl</td>
+                            <td>N/A</td>
+                            <td>Shows the latest changelog of Rockibot.</td>
+                          </tr>
+                        <tr>
+                        <tr>
+                            <td>dashboard</td>
+                            <td>dash</td>
+                            <td>N/A</td>
+                            <td>Used to get the dashboard link.</td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>s</td>
+                            <td>N/A</td>
+                            <td>Used to check if commands work with the bot.</td>
+                        </tr>
+                        <tr>
+                          <td>prefix</td>
+                          <td>N/A</td>
+                          <td>New Prefix | Reset</td>
+                          <td>Change your server's prefix so it doesn't affect other bots! Example: <code>@Rockibot prefix ;</code> or <code>!prefix .</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">User requires <strong id="warning">Administrator</strong> to change prefix.</span></td>
+                        </tr>
+                        <tr>
+                          <td>vote</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>Obtain the link to vote for Rockibot on <a target="_blank" onclick="trackCampaignWebClick('', 'description');" rel="nofollow" id="Rockibot-top-gg-page" href="https://top.gg/bot/739923682075476089" rel="nofollow">Top.gg</a>.</td>
+                        </tr>
+                        <tr id="Rockibot-commands-table-head">
+                          <th colspan="4">Moderation</th>
+                      </tr>
+                      <tr>
+                        <td>mod-log</td>
+                        <td>N/A</td>
+                        <td>Channel name without the #</td>
+                        <td>Used to set the mod-log of the server.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>ban</td>
+                        <td>b</td>
+                        <td>User Mention | User ID</td>
+                        <td>Used to ban users. What did ya expect?<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user and bot to have <strong id="warning">Ban Members</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>kick</td>
+                        <td>k</td>
+                        <td>User Mention | User ID</td>
+                        <td>Used to kick users. What did ya expect?<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user and bot to have <strong id="warning">Kick Members</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>mute</td>
+                        <td>m</td>
+                        <td>User Mention | User ID -> Message -> Time</td>
+                        <td>Used to mute users. For example: <code>!mute @Rocky43007 Test. 1m</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Manage Messages</strong> permissions.</span><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires bot to have <strong id="warning">Manage Roles</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>unmute</td>
+                        <td>m</td>
+                        <td>User Mention | User ID</td>
+                        <td>Used to unmute users. For example: <code>!unmute @Rocky43007</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Manage Messages</strong> permissions.</span><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires bot to have <strong id="warning">Manage Roles</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>purge</td>
+                        <td>N/A</td>
+                        <td>Number of Messages (Up to 100)</td>
+                        <td>Purges the Chat up to 100 messages.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user and bot to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>warn</td>
+                        <td>w</td>
+                        <td>User Mention | User ID -> Message</td>
+                        <td>Warns a user for a reason. No reason says <code> Warned for No Given Reason</code>. For example: <code>!warn @Rocky43007 Test.</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user and bot to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>unwarn</td>
+                        <td>removewarn</td>
+                        <td>User Mention | User ID -> Message</td>
+                        <td>Unwarns a user for a reason. No reason says <code> Unwarned for No Given Reason</code>. For example: <code>!unwarn @Rocky43007 Test.</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user and bot to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>warns</td>
+                        <td>N/A</td>
+                        <td>User Mention | User ID</td>
+                        <td>See the number of warns a user has.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user and bot to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
+                      </tr>
+                        <tr id="Rockibot-commands-table-head">
+                            <th colspan="4">Suggestions</th>
+                        </tr>
+                        <tr>
+                          <td>approve</td>
+                          <td>N/A</td>
+                          <td>Message ID</td>
+                          <td>Mark a suggestion as approved.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                        </tr>
+                        <tr>
+                          <td>consider</td>
+                          <td>N/A</td>
+                          <td>Message ID</td>
+                          <td>Mark a suggestion as considered.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                        </tr>
+                        <tr>
+                          <td>deny</td>
+                          <td>N/A</td>
+                          <td>Message ID</td>
+                          <td>Mark a suggestion as considered.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                        </tr>
+                        <tr>
+                          <td>implement</td>
+                          <td>N/A</td>
+                          <td>Message ID</td>
+                          <td>Mark a suggestion as implemented.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                        </tr>
+                        <tr>
+                          <td>suggest-channel</td>
+                          <td>N/A</td>
+                          <td>Channel name without the #</td>
+                          <td>Set the channel which suggestions will be sent to.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                        </tr>
+                        <tr>
+                          <td>suggestion</td>
+                          <td>suggest</td>
+                          <td>Suggestion Message</td>
+                          <td>Send your suggestion to the suggestion channel! For example: <code>!suggest Try Rockibot!</code></td>
+                        </tr>
+                        <tr id="Rockibot-commands-table-head">
+                          <th colspan="4">Music</th>
+                        </tr>
+                        <tr>
+                          <td>play</td>
+                          <td>p</td>
+                          <td>Song Link</td>
+                          <td>Play a song from youtube! For example: <code>!play https://www.youtube.com/watch?v=PKfxmFU3lWY&ab_channel=Monstercat%3AUncaged</code></td>
+                        </tr>
+                        <tr>
+                          <td>join</td>
+                          <td>j</td>
+                          <td>N/A</td>
+                          <td>Allows bot to join user in voice channel.</td>
+                        </tr>
+                        <tr>
+                          <td>leave</td>
+                          <td>l</td>
+                          <td>N/A</td>
+                          <td>Makes the bot to leave the voice channel.</td>
+                        </tr>
+                        <tr>
+                          <td>queue</td>
+                          <td>q</td>
+                          <td>N/A</td>
+                          <td>The server's music queue.</td>
+                        </tr>
+                        <tr>
+                          <td>skip</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>Skips to the next song in the queue.</td>
+                        </tr>
+                        <tr id="Rockibot-commands-table-head">
+                          <th colspan="4">PizzaTown</th>
+                        </tr>
+                        <tr>
+                          <tr>
+                            <td>pstart</td>
+                            <td>N/A</td>
+                            <td>Name</td>
+                            <td>Starts your pizza town journey. For example: <code>!pstart Cherrie<code></td>
+                          </tr>
+                          <tr>
+                            <td>pstats</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>Shows your pizza town stats.</td>
+                          </tr>
+                          <td>findadvertisers</td>
+                          <td>N/A</td>
+                          <td>Advertiser -> Offer</td>
+                          <td>Allows Sellers to find an advertising agency to join. For example: <code>!findadvertisers AbdoAdvertiser 1000</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>lookforstands</td>
+                          <td>N/A</td>
+                          <td>1 line Advertisement</td>
+                          <td>Allows advertisers to advertise their advertising agency to sellers. For example: <code>!lookforstands</code> then <code>Hey! Join my advertising agency to get the best advertising and good profits.</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Advertiser</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>lookup</td>
+                          <td>N/A</td>
+                          <td>Shack Name</td>
+                          <td>Looks up a PizzaTown users stats.</td>
+                        </tr>
+                        <tr>
+                          <td>menu</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>Views your menu.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>menuadd</td>
+                          <td>N/A</td>
+                          <td>Item Name -> Cost -> Production Cost</td>
+                          <td>Adds an item to your menu. For example: <code>!menuadd Cheese 50 20</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>menuclear</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>Deletes every item from your menu.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>menudelete</td>
+                          <td>N/A</td>
+                          <td>Item ID</td>
+                          <td>Deletes an item from your menu. For example: <code>!menudelete 1</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>menuedit</td>
+                          <td>N/A</td>
+                          <td>Item ID -> Item Name -> Cost -> Production Cost</td>
+                          <td>Edits an item from your menu. For example: <code>!menuedit 1 Chicken 60 40</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>menuedit</td>
+                          <td>N/A</td>
+                          <td>Item ID -> Item Name -> Cost -> Production Cost</td>
+                          <td>Edits an item from your menu. For example: <code>!menuedit 1 Cheese 50 20</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>stores</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>See the number of Stands, Suburban and Urban Stores you have.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>storebuy</td>
+                          <td>N/A</td>
+                          <td>Store ID</td>
+                          <td>Buy a store! (Store ID 1: Urban), (Store ID 2: Suburban), (Store ID 3: Stand) For example: <code>!storebuy 1</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                        <tr>
+                          <td>storecosts</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>See the prices for your next Urban/Suburban store or a new stand!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><br />
+        </div>
+    </div>
+    <%- include('../partials/footer') %>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="js/now-ui-kit.min.js"></script>
+</body>
+</html>
+

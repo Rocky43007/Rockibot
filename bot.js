@@ -247,43 +247,86 @@ const init = async () => {
 	  .registerDefaultCommands({help: false})	
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-  client2.on("message", async (message) => {
+client2.on("message", async (message) => {
     const gdb = db.get(`guildsettings_${message.guild.id}`);
 
     if (gdb === 'moderation') {
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", true);
     }
     if (gdb === null) {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizza", true);
     }
     if (gdb === 'suggestions') {
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("suggestions", true);
     }
     if (gdb === 'music') {
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("music", true);
+    }
+    if (gdb === 'pizzatown') {
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", true);
     }
     if (gdb === 'moderation, suggestions') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", true);
     }
     if (gdb === 'moderation, music') {
       message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("moderation", true);
+    }
+    if (gdb === 'moderation, pizzatown') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("moderation", true);
     }
     if (gdb === 'suggestions, music') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("music", true);
+    }
+    if (gdb === 'suggestions, pizzatown') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("music", false);
+    }
+    if (gdb === 'pizzatown, music') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("pizzatown", true);
       message.guild.setGroupEnabled("music", true);
     }
     if (gdb === 'moderation, suggestions, music') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizzatown", false);
+    }
+    if (gdb === 'moderation, suggestions, music, pizzatown') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("moderation", true);
     }
   });
-
 client2.on('messageDelete', async (message) => {
 	// create a client to mongodb
 	const MongoClient = require('mongodb').MongoClient;

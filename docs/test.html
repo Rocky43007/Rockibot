@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>discord.js Webpack test</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script type="text/javascript" src="discord.11.1.0.min.js"></script>
+<script type="text/javascript">
+  const client = new discord.Client();
+
+  client.on('message', msg => {
+    const guildTag = msg.channel.type === 'text' ? `[${msg.guild.name}]` : '[DM]';
+    const channelTag = msg.channel.type === 'text' ? `[#${msg.channel.name}]` : '';
+    console.log(`${guildTag}${channelTag} ${msg.author.tag}: ${msg.content}`);
+  });
+
+  client.login('NzM5OTIzNjgyMDc1NDc2MDg5.XyhhoA.x-s5Xis7iFAA2u_ycn21PSGxdGQ');
+</script>
+  </body>
+</html>
