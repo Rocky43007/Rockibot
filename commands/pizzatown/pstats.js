@@ -83,7 +83,7 @@ module.exports = class gstart extends Command {
             .setAuthor(`${user.name}'s Stand.`, message.author.displayAvatarURL({format:"png", dynamic:true}))
             .addFields(
                 {name:"PizzaTokens", value:`${user.pizzaTokens}`},
-				{name:"Sellers", value:formatSellers(user.sellers)}
+				{name:"Sellers", value:formatSellers !== '``````' ? formatSellers(user.sellers) : 'You have no sellers.'}
 			)
 			message.channel.send(embed)
 			}).catch((err) => {

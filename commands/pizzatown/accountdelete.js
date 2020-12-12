@@ -3,7 +3,7 @@ const path = require('path');
 const mconfig = require(path.join(__dirname, 'mconfig.json'));
 const Discord = require("discord.js");
 const {Seller} = require("./models/Sellers");
-client1 = new Discord.Client();
+const client1 = new Discord.Client();
 // Requires Manager from discord-giveaways
 const { GiveawaysManager } = require("discord-giveaways");
 // Starts updating currents giveaways
@@ -18,28 +18,35 @@ const manager = new GiveawaysManager(client1, {
 	}
 });
 const ms = require("ms");
+const Advertiser = require('./models/Advertiser.js');
 // We now have a giveawaysManager property to access the manager everywhere!
 client1.giveawaysManager = manager;
 
 module.exports = class gstart extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'menuclear',
+			name: 'accountdelete',
 			group: 'pizzatown',
-			memberName: 'menuclear',
-            description: 'Deletes every item from your menu.',
-
-			guildOnly: true,
+			memberName: 'accountdelete',
+			description: 'Deletes your PizzaTown account.',
+			guildOnly: false,
 		});
 	}
 	async run(message) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
-            user.menu = []
-            await user.save()
-            message.reply("Menu cleared.")
-        }).catch(() => {
-            message.reply("You are not a seller!")
+            await user.remove()
+            message.reply("Your account has been deleted.")
+        }).catch((err) => {
+            Advertiser.findOne({discord_id:message.author.id}).then(async user => {
+                await user.remove()
+                message.reply("Your account has been deleted.")
+			}).catch((err) => {
+				console.log(err)
+				message.reply("You don't have an account!")
+			})
         })
 	}
 };
 
+
+client1.login(require("../../config").token)

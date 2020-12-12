@@ -3,6 +3,7 @@ const path = require('path');
 const mconfig = require(path.join(__dirname, 'mconfig.json'));
 const Discord = require("discord.js");
 const {Seller} = require("./models/Sellers");
+const Canvas = require("canvas")
 const client = new Discord.Client();
 const ms = require("ms");
 const Advertiser = require('./models/Advertiser.js');
@@ -38,7 +39,7 @@ module.exports = class gstart extends Command {
                 message.reply("You cannot afford to advertise!")
             }
             else{
-                client.channels.cache.get('777943853897875498').send(`${user.name}: ${ad}`)
+                this.client.channels.cache.get('777943853897875498').send(`${user.name}: ${ad}`)
             }
         }).catch((err) => {
             console.log(err)

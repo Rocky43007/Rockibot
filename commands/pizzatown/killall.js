@@ -18,28 +18,28 @@ const manager = new GiveawaysManager(client1, {
 	}
 });
 const ms = require("ms");
+const Advertiser = require('./models/Advertiser');
 // We now have a giveawaysManager property to access the manager everywhere!
 client1.giveawaysManager = manager;
 
 module.exports = class gstart extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'menuclear',
+			name: 'killall',
 			group: 'pizzatown',
-			memberName: 'menuclear',
-            description: 'Deletes every item from your menu.',
-
-			guildOnly: true,
+			memberName: 'killall',
+            description: 'Goodbye.',
+            ownerOnly:true
 		});
 	}
 	async run(message) {
-        Seller.findOne({discord_id:message.author.id}).then(async user => {
-            user.menu = []
-            await user.save()
-            message.reply("Menu cleared.")
-        }).catch(() => {
-            message.reply("You are not a seller!")
+        await (await Seller.find()).forEach(async user => {
+            await user.remove()
         })
+        await (await Advertiser.find()).forEach(async user => {
+            await user.remove()
+        })
+        message.reply("Reset.")
 	}
 };
 

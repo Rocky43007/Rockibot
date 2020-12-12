@@ -74,8 +74,6 @@ module.exports = class gstart extends Command {
                 .setAuthor(`${user.name}'s Stand.`, client1.users.cache.get(user.discord_id).displayAvatarURL({ format: "png", dynamic: true }))
                 .addFields(
                     { name: "PizzaTokens", value: `${user.pizzaTokens}` },
-                    { name: "Stores", value: "Check your stores with !stores" },
-                    { name: "Menu", value: "Check your menu with !menu." },
                     { name: "Hourly Income", value: `${uprofit}` }
                 )
 
@@ -92,8 +90,7 @@ module.exports = class gstart extends Command {
                     .setAuthor(`${user.name}'s Stand.`, client1.users.cache.get(user.discord_id).displayAvatarURL({ format: "png", dynamic: true }))
                     .addFields(
                         { name: "PizzaTokens", value: `${user.pizzaTokens}` },
-                        { name: "Sellers", value: formatSellers(user.sellers) },
-                        { name: "Hourly Income", value: `${uprofit}` }
+                        { name: "Sellers", value: formatSellers !== '``````' ? formatSellers(user.sellers) : 'They have no sellers.' }
                     )
                 message.channel.send(embed)
             }).catch((err) => {

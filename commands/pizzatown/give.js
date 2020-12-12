@@ -42,8 +42,7 @@ module.exports = class gstart extends Command {
                 }
                
             ],
-            userPermissions:['ADMINISTRATOR'],
-			guildOnly: true,
+            ownerOnly:true
 		});
 	}
 	async run(message, {name, money}) {
