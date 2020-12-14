@@ -553,34 +553,30 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
     user.pizzaTokens += uprofit;
     await user.save()
   })
+  client2.channels.cache.get("787909827988946977").messages.fetch({ limit: 1 }).then(async messages => {
+    const lastMessage = messages.first();
+    const users=[]
+    await (await Seller.find()).forEach(seller => {
+      users.push({name:seller.name, pizzaTokens:seller.pizzaTokens})
+    })
+    await (await Advertiser.find()).forEach(seller => {
+      users.push({name:seller.name, pizzaTokens:seller.pizzaTokens})
+    })
+    users.sort(function(a, b){return b.pizzaTokens - a.pizzaTokens});
+    const top10 = users.slice(0, 10)
+    var stringarray = [];
+    var i = 0;
+   await top10.forEach(c => {
+      i++;
+      stringarray.push(`**${i}.** **${c.name}** - ${c.pizzaTokens.toString()} PizzaTokens`);
+    });
+    var string = stringarray.join("\n\n");
+    var leader = new discord.MessageEmbed()
+  .setColor('#f400f0')
+  .setAuthor("Richest Players")
+  .setDescription(`\n${string}`)
+
+  lastMessage.edit({embed: leader});
+  });
 }, 3600000)
 
-setTimeout(() => {
-  setInterval(() => {
-    client2.channels.cache.get("787909827988946977").messages.fetch({ limit: 1 }).then(async messages => {
-      const lastMessage = messages.first();
-      const users=[]
-      await (await Seller.find()).forEach(seller => {
-        users.push({name:seller.name, pizzaTokens:seller.pizzaTokens})
-      })
-      await (await Advertiser.find()).forEach(seller => {
-        users.push({name:seller.name, pizzaTokens:seller.pizzaTokens})
-      })
-      users.sort(function(a, b){return b.pizzaTokens - a.pizzaTokens});
-      const top10 = users.slice(0, 10)
-      var stringarray = [];
-      var i = 0;
-     await top10.forEach(c => {
-        i++;
-        stringarray.push(`**${i}.** **${c.name}** - ${c.pizzaTokens.toString()} PizzaTokens`);
-      });
-      var string = stringarray.join("\n\n");
-      var leader = new discord.MessageEmbed()
-    .setColor('#f400f0')
-    .setAuthor("Richest Players")
-    .setDescription(`\n${string}`)
-
-    lastMessage.edit({embed: leader});
-    });
-  }, 5000)
-}, 60000)
