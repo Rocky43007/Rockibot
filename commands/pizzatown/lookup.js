@@ -45,22 +45,33 @@ module.exports = class gstart extends Command {
             sellerObjects.forEach(seller => {
                 sellers += `${seller.name} \n`
             })
-
+            if(!sellers) return `They have no sellers!`
             return "```" + sellers + "```"
         }
         Seller.findOne({ name }).then(user => {
             let uprofit = 0;
 			user.menu.forEach(pizza => {
-				if(pizza.production===pizza.cost) return
 				user.stores.forEach(store => {
 					if(store.profitmultiplier===2){
-						uprofit += store.profitmultiplier * ((pizza.production / (pizza.cost)) * 10)
+						for(let i = 0; i < 2; i++){
+							if(Math.round(Math.random()*100) <= pizza.production * 2){
+								if(pizza.cost / pizza.production < 3) uprofit += pizza.cost - pizza.production
+							}
+						}
 					}
-					else if(store.profitmultiplier===3){
-						uprofit += store.profitmultiplier *  (pizza.production / (pizza.cost)) * pizza.production
+					if(store.profitmultiplier===3){
+						for(let i = 0; i < 3; i++){
+							if(Math.round(Math.random()*100) <= pizza.production * 3){
+								if(pizza.cost / pizza.production < 3) uprofit += pizza.cost - pizza.production
+							}
+						}
 					}
-					else {
-						uprofit += store.profitmultiplier * (pizza.production)
+					if(store.profitmultiplier===5){
+						for(let i = 0; i < 5; i++){
+							if(Math.round(Math.random()*100) <= pizza.production * 5){
+								if(pizza.cost / pizza.production < 3) uprofit += pizza.cost - pizza.production
+							}
+						}
 					}
 				})
 			})
@@ -90,7 +101,7 @@ module.exports = class gstart extends Command {
                     .setAuthor(`${user.name}'s Stand.`, client1.users.cache.get(user.discord_id).displayAvatarURL({ format: "png", dynamic: true }))
                     .addFields(
                         { name: "PizzaTokens", value: `${user.pizzaTokens}` },
-                        { name: "Sellers", value: formatSellers !== '``````' ? formatSellers(user.sellers) : 'They have no sellers.' }
+                        { name: "Sellers", value: formatSellers(user.sellers) }
                     )
                 message.channel.send(embed)
             }).catch((err) => {

@@ -33,7 +33,7 @@ module.exports = class gstart extends Command {
 					{name:"Urban stores.", value:urbans},
 					{name:"Profit multiplier", value:profitmultiplier}
 				)
-				.setFooter(`Use '${message.guild.commandPrefix}storebuy' to add food!`)
+				.setFooter(`Use '${message.guild.commandPrefix}storebuy' to gain more profit!`)
 			message.channel.send(membed)
 		}).catch(() => {
 			const embed = new Discord.MessageEmbed()
