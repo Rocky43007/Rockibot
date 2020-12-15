@@ -586,6 +586,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
 
   lastMessage.edit({embed: leader});
   });
+  const pizzas= Math.round(Math.random() * 100)
   client4.channels.cache.get("781214583393615903").send(`Hey! I want to buy ${pizzas} pizzas costing ${pizzas * 12} PizzaTokens! I will buy from the person who gives me the highest discount! Auction time!`).then(botMessage => {
     const discount = {user:null, money:0};
     const filter = m => !isNaN(m.content)
