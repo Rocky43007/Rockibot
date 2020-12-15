@@ -61,7 +61,7 @@ module.exports = class gstart extends Command {
 	async run(message, {id, name, cost, prodcost}) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
             if(user.menu.length<id){
-                message.channel.send("You don't have an item with an id of "+number+"!");
+                message.channel.send("You don't have an item with an id of "+id+"!");
                 return
             }
             for(let i=0; i<user.menu.length; i++){
@@ -72,7 +72,8 @@ module.exports = class gstart extends Command {
             await user.save()
 
             message.channel.send(`Item ${id} was edited in your menu.`)
-        }).catch(() => {
+        }).catch((err) => {
+            console.log(err)
             message.reply("You are not a seller!")
         })
 	}

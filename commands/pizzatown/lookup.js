@@ -54,21 +54,21 @@ module.exports = class gstart extends Command {
 				user.stores.forEach(store => {
 					if(store.profitmultiplier===2){
 						for(let i = 0; i < 2; i++){
-							if(Math.round(Math.random()*100) <= pizza.production * 2){
+							if(Math.round(Math.random()*100) > pizza.cost - user.reviewScore){
 								if(pizza.cost / pizza.production < 3) uprofit += pizza.cost - pizza.production
 							}
 						}
 					}
 					if(store.profitmultiplier===3){
 						for(let i = 0; i < 3; i++){
-							if(Math.round(Math.random()*100) <= pizza.production * 3){
+							if(Math.round(Math.random()*100) > pizza.cost - user.reviewScore){
 								if(pizza.cost / pizza.production < 3) uprofit += pizza.cost - pizza.production
 							}
 						}
 					}
 					if(store.profitmultiplier===5){
 						for(let i = 0; i < 5; i++){
-							if(Math.round(Math.random()*100) <= pizza.production * 5){
+							if(Math.round(Math.random()*100) > pizza.cost - user.reviewScore){
 								if(pizza.cost / pizza.production < 3) uprofit += pizza.cost - pizza.production
 							}
 						}
@@ -85,7 +85,8 @@ module.exports = class gstart extends Command {
                 .setAuthor(`${user.name}'s Stand.`, client1.users.cache.get(user.discord_id).displayAvatarURL({ format: "png", dynamic: true }))
                 .addFields(
                     { name: "PizzaTokens", value: `${user.pizzaTokens}` },
-                    { name: "Hourly Income", value: `${uprofit}` }
+                    {name:"Review Score", value:user.reviewScore},
+                    { name: "Hourly Income", value: `Approx ${uprofit}` }
                 )
 
             message.channel.send(embed)
