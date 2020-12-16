@@ -15,7 +15,7 @@ Seller.find().then(sellers => {
 
 })
 
-Advertiser.find().forEach(advertisers => {
+Advertiser.find().then(advertisers => {
     advertisers.forEach(async advertiser => {
         if(!advertiser.offices) advertiser.offices = 0
         if(!advertiser.broadcastingTime) advertiser.broadcastingTime = 0
