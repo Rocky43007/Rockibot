@@ -7,6 +7,7 @@ Seller.find().then(sellers => {
         if(!seller.sodaMachine) seller.sodaMachine = 0
         if(!seller.toppingBar) seller.toppingBar = 0
         if(!seller.playPlace) seller.playPlace = 0
+        if(!seller.reviewScore) seller.reviewScore = 0
         await seller.save()
     })
 })

@@ -52,7 +52,7 @@ module.exports = class gstart extends Command {
                 if(!await Seller.findOne({discord_id:m.author.id})){
                     m.reply("You are not a seller!")
                 }
-                else if(Number(m.content)<discount.money){
+                else if(Number(m.content)<=discount.money){
                     m.reply("You must bid higher than "+discount.money+"!")
                 }
                 else if(Number(m.content)>seller.pizzaTokens){
@@ -87,4 +87,4 @@ module.exports = class gstart extends Command {
 };
 
 
-client.login(require("../../config").token)
+client.login(require("../../config").ptoken)

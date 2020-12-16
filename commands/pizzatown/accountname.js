@@ -33,7 +33,9 @@ module.exports = class gstart extends Command {
                 {
                     key:'name',
                     prompt:'What is your new name?',
-                    type:'string'
+					type:'string',
+					min:1, 
+					max:30
                 }
             ],
 			guildOnly: false,
@@ -41,12 +43,20 @@ module.exports = class gstart extends Command {
 	}
 	async run(message, { name }) {
         Seller.findOne({discord_id:message.author.id}).then(async user => {
+			if(await Seller.findOne({name}) || await Advertiser.findOne({name})){
+				message.reply("That name is already in use!")
+				return
+			}
             user.name = name
             await user.save()
             message.reply("Your account name is now "+name+".")
         }).catch((err) => {
             Advertiser.findOne({discord_id:message.author.id}).then(async user => {
-                user.name = name
+				if(await Seller.findOne({name}) || await Advertiser.findOne({name})){
+					message.reply("That name is already in use!")
+					return
+				}
+            user.name = name
             await user.save()
             message.reply("Your account name is now "+name+".")
 			}).catch((err) => {

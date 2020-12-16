@@ -57,6 +57,10 @@ const sellerSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
+    reviewScore:{
+        type:Number,
+        default:0
+    }
 })
 
 module.exports = {Seller:mongoose.model("Sellers", sellerSchema), sellerSchema, storeSchema}
