@@ -55,9 +55,15 @@ module.exports = class Unmute extends Command {
 					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)
 					const logs = result.channel;
-					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-					if (!sChannel) return;
-					sChannel.send(embed);
+					try {
+						const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+						sChannel.send(embed);
+					}
+					catch(err) {
+						const sChannel = message.guild.channels.cache.find(c => c.id === logs);
+						if (!sChannel) return;
+						sChannel.send(embed);
+					}
 					user.roles.remove(role.id).catch(console.error).then(
 						user.send(`You have been unmuted from ${message.guild.name}.`),
 						message.say(`**${user}** has been unmuted.`),
@@ -99,3 +105,4 @@ module.exports = class Unmute extends Command {
 		});
 	}
 };
+

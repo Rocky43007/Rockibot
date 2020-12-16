@@ -62,9 +62,15 @@ module.exports = class Kick extends Command {
 					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)
 					const logs = result.channel;
-					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-					if (!sChannel) return;
-					sChannel.send(embed);
+					try {
+						const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+						sChannel.send(embed);
+					}
+					catch(err) {
+						const sChannel = message.guild.channels.cache.find(c => c.id === logs);
+						if (!sChannel) return;
+						sChannel.send(embed);
+					}
 					user.send(`You have been kicked from ${message.guild.name} for: ${content}`).then(function() {
 						message.guild.member(user).kick();
 						message.say('Successfully kicked ' + user.tag);
@@ -96,3 +102,4 @@ module.exports = class Kick extends Command {
 		});
 	}
 };
+

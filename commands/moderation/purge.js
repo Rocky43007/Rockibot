@@ -65,9 +65,15 @@ module.exports = class PurgeCommand extends Command {
 					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)
 					const logs = result.channel;
-					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-					if (!sChannel) return;
-					sChannel.send(embed);
+					try {
+						const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+						sChannel.send(embed);
+					}
+					catch(err) {
+						const sChannel = message.guild.channels.cache.find(c => c.id === logs);
+						if (!sChannel) return;
+						sChannel.send(embed);
+					}
 				});
 				cursor.close();
 			} else {
@@ -99,3 +105,4 @@ module.exports = class PurgeCommand extends Command {
 			});
 	}
 };
+

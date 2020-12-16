@@ -60,9 +60,15 @@ module.exports = class Ban extends Command {
 					console.log(`   guildid: ${result.guildname}`);
 					console.log(` 	channel name: ${result.channel}`)
 					const logs = result.channel;
-					const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-					if (!sChannel) return;
-					sChannel.send(embed);
+					try {
+						const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+						sChannel.send(embed);
+					}
+					catch(err) {
+						const sChannel = message.guild.channels.cache.find(c => c.id === logs);
+						if (!sChannel) return;
+						sChannel.send(embed);
+					}
 					user.send(`You have been banned from ${message.guild.name} for: ${content}`).then(function() {
 						message.guild.member(user).ban();
 						message.say('Successfully banned ' + user.tag);
@@ -76,7 +82,7 @@ module.exports = class Ban extends Command {
 		}
 		if (message.guild.member(user).hasPermission('ADMINISTRATOR')) return message.reply('I can not ban this user, he has higher permission than I do.');
 		if (!message.guild.me.hasPermission('BAN_MEMBERS')) return message.reply('I need the permission `BAN_MEMBERS` for this to work.');
-		if (user.id === message.author.id) return message.repy('You cannot ban yourself!');
+
 		client.connect(async err => {
 			if (err) throw err;
 			// db pointing to newdb
@@ -94,3 +100,4 @@ module.exports = class Ban extends Command {
 		});
 	}
 };
+

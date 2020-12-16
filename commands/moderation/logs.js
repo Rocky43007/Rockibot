@@ -14,7 +14,7 @@ module.exports = class modlogs extends Command {
 				{
 					key: 'logs',
 					prompt: 'Which channel do you want to set as the mod-log? (Without the `#`)',
-					type: 'string',
+					type: 'channel',
 				},
 			],
 			guildOnly: true,
@@ -35,13 +35,13 @@ module.exports = class modlogs extends Command {
     		console.log("Switched to "+client.databaseName+" database");
  
     		// document to be inserted
-    		const doc = { guildname: message.guild.id, channel: logs };
+    		const doc = { guildname: message.guild.id, channel: logs.id };
     
     		// insert document to 'users' collection using insertOne
     		client.db("Rockibot-DB").collection("modlogs").insertOne(doc, function(err, res) {
        			if (err) throw err;
        			console.log("Document inserted");
-				message.channel.send(`Successfully set mod log to \`${logs}\``);
+				message.channel.send(`Successfully set mod log to ${logs}`);
         		// close the connection to db when you are done with it
 				client.close();
 			}); 

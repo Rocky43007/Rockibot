@@ -77,10 +77,16 @@ const results = await cursor.toArray();
                                         console.log(`   guildid: ${result.guildname}`);
                                         console.log(`   channel name: ${result.channel}`)
                                         const logs = result.channel;
-                                        const sChannel = message.guild.channels.cache.find(c => c.name === logs);
-                                        if (!sChannel) return;
-                                        sChannel.send(embed);
-if (args === '0') {
+                                        try {
+						const sChannel = message.guild.channels.cache.find(c => c.name === logs);
+						sChannel.send(embed);
+					}
+					catch(err) {
+						const sChannel = message.guild.channels.cache.find(c => c.id === logs);
+						if (!sChannel) return;
+						sChannel.send(embed);
+					}
+                                        if (args === '0') {
                                           const role = message.guild.roles.cache.find(r => r.name === 'Muted');
                                            user.roles.add(role.id).catch(console.error).then(
                                                 user.send(`You have been muted from ${message.guild.name} indefinitely because of: ${reason}`),
@@ -109,7 +115,7 @@ if (args === '0') {
                         }
                 }
                 const args = time;
-                if(!message.member.hasPermission(['MANAGE_MESSAGES'])) {
+                if(!message.member.hasPermission(['MANAGE_MESSAGES', 'MUTE_MEMBERS'])) {
                         return message.channel.send(`**${message.author.username}**, You do not have enough permission to use this command`);
                 }
                 const role = await message.guild.roles.cache.find(r => r.name === 'Muted');
@@ -139,5 +145,6 @@ if (args === '0') {
 });
         }
 };
+
 
 

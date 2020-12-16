@@ -570,6 +570,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
 			uprofit+=10*user.toppingBar + 10
 			uprofit+=15*user.playPlace + 15
     user.pizzaTokens += uprofit;
+    user.reviewScore = user.menu[Math.floor(Math.random() * user.menu.length)].production
     await user.save()
   })
   client2.channels.cache.get("787909827988946977").messages.fetch({ limit: 1 }).then(async messages => {
