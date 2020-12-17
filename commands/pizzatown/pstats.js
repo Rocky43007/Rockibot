@@ -38,7 +38,7 @@ module.exports = class gstart extends Command {
 			sellerObjects.forEach(seller => {
 				sellers += `${seller.name} \n`
 			})
-			if(!sellers) return `They have no sellers!`
+			if(!sellers) return `You have no sellers!`
 			return "```"+sellers+"```"
 		}
         Seller.findOne({discord_id:message.author.id}).then(user => {
@@ -74,7 +74,7 @@ module.exports = class gstart extends Command {
 			uprofit+=15*user.playPlace + 15
             const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
-            .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
+            .setTitle(`${user.name}'s stats (${this.client.users.cache.get(user.discord_id).tag})`)
             .setAuthor(`${user.name}'s Stand.`, message.author.displayAvatarURL({format:"png", dynamic:true}))
             .addFields(
                 {name:"PizzaTokens", value:`${user.pizzaTokens}`},
@@ -87,15 +87,21 @@ module.exports = class gstart extends Command {
             message.channel.send(embed)
         }).catch((err) => {
             Advertiser.findOne({discord_id:message.author.id}).then(user => {
+				let uprofit = 0;
+				uprofit+=15*user.bathrooms + 15
+				uprofit+=5*user.sodaMachine + 5
+				uprofit+=10*user.toppingBar + 10
+				uprofit+=15*user.playPlace + 15
 				console.log(user)
 				console.log(user.sellers)
 				const embed=new Discord.MessageEmbed()
             .setColor("#ccaaaa")
-            .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
+            .setTitle(`${user.name}'s stats (${this.client.users.cache.get(user.discord_id).tag})`)
             .setAuthor(`${user.name}'s Stand.`, message.author.displayAvatarURL({format:"png", dynamic:true}))
             .addFields(
                 {name:"PizzaTokens", value:`${user.pizzaTokens}`},
-				{name:"Sellers", value:formatSellers(user.sellers)}
+				{name:"Sellers", value:formatSellers(user.sellers)},
+				{name:"Hourly Income", value:uprofit}
 			)
 			message.channel.send(embed)
 			}).catch((err) => {

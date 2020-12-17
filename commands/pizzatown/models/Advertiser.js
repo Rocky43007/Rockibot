@@ -16,6 +16,22 @@ const advertiserSchema = new mongoose.Schema({
     },
     discord_id:{
         type:String
+    },
+    offices:{
+        type:Number,
+        default:0
+    },
+    airTime:{
+        type:Number,
+        default:0
+    },
+    tvChannels:{
+        type:Number,
+        default:0
+    },
+    employeeProduction:{
+        type:Number,
+        default:0
     }
 })
 

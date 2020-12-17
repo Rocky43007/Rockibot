@@ -3,6 +3,7 @@ const path = require('path');
 const mconfig = require(path.join(__dirname, 'mconfig.json'));
 const Discord = require("discord.js");
 const { Seller } = require("./models/Sellers");
+const Advertiser = require('./models/Advertiser');
 
 module.exports = class gstart extends Command {
 	constructor(client) {
@@ -28,10 +29,25 @@ module.exports = class gstart extends Command {
                 )
 			return message.channel.send(embed);
 		}).catch(() => {
-			const embed = new Discord.MessageEmbed()
-				.setColor('#c22419')
-				.setTitle("You are not a seller!")
-			return message.channel.send(embed);
+			Advertiser.findOne({ discord_id: message.author.id }).then(user => {
+				const embed = new Discord.MessageEmbed()
+					.setColor('#c22419')
+					.setTitle("Your upgrades")
+					.setThumbnail(message.author.displayAvatarURL({format:"png", dynamic:true}))
+					.addFields(
+						{name:"More Offices", value:`(${user.offices}/15)${user.offices !== 15 ? `\n cost:${user.offices*(150*user.offices) + 150}` : ''}\n id:office\n income:+${15*user.offices + 15}`},
+						{name:"More Air Time", value:`(${user.airTime}/5)${user.airTime !== 5 ? `\n cost:${user.airTime*(50*user.airTime) + 50}` : ''}\n id:air\n income:+${5*user.airTime + 5}`},
+						{name:"More TV Channels", value:`(${user.tvChannels}/10)${user.tvChannels !== 10 ? `\n cost:${user.tvChannels*(100*user.tvChannels) + 100}` : ''}\n id:tv\n income:+${10*user.tvChannels + 10}`},
+						{name:"More Production From Employees", value:`(${user.employeeProduction}/15)${user.employeeProduction !== 15 ? `\n cost:${user.employeeProduction*(150*user.employeeProduction) + 150}` : ''}\n id: employee\n income:+${15*user.employeeProduction + 15}`}
+					)
+				return message.channel.send(embed);
+			}).catch((err) => {
+				console.log(err)
+				const embed = new Discord.MessageEmbed()
+					.setColor('#c22419')
+					.setTitle("You don't have an account!")
+				return message.channel.send(embed);
+			})
 		})
 	}
 };

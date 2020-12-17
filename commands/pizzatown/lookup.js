@@ -95,14 +95,18 @@ module.exports = class gstart extends Command {
                 console.log(user)
                 console.log(user.sellers)
                 let uprofit = 0;
-                uprofit += (user.sellers.length * 1000) + 500
+                uprofit+=15*user.bathrooms + 15
+			    uprofit+=5*user.sodaMachine + 5
+			    uprofit+=10*user.toppingBar + 10
+			    uprofit+=15*user.playPlace + 15
                 const embed = new Discord.MessageEmbed()
                     .setColor("#ccaaaa")
                     .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)
                     .setAuthor(`${user.name}'s Stand.`, client1.users.cache.get(user.discord_id).displayAvatarURL({ format: "png", dynamic: true }))
                     .addFields(
                         { name: "PizzaTokens", value: `${user.pizzaTokens}` },
-                        { name: "Sellers", value: formatSellers(user.sellers) }
+                        { name: "Sellers", value: formatSellers(user.sellers) },
+                        { name:"Hourly Income", value:uprofit }
                     )
                 message.channel.send(embed)
             }).catch((err) => {
