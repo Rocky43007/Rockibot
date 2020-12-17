@@ -578,7 +578,6 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
     user.pizzaTokens += uprofit;
     if(user.menu) user.reviewScore = user.menu[Math.floor(Math.random() * user.menu.length)].production
       user.pizzaTokens += uprofit;
-      user.reviewScore = user.menu[Math.floor(Math.random() * user.menu.length)].production / 10
     await user.save()
   })
   await (await Advertiser.find()).forEach(async advertiser => {
