@@ -576,7 +576,9 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
 			uprofit+=10*user.toppingBar + 10
 			uprofit+=15*user.playPlace + 15
     user.pizzaTokens += uprofit;
-    if(user.menu) user.reviewScore = user.menu[Math.floor(Math.random() * user.menu.length)].production
+    console.log(user.menu, user.name)
+    const randomItem = user.menu[Math.floor(Math.random() * user.menu.length)]
+    if(randomItem) user.reviewScore = randomItem.production
       user.pizzaTokens += uprofit;
     await user.save()
   })
@@ -614,4 +616,4 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
 
   lastMessage.edit({embed: leader});
   });
-});
+}, 1000 * 60 * 60);
