@@ -35,7 +35,7 @@
         <a class="navbar-brand" href="/"><img src="<%= bot.user.avatarURL() %>" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="<%= bot.user.username %>"> <%= bot.user.username %></a>
         <div class="collapse navbar-collapse" id="navbar01">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="https://rockibot.ml">Commands</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://rockibot.ml/commands">Commands</a></li>
             <li class="nav-item"><a class="nav-link<% if(!bot.appInfo.botPublic) { %> disabled<% } %>" href="<% if(bot.appInfo.botPublic) { %>https://discordapp.com/oauth2/authorize?client_id=<%= bot.appInfo.id %>&permissions=271936598&scope=bot&response_type=code&redirect_uri=<%= encodeURIComponent(bot.config.dashboard.callbackURL) %><% } %>">Add to Server</a></li>
             <li class="nav-item"><a class="nav-link" href="/stats">On <%= bot.guilds.cache.size %> Servers</a></li>
           </ul>

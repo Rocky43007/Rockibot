@@ -250,7 +250,7 @@ const init = async () => {
 
 client2.on("message", async (message) => {
     const gdb = db.get(`guildsettings_${message.guild.id}`);
-
+    if(message.channel.id==="789430243643359232") message.react("✅")
     if (gdb === 'moderation') {
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("music", false);
@@ -577,17 +577,16 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
 			uprofit+=15*user.playPlace + 15
     user.pizzaTokens += uprofit;
     console.log(user.menu, user.name)
-    const randomItem = user.menu[Math.floor(Math.random() * user.menu.length)]
-    if(randomItem) user.reviewScore = randomItem.production
+    user.reviewScore = user.menu[Math.floor(Math.random() * user.menu.length)].production
       user.pizzaTokens += uprofit;
     await user.save()
   })
   await (await Advertiser.find()).forEach(async advertiser => {
     let uprofit = 0;
-    uprofit+=15*user.offices + 15
-    uprofit+=5*user.airTime + 5
-    uprofit+=10*user.tvChannels + 10
-    uprofit+=15*user.employeeProduction + 15
+    uprofit+=15*advertiser.offices + 15
+    uprofit+=5*advertiser.airTime + 5
+    uprofit+=10*advertiser.tvChannels + 10
+    uprofit+=15*advertiser.employeeProduction + 15
     advertiser.pizzaTokens += uprofit
     await advertiser.save()
   })

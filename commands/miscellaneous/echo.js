@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 
 module.exports = class Echo extends Command {
@@ -8,7 +7,7 @@ module.exports = class Echo extends Command {
 			group: 'miscellaneous',
 			memberName: 'echo',
             description: 'Echo a message to another channel!',
-userPermissions: ['MANAGE_MESSAGES'],
+			userPermissions: ['MANAGE_MESSAGES'],
             args: [
 				{
 					key: 'channel',
@@ -25,10 +24,12 @@ userPermissions: ['MANAGE_MESSAGES'],
 		});
 	}
 	run(message, {channel, content}) {
-        const sChannel = message.guild.channels.cache.find(c => c.id === channel.id);
-        sChannel.send(content);
-		
+		const word = '@everyone';
+		if (!message.member.hasPermission('MENTION_EVERYONE')) {
+			return message.reply('Hey! You don\'t have permissions to ping everyone!')
+		} else {
+			const sChannel = message.guild.channels.cache.find(c => c.id === channel.id);
+        	sChannel.send(content);
+		}
 	}
 };
-
-
