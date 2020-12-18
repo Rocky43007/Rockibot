@@ -95,10 +95,10 @@ module.exports = class gstart extends Command {
                 console.log(user)
                 console.log(user.sellers)
                 let uprofit = 0;
-                uprofit+=15*user.bathrooms + 15
-			    uprofit+=5*user.sodaMachine + 5
-			    uprofit+=10*user.toppingBar + 10
-			    uprofit+=15*user.playPlace + 15
+                uprofit+=15*user.offices + 15
+				uprofit+=5*user.airTime + 5
+				uprofit+=10*user.tvChannels + 10
+				uprofit+=15*user.employeeProduction + 15
                 const embed = new Discord.MessageEmbed()
                     .setColor("#ccaaaa")
                     .setTitle(`${user.name}'s stats (${client1.users.cache.get(user.discord_id).tag})`)

@@ -584,10 +584,10 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
   })
   await (await Advertiser.find()).forEach(async advertiser => {
     let uprofit = 0;
-				uprofit+=15*user.bathrooms + 15
-				uprofit+=5*user.sodaMachine + 5
-				uprofit+=10*user.toppingBar + 10
-        uprofit+=15*user.playPlace + 15
+    uprofit+=15*user.offices + 15
+    uprofit+=5*user.airTime + 5
+    uprofit+=10*user.tvChannels + 10
+    uprofit+=15*user.employeeProduction + 15
     advertiser.pizzaTokens += uprofit
     await advertiser.save()
   })
