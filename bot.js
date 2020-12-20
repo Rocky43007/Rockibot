@@ -27,7 +27,8 @@ const {Seller}=require("./commands/pizzatown/models/Sellers")
 const client2 = new CommandoClient({
 	commandPrefix: '!',
 	owner: ['361212545924595712', '742782250848092231'],
-	invite: 'https://discord.gg/Ju2gSCY'
+	invite: 'https://discord.gg/Ju2gSCY',
+	unknownCommandResponse: false,
 });
 const db = require('quick.db');
 const Advertiser = require("./commands/pizzatown/models/Advertiser");
@@ -245,7 +246,7 @@ const init = async () => {
 	  ['pizzatown', "PizzaTown Commands"],
 	  ])
 	  .registerDefaultGroups()
-	  .registerDefaultCommands({help: false})	
+	  .registerDefaultCommands({help: false, unknownCommand: false})	
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
 client2.on("message", async (message) => {
@@ -650,7 +651,7 @@ setInterval(() => {
 
     collector.on("end", async () => {
         if(discount.user===null){
-            client.channels.cache.get("781214583393615903").send(`Looks like there were no bidders, that is quite sad.`)
+            client4.channels.cache.get("781214583393615903").send(`Looks like there were no bidders, that is quite sad.`)
         }
         else{
             client4.channels.cache.get("781214583393615903").send(`The auction is over! The winner was ${client4.users.cache.get(discount.user).tag} selling ${pizzas} pizzas with a ${discount.money} discount earning ${pizzas * 12 - discount.money}!`)
@@ -690,7 +691,7 @@ const baseBid = amount * 500
 
             collector.on("end", async () => {
                 if(bid.user===null){
-                    client.channels.cache.get("790205618731352085").send(`Looks like there were no bidders, that is quite sad.`)
+                    client5.channels.cache.get("790205618731352085").send(`Looks like there were no bidders, that is quite sad.`)
                 }
                 else{
                     client5.channels.cache.get("790205618731352085").send(`The auction is over! The winner was ${client5.users.cache.get(bid.user).tag} buying ${amount} offices for ${bid.money}!`)
