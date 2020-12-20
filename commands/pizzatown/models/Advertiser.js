@@ -37,7 +37,7 @@ const advertiserSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    offices:{
+    offices2:{
         type:Number,
         default:1
     },
