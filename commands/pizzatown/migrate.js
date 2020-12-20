@@ -7,6 +7,7 @@ Seller.find().then(sellers => {
         if(!seller.toppingBar) seller.toppingBar = 0
         if(!seller.playPlace) seller.playPlace = 0
         if(!seller.reviewScore) seller.reviewScore = 0
+        if(!seller.topggVote) seller.topggVote = false
         await seller.save()
     })
 })
@@ -17,6 +18,7 @@ Advertiser.find().then(advertisers => {
         if(!advertiser.airTime) advertiser.airTime = 0
         if(!advertiser.tvChannels) advertiser.tvChannels = 0
         if(!advertiser.employeeProduction) advertiser.employeeProduction = 0
+        if(!advertiser.topggVote) advertiser.topggVote = false
         await advertiser.save()
     })
 })

@@ -60,6 +60,10 @@ const sellerSchema = new mongoose.Schema({
     reviewScore:{
         type:Number,
         default:0
+    },
+    topggVote:{
+        type:Boolean,
+        default:false
     }
 })
 

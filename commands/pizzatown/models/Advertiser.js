@@ -32,6 +32,10 @@ const advertiserSchema = new mongoose.Schema({
     employeeProduction:{
         type:Number,
         default:0
+    },
+    topggVote:{
+        type:Boolean,
+        default:false
     }
 })
 
