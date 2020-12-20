@@ -36,7 +36,11 @@ const advertiserSchema = new mongoose.Schema({
     topggVote:{
         type:Boolean,
         default:false
-    }
+    },
+    offices:{
+        type:Number,
+        default:1
+    },
 })
 
 module.exports = mongoose.model("Advertisers", advertiserSchema)

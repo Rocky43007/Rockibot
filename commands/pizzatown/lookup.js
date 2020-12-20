@@ -96,6 +96,7 @@ module.exports = class gstart extends Command {
                 console.log(user.sellers)
                 let uprofit = 0;
                 uprofit+=15*user.offices + 15
+                uprofit+=100*(user.offices2-1)
 				uprofit+=5*user.airTime + 5
 				uprofit+=10*user.tvChannels + 10
 				uprofit+=15*user.employeeProduction + 15

@@ -21,6 +21,7 @@ const Keyv = require('keyv');
 const KeyvProvider = require('commando-provider-keyv');
 const discord = require('discord.js');
 const client4 = new discord.Client()
+const client5 = new discord.Client()
 const mongoose=require("mongoose");
 const {Seller}=require("./commands/pizzatown/models/Sellers")
 const client2 = new CommandoClient({
@@ -617,7 +618,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
 
 setInterval(() => {
   const pizzas = Math.round(Math.random() * 100)
-  client.channels.cache.get("781214583393615903").send(`Hey! I want to buy ${pizzas} pizzas costing ${pizzas * 12} PizzaTokens! I will buy from the person who gives me the highest discount! Auction time!`).then(botMessage => {
+  client4.channels.cache.get("781214583393615903").send(`Hey! I want to buy ${pizzas} pizzas costing ${pizzas * 12} PizzaTokens! I will buy from the person who gives me the highest discount! Auction time!`).then(botMessage => {
     const discount = {user:null, money:0};
     const filter = m => !isNaN(m.content)
     const collector = botMessage.channel.createMessageCollector(filter, { time:120000 })
@@ -643,7 +644,7 @@ setInterval(() => {
         else{
             discount.money = Number(m.content)
             discount.user = m.author.id
-            m.reply("The highest bid is now "+discount.money+" from "+client.users.cache.get(discount.user).tag+"!")
+            m.reply("The highest bid is now "+discount.money+" from "+client4.users.cache.get(discount.user).tag+"!")
         }
     })
 
@@ -652,11 +653,54 @@ setInterval(() => {
             client.channels.cache.get("781214583393615903").send(`Looks like there were no bidders, that is quite sad.`)
         }
         else{
-            client.channels.cache.get("781214583393615903").send(`The auction is over! The winner was ${client.users.cache.get(discount.user).tag} selling ${pizzas} pizzas with a ${discount.money} discount earning ${pizzas * 12 - discount.money}!`)
+            client4.channels.cache.get("781214583393615903").send(`The auction is over! The winner was ${client4.users.cache.get(discount.user).tag} selling ${pizzas} pizzas with a ${discount.money} discount earning ${pizzas * 12 - discount.money}!`)
             const seller = await Seller.findOne({discord_id:discount.user});
             seller.pizzaTokens += pizzas * 12 - discount.money;
             await seller.save()
         }
     })
 })
+const amount = Math.round(Math.random() * 10)
+const baseBid = amount * 500
+        client5.channels.cache.get("790205618731352085").send(`Hey! I am selling ${amount} offices with a base bid of ${baseBid} PizzaTokens! I will buy from the person who gives me the highest discount! Auction time!`).then(botMessage => {
+            const bid = {user:null, money:baseBid};
+            const filter = m => !isNaN(m.content)
+            const collector = botMessage.channel.createMessageCollector(filter, { time:120000 })
+
+            collector.on("collect", async m => {
+                const advertiser = await Advertiser.findOne({discord_id:m.author.id})
+                if(!await Advertiser.findOne({discord_id:m.author.id})){
+                    m.reply("You are not an advertiser!")
+                }
+                else if(Number(m.content)<=bid.money){
+                    m.reply("You must bid higher than "+bid.money+"!")
+                }
+                else if(Number(m.content)>advertiser.pizzaTokens){
+                    m.reply("You don't have more than "+m.content+" PizzaTokens!")
+                }
+                else if(bid.user===m.author.id){
+                    m.reply("You already have the highest bid!")
+                }
+                else{
+                    bid.money = Number(m.content)
+                    bid.user = m.author.id
+                    m.reply("The highest bid is now "+bid.money+" from "+client5.users.cache.get(bid.user).tag+"!")
+                }
+            })
+
+            collector.on("end", async () => {
+                if(bid.user===null){
+                    client.channels.cache.get("790205618731352085").send(`Looks like there were no bidders, that is quite sad.`)
+                }
+                else{
+                    client5.channels.cache.get("790205618731352085").send(`The auction is over! The winner was ${client5.users.cache.get(bid.user).tag} buying ${amount} offices for ${bid.money}!`)
+                    const advertiser = await Advertiser.findOne({discord_id:discount.user});
+                    advertiser.offices2 += amount;
+                    await advertiser.save()
+                }
+            })
+        })
 }, 1000 * 60 * 10)
+
+client4.login(require("./config").ptoken)
+client5.login(require("./config").otoken)

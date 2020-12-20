@@ -41,7 +41,7 @@ module.exports = class gstart extends Command {
         });
     }
     async run(message, { pizzas }) {
-        client.channels.cache.get("781214583393615903").send(`Hey <@Auction>! I want to buy ${pizzas} pizzas costing ${pizzas * 12} PizzaTokens! I will buy from the person who gives me the highest discount! Auction time!`).then(botMessage => {
+        client.channels.cache.get("781214583393615903").send(`Hey! I want to buy ${pizzas} pizzas costing ${pizzas * 12} PizzaTokens! I will buy from the person who gives me the highest discount! Auction time!`).then(botMessage => {
             const discount = {user:null, money:0};
             const filter = m => !isNaN(m.content)
             const collector = botMessage.channel.createMessageCollector(filter, { time:120000 })
