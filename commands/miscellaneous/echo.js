@@ -28,8 +28,10 @@ module.exports = class Echo extends Command {
 		if (!message.member.hasPermission('MENTION_EVERYONE')) {
 			return message.reply('Hey! You don\'t have permissions to ping everyone!')
 		} else {
+		if (!message.guild.me.hasPermission('MENTION_EVERYONE')) return message.reply('I need the permission `Mention Everyone` for this to work.');
 			const sChannel = message.guild.channels.cache.find(c => c.id === channel.id);
         	sChannel.send(content);
 		}
 	}
 };
+

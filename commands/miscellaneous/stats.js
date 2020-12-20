@@ -49,7 +49,7 @@ module.exports = class stats extends Command {
 					.addField('Version:', '1.5.1-beta')
 					.addField('Memory Usage:', `${getpercentage} (${used} MB)`)
 					.addField('Uptime:', `${dateString}`)
-					.addField('Discord.js Version:', 'v12.5.1')
+					.addField('Discord.js Version:', 'v12.5.5')
 					.addField('Operating System:', 'Ubuntu 18.04.5 LTS')
 					.addField('Kernel:', `${os.release}`)
 					.setTimestamp();
