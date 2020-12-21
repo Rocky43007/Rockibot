@@ -583,6 +583,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
   await (await Advertiser.find()).forEach(async advertiser => {
     let uprofit = 0;
     uprofit+=15*advertiser.offices + 15
+    uprofit+=100*(advertiser.offices-1)
     uprofit+=5*advertiser.airTime + 5
     uprofit+=10*advertiser.tvChannels + 10
     uprofit+=15*advertiser.employeeProduction + 15
