@@ -55,7 +55,7 @@ module.exports = class gstart extends Command {
                     botMessage.react("✅")
                     botMessage.react("❌")
                     const filter = (reaction, user) => {
-                        return ['✅', '❌'].includes(reaction.emoji.name) && user === client.users.cache.get(padvertiser.discord_id);
+                        return ['✅', '❌'].includes(reaction.emoji.name) && user.id === client.users.cache.get(padvertiser.discord_id).id;
                     };
                     botMessage.awaitReactions(filter, {max:1}).then(async collection => {
                         const reaction = collection.first();
