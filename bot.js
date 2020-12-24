@@ -29,6 +29,7 @@ const client2 = new CommandoClient({
 	owner: ['361212545924595712', '742782250848092231'],
 	invite: 'https://discord.gg/Ju2gSCY',
 	unknownCommandResponse: false,
+	disableMentions: 'everyone',
 });
 const db = require('quick.db');
 const Advertiser = require("./commands/pizzatown/models/Advertiser");
@@ -706,3 +707,48 @@ const baseBid = amount * 500
 
 client4.login(require("./config").ptoken)
 client5.login(require("./config").otoken)
+const DBL = require('dblapi.js');
+const http = require('http');
+const app = require('express')();
+const server = http.createServer(app);
+const dbl = new DBL(require("../Rockibot/config").topgg, { webhookAuth: 'secretkey', webhookServer: server });
+
+dbl.webhook.on('ready', hook => {
+  console.log(`Webhook running with path ${JSON.stringify(hook)}`);
+});
+dbl.webhook.on('vote', vote => {
+  const voteUser = client2.users.cache.get(vote.user)
+  Seller.findOne({discord_id:voteUser.id}).then(async user => {
+    user.pizzaTokens += 1000
+    user.votingStreak++
+    if(user.votingStreak%7===0){
+      user.pizzaTokens+=10000
+      voteUser.send(`You have voted for Rockibot ${votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
+    }
+    else{
+      voteUser.send(`You have voted for Rockibot and received 1000 PizzaTokens! Vote ${ 7 - (user.votingStreak % 7)} times to get a 10000 PizzaToken bonus. `)
+    }
+    await user.save()
+  }).catch(() => {
+    Advertiser.findOne({discord_id:voteUser.id}).then(async user => {
+      user.pizzaTokens += 1000
+    user.votingStreak++
+    if(user.votingStreak%7===0){
+      user.pizzaTokens+=10000
+      voteUser.send(`You have voted for Rockibot ${votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
+    }
+    else{
+      voteUser.send(`You have voted for Rockibot and received 1000 PizzaTokens! Vote ${ 7 - (user.votingStreak % 7)} times to get a 10000 PizzaToken bonus. `)
+    }
+    await user.save()
+    })
+  })
+});
+
+app.get('/', (req, res) => {
+  // ...
+});
+
+server.listen(5000, () => {
+  console.log('Listening');
+});
