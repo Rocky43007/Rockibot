@@ -41,6 +41,10 @@ const advertiserSchema = new mongoose.Schema({
         type:Number,
         default:1
     },
+    votingStreak:{
+        type:Number,
+        default:0
+    }
 })
 
 module.exports = mongoose.model("Advertisers", advertiserSchema)

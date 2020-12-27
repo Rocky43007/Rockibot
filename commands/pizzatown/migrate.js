@@ -8,6 +8,7 @@ Seller.find().then(sellers => {
         if(!seller.playPlace) seller.playPlace = 0
         if(!seller.reviewScore) seller.reviewScore = 0
         if(!seller.topggVote) seller.topggVote = false
+        if(!seller.votingStreak) seller.votingStreak = 0
         await seller.save()
     })
 })
@@ -20,6 +21,7 @@ Advertiser.find().then(advertisers => {
         if(!advertiser.tvChannels) advertiser.tvChannels = 0
         if(!advertiser.employeeProduction) advertiser.employeeProduction = 0
         if(!advertiser.topggVote) advertiser.topggVote = false
+        if(!advertiser.votingStreak) advertiser.votingStreak = 0
         await advertiser.save()
     })
 })
