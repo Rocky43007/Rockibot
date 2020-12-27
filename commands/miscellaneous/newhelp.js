@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const { Command } = require('discord.js-commando');
-const Keyv = require('keyv');
 
 module.exports = class help2 extends Command {
 	constructor(client) {
@@ -24,10 +23,11 @@ module.exports = class help2 extends Command {
 		.setColor('#03d3fc')
 		.setTitle('Rockibot | Help')
 		.addField('Page 1: General Commands', 'These commands are given to everyone, and is the module that every user gets when they use the bot.')
-		.addField('Page 2: Moderation Commands', 'These commands are for moderating servers, such as `!ban`, `!kick` and more!')
-		.addField('Page 3: Music Commands', 'These commands are for the music aspect of the bot. Here, you can find information of `!play`, `!join` and more!')
-		.addField('Page 4: Suggestion Commands', 'These commands relate to suggestions! Here, you can find information about `!suggest`, `!suggest-channel` and more!')
-		.addField('Page 5: PizzaTown Commands', 'These commands are for PizzaTown! Here, you can find information about `!pstart`, `!menu` and more!')
+		.addField('Page 2: Moderation Commands', `These commands are for moderating servers, such as \`${message.guild.commandPrefix}ban\`, \`${message.guild.commandPrefix}kick\` and more!`)
+		.addField('Page 3: Music Commands', `These commands are for the music aspect of the bot. Here, you can find information of \`${message.guild.commandPrefix}play\`, \`${message.guild.commandPrefix}join\` and more!`)
+		.addField('Page 4: Suggestion Commands', `These commands relate to suggestions! Here, you can find information about \`${message.guild.commandPrefix}suggest\`, \`${message.guild.commandPrefix}suggest-channel\` and more!`)
+		.addField('Page 5: PizzaTown Commands', `These commands are for PizzaTown! Here, you can find information about \`${message.guild.commandPrefix}pstart\`, \`${message.guild.commandPrefix}menu\` and more!`)
+		.addField('Page 6: Leveling! Commands', `These commands are for leveling! Here, you can find information about \`${message.guild.commandPrefix}level\`, \`${message.guild.commandPrefix}levelmulti\` and more!`)
 		.addField('Links', '[Website](https://rockibot.ml)\n[Dashboard](https://dash.rockibot.ml)')
 
 		const basic = new Discord.MessageEmbed()
@@ -42,6 +42,7 @@ module.exports = class help2 extends Command {
 			.addField('invite', 'Allows other users to invite the bot to their own server.')
 			.addField('dashboard', 'Takes you to the bot\'s dashboard.')
 			.addField('vote', 'Takes you to the bot\'s vote page.')
+			.addField('echo', 'Send a message through the bot!')
 			.addField('changelog', 'Shows the latest changelog of the bot from the support server.')
 
 		const suggestions = new Discord.MessageEmbed()
@@ -68,6 +69,8 @@ module.exports = class help2 extends Command {
 			.addField('warn', 'Allows staff to warn a member. Usage: `!warn <Mention User or User ID> <Reason>`.')
 			.addField('unwarn', 'Allows staff to remove a warn from a member. Usage: `!unwarn <Mention User or User ID> <Reason>`.')
 			.addField('warns', 'Allows staff to see how many warns a user has. Usage: `!warns <Mention User or User ID>`.')
+			.addField('lock', 'Lock a channel so users can\'t send messages there!')
+			.addField('unlock', 'Unlock a locked channel!')
 
 		const music = new Discord.MessageEmbed()
 			.setColor('#2e77b8')
@@ -94,6 +97,13 @@ module.exports = class help2 extends Command {
 			.addField('pstats', 'Shows your pizza town stats.')
 			.addField('storebuy', 'Buys a store.')
 			.addField('stores', 'Views your stores.')
+		const leveling = new Discord.MessageEmbed()
+			.setColor('#66ff00')
+			.setTitle('Rockibot | Leveling Commands')
+			.setDescription('Please remove the `<>` when using the commands!')
+			.addField('level', 'See your level in the server!')
+			.addField('leaderboard', 'See the server\'s leaderboard!')
+			.addField('levelmulti', 'Set a XP multiplier for specific channels in your server! Set the multiplier as 0 to disable gaining XP in channels that you can set! (Requires User to have Administrator permissions to run the command)')
 
 
 		switch (page) {
@@ -107,9 +117,12 @@ module.exports = class help2 extends Command {
 				return message.channel.send({ embed: suggestions })
 			case "5":
 				return message.channel.send({ embed: pizzatown})
+			case "6":
+				return message.channel.send({ embed: leveling})
 			default:
 				home.setDescription(`Use \`${message.guild.commandPrefix}help [page]\` to switch pages!`)
 				return message.channel.send({ embed: home })
 			}
 	}
 };
+

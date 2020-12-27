@@ -35,7 +35,7 @@ const db = require('quick.db');
 const Advertiser = require("./commands/pizzatown/models/Advertiser");
 console.log(uri);
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex:true });
-const leveling = require('discord-leveling');
+const Levels = require('discord-xp');
 
 class GuideBot extends Client {
   constructor(options) {
@@ -245,6 +245,7 @@ const init = async () => {
       ['suggestions', 'Suggestions Commands'],
       ['music', 'Music Commands'],
 	  ['pizzatown', "PizzaTown Commands"],
+      ['leveling', 'Leveling Commands'],
 	  ])
 	  .registerDefaultGroups()
 	  .registerDefaultCommands({help: false, unknownCommand: false})	
@@ -258,78 +259,186 @@ client2.on("message", async (message) => {
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("music", false);
       message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("leveling", false);
       message.guild.setGroupEnabled("moderation", true);
     }
     if (gdb === null) {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", true);
       message.guild.setGroupEnabled("pizza", true);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
     }
     if (gdb === 'suggestions') {
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("music", false);
       message.guild.setGroupEnabled("pizzatown", false);
       message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'music') {
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("pizzatown", false);
       message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'pizzatown') {
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("music", false);
       message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("leveling", false);
+    }
+    if (gdb === 'leveling') {
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("leveling", true);
     }
     if (gdb === 'moderation, suggestions') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", false);
       message.guild.setGroupEnabled("pizzatown", false);
       message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'moderation, music') {
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("pizzatown", false);
       message.guild.setGroupEnabled("music", true);
       message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'moderation, pizzatown') {
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("pizzatown", true);
       message.guild.setGroupEnabled("music", false);
       message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'suggestions, music') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("pizzatown", false);
       message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'suggestions, pizzatown') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("pizzatown", true);
       message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'pizzatown, music') {
       message.guild.setGroupEnabled("suggestions", false);
       message.guild.setGroupEnabled("moderation", false);
       message.guild.setGroupEnabled("pizzatown", true);
       message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'moderation, suggestions, music') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", true);
       message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("leveling", false);
     }
     if (gdb === 'moderation, suggestions, music, pizzatown') {
       message.guild.setGroupEnabled("suggestions", true);
       message.guild.setGroupEnabled("music", true);
       message.guild.setGroupEnabled("pizzatown", true);
       message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", false);
     }
+    if (gdb === 'moderation, suggestions, music, pizzatown, leveling') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'moderation, leveling') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'music, leveling') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'suggestions, leveling') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("leveling", false);
+    }
+    if (gdb === 'pizzatown, leveling') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'moderation, suggestions, leveling') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'moderation, music, leveling') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'moderation, pizzatown, leveling') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'moderation, suggestions, music, leveling') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'moderation, music, pizzatown, leveling') {
+      message.guild.setGroupEnabled("suggestions", false);
+      message.guild.setGroupEnabled("music", true);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'moderation, suggestions, pizzatown, leveling') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", true);
+      message.guild.setGroupEnabled("moderation", true);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+    if (gdb === 'suggestions, music, leveling') {
+      message.guild.setGroupEnabled("suggestions", true);
+      message.guild.setGroupEnabled("music", false);
+      message.guild.setGroupEnabled("pizzatown", false);
+      message.guild.setGroupEnabled("moderation", false);
+      message.guild.setGroupEnabled("leveling", true);
+    }
+
+
+
   });
 client2.on('messageDelete', async (message) => {
 if (message.channel.id === "787909827988946977") {
@@ -420,7 +529,7 @@ return;
 			const embed = new discord.MessageEmbed()
 			.setColor('#ff2050')
 			.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
-			.setDescription(`**Message edited in #${oldMessage.channel.name}**`)
+			.setDescription(`Message edited in #${oldMessage.channel.name}`)
 			.addField('Before:', oldMessage.content, true)
 			.addField('After:', newMessage.content, true)
 			.setTimestamp();
@@ -488,7 +597,32 @@ dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 })
 });
-
+client2.on("message", async (message) => {
+  if (!message.guild) return;
+  if (message.author.bot) return;
+  const multidb = await db.get(`xpmulti_${message.channel.id}`);
+  console.log(multidb);
+  if (multidb === null) {
+        const randomAmountOfXp = 5; // Min 1, Max 30
+        console.log(`${message.channel.name} gives 5 xp`);
+ 	const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+	console.log(hasLeveledUp);
+  if (hasLeveledUp) {
+    const user = await Levels.fetch(message.author.id, message.guild.id);
+    message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`);
+  }
+} else {
+  const multi = 5*multidb;
+  const randomAmountOfXp = multi; // Min 1, Max 30
+  console.log(`${message.channel.name} gives ${randomAmountOfXp}`);
+  const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+  if (hasLeveledUp) {
+    const user = await Levels.fetch(message.author.id, message.guild.id);
+    message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`);
+	console.log(hasLeveledUp);
+  }
+}
+}); 
 const webhookClient = new discord.WebhookClient(client.config.webID, client.config.webToken);
   // Here we login the client.
   client2.login(client.config.token);
@@ -723,7 +857,7 @@ dbl.webhook.on('vote', vote => {
     user.votingStreak++
     if(user.votingStreak%7===0){
       user.pizzaTokens+=10000
-      voteUser.send(`You have voted for Rockibot ${votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
+      voteUser.send(`You have voted for Rockibot ${user.votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
     }
     else{
       voteUser.send(`You have voted for Rockibot and received 1000 PizzaTokens! Vote ${ 7 - (user.votingStreak % 7)} times to get a 10000 PizzaToken bonus. `)
@@ -735,7 +869,7 @@ dbl.webhook.on('vote', vote => {
     user.votingStreak++
     if(user.votingStreak%7===0){
       user.pizzaTokens+=10000
-      voteUser.send(`You have voted for Rockibot ${votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
+      voteUser.send(`You have voted for Rockibot ${user.votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
     }
     else{
       voteUser.send(`You have voted for Rockibot and received 1000 PizzaTokens! Vote ${ 7 - (user.votingStreak % 7)} times to get a 10000 PizzaToken bonus. `)

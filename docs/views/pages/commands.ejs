@@ -28,7 +28,7 @@
                 <div class="subtitle">Rockibot has the common default prefix of <code>!</code> and <code>@Rockibot</code></div>
                 <br />
                 <table id="rockibot-commands-table" cellpadding="10" border="2" bordercolor="darkgray">
-                    <tbody>
+<tbody>
                         <tr id="rockibot-commands-table-head">
                           <th>Command</th>
                           <th>Aliases</th>
@@ -84,11 +84,11 @@
                           <td>N/A</td>
                           <td>Obtain the link to vote for Rockibot on <a target="_blank" onclick="trackCampaignWebClick('', 'description');" rel="nofollow" id="Rockibot-top-gg-page" href="https://top.gg/bot/739923682075476089" rel="nofollow">Top.gg</a>.</td>
                         </tr>
-	<tr>
+	                      <tr>
                           <td>echo</td>
                           <td>N/A</td>
                           <td>Channel | Message</td>
-                          <td>Echo a message to another channel!</td>
+                          <td>Echo a message to another channel!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
                         </tr>
                         <tr id="Rockibot-commands-table-head">
                           <th colspan="4">Moderation</th>
@@ -146,6 +146,18 @@
                         <td>N/A</td>
                         <td>User Mention | User ID</td>
                         <td>See the number of warns a user has.<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user and bot to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>lock</td>
+                          <td>N/A</td>
+                          <td>Channel</td>
+                          <td>Lock the channel so people can't send messages in it!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires bot to have <strong id="warning">Manage Roles</strong> permissions.</span><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
+                      </tr>
+                      <tr>
+                        <td>unlock</td>
+                          <td>N/A</td>
+                          <td>Channel</td>
+                          <td>Unlock a locked channel so people can send messages again!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires bot to have <strong id="warning">Manage Roles</strong> permissions.</span><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Manage Messages</strong> permissions.</span></td>
                       </tr>
                         <tr id="Rockibot-commands-table-head">
                             <th colspan="4">Suggestions</th>
@@ -306,7 +318,29 @@
                           <td>N/A</td>
                           <td>See the prices for your next Urban/Suburban store or a new stand!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have a <strong id="warning">Seller</strong> account.</span></td>
                         </tr>
+                        <tr id="Rockibot-commands-table-head">
+                          <th colspan="4">Leveling</th>
+                        </tr>
+                        <tr>
+                          <tr>
+                            <td>level</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>See your level!</td>
+                          </tr>
+                          <tr>
+                            <td>leaderboard</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>See the server's XP leaderboard!</td>
+                          </tr>
+                          <td>levelmulti</td>
+                          <td>N/A</td>
+                          <td>Channel | Multiplier</td>
+                          <td>Set a XP multiplier for specific channels in your server! Set the multiplier as 0 to disable gaining XP in channels that you can set! <code>!levelmulti #general 3</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                        </tr>
                     </tbody>
+
                 </table>
             </div><br />
         </div>

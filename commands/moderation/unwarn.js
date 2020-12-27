@@ -103,7 +103,7 @@ module.exports = class unwarn extends Command {
 
 		if(warnings !== null) {
 			db.subtract(`warnings_${message.guild.id}_${user.id}`, 1);
-			user.send(`You were warned in ${message.guild.name} for: ${content}`);
+			user.send(`You were unwarned in ${message.guild.name} for: ${content}`);
 			await message.channel.send(`**${user.tag}** has been unwarned.`);
 		}
 		client.connect(async err => {

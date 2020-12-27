@@ -6,7 +6,7 @@ module.exports = class Echo extends Command {
 			name: 'echo',
 			group: 'miscellaneous',
 			memberName: 'echo',
-            description: 'Echo a message to another channel!',
+			description: 'Echo a message to another channel!',
 			userPermissions: ['MANAGE_MESSAGES'],
             args: [
 				{
@@ -24,14 +24,7 @@ module.exports = class Echo extends Command {
 		});
 	}
 	run(message, {channel, content}) {
-		const word = '@everyone';
-		if (!message.member.hasPermission('MENTION_EVERYONE')) {
-			return message.reply('Hey! You don\'t have permissions to ping everyone!')
-		} else {
-		if (!message.guild.me.hasPermission('MENTION_EVERYONE')) return message.reply('I need the permission `Mention Everyone` for this to work.');
-			const sChannel = message.guild.channels.cache.find(c => c.id === channel.id);
-        	sChannel.send(content);
-		}
+		const sChannel = message.guild.channels.cache.find(c => c.id === channel.id);
+		sChannel.send(content);
 	}
 };
-

@@ -1,0 +1,56 @@
+const { Command } = require('discord.js-commando');
+const Discord = require('discord.js');
+const leveling = require('discord-leveling');
+const client = new Discord.Client();
+module.exports = class lb extends Command {
+	constructor(client) {
+		super(client, {
+            name: 'leaderboard',
+            aliases: ['lb'],
+			group: 'leveling',
+			memberName: 'lb',
+            description: 'Shows the server\'s XP Leaderboard.',
+			guildOnly: true,
+		});
+	}
+	async run(message) {
+        leveling.Leaderboard({
+            limit: 10 //Only takes top 3 ( Totally Optional )
+          }).then(async users => { //make sure it is async
+     
+            if (users[0]) var firstplace = await client.users.cache.get(users[0].userid) //Searches for the user object in discord for first place
+            if (users[1]) var secondplace = await client.users.cahce.get(users[1].userid) //Searches for the user object in discord for second place
+            if (users[2]) var thirdplace = await client.users.cache.get(users[2].userid) //Searches for the user object in discord for third place
+            if (users[3]) var four = await client.users.cache.get(users[3].userid)
+            if (users[4]) var five = await client.users.cache.get(users[4].userid)
+            if (users[5]) var six = await client.users.cache.get(users[5].userid)
+            if (users[6]) var seven = await client.users.cache.get(users[6].userid)
+            if (users[7]) var eight = await client.users.cache.get(users[7].userid)
+            if (users[8]) var nine = await client.users.cache.get(users[8].userid)
+            if (users[9]) var ten = await client.users.cache.get(users[9].userid)
+            const p1 = await client.users.fetch(users[0].userid);
+
+	     console.log(users[0].userid);
+		console.log(p1.username);
+const embed = new Discord.MessageEmbed()
+            .setTitle(`${message.guild.name}'s Leaderboard`)
+
+            .addField(`${<@${users[0].userid}> || 'Nobody Yet'} :`, `${users[0] && users[0].level || 'None'} : ${users[0] && users[0].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[1].userid) || 'Nobody Yet'} :`, `${users[1] && users[1].level || 'None'} : ${users[1] && users[1].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[2].userid) || 'Nobody Yet'} :`, `${users[2] && users[2].level || 'None'} : ${users[2] && users[2].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[3].userid) || 'Nobody Yet'} :`, `${users[3] && users[3].level || 'None'} : ${users[3] && users[3].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[4].userid) || 'Nobody Yet'} :`, `${users[4] && users[4].level || 'None'} : ${users[4] && users[4].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[5].userid) || 'Nobody Yet'} :`, `${users[5] && users[5].level || 'None'} : ${users[5] && users[5].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[6].userid) || 'Nobody Yet'} :`, `${users[6] && users[6].level || 'None'} : ${users[6] && users[6].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[7].userid) || 'Nobody Yet'} :`, `${users[7] && users[7].level || 'None'} : ${users[7] && users[7].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[8].userid) || 'Nobody Yet'} :`, `${users[8] && users[8].level || 'None'} : ${users[8] && users[8].xp || 'None'}`)
+            .addField(`${client.users.cache.get(u => u.id === users[9].userid) || 'Nobody Yet'} :`, `${users[9] && users[9].level || 'None'} : ${users[9] && users[9].xp || 'None'}`)
+
+            message.channel.send(embed);
+     
+          })
+
+    }
+};
+
+
