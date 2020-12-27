@@ -735,7 +735,7 @@ dbl.webhook.on('vote', vote => {
     user.votingStreak++
     if(user.votingStreak%7===0){
       user.pizzaTokens+=10000
-      voteUser.send(`You have voted for Rockibot ${votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
+      voteUser.send(`You have voted for Rockibot ${user.votingStreak > 7 ? "another" : ""} 7 times and have received a 10000 PizzaToken bonus!`)
     }
     else{
       voteUser.send(`You have voted for Rockibot and received 1000 PizzaTokens! Vote ${ 7 - (user.votingStreak % 7)} times to get a 10000 PizzaToken bonus. `)
