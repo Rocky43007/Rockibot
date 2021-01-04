@@ -30,15 +30,17 @@ module.exports = class gstart extends Command {
 	}
 	async run(message, {ad}) {
         if(message.guild.id !== "739916829828448317"){
-            message.channel.send("You are not in the Rockibot support server join https://discord.gg/fDGMCkp9cC to advertise your advertising agency!")
+            message.channel.send("You are not in the Rockibot support server join to advertise your advertising agency!")
             return
         }
-		Advertiser.findOne({discord_id:message.author.id}).then(user => {
+		Advertiser.findOne({discord_id:message.author.id}).then(async user => {
             console.log(user)
             if(user.pizzaTokens < 1000){
                 message.reply("You cannot afford to advertise!")
             }
             else{
+                user.pizzaTokens -= 1000
+                await user.save()
                 this.client.channels.cache.get('777943853897875498').send(`${user.name}: ${ad}`)
             }
         }).catch((err) => {
