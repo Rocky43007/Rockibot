@@ -10,19 +10,19 @@ const schannel = require('./models/schannel');
 module.exports = class gstart extends Command {
     constructor(client) {
         super(client, {
-            name: 'approve',
+            name: 'implement',
             group: 'suggestions',
-            memberName: 'approve',
-            description: 'Approves.',
+            memberName: 'implement',
+            description: 'Implements.',
             args: [
                 {
                     key: 'suggestion',
-                    prompt: 'What do you want to approve?',
+                    prompt: 'What do you want to implement?',
                     type: 'integer'
                 },
                 {
                     key:'comment',
-                    prompt:'What is the comment for approving?',
+                    prompt:'What is the comment for implementation?',
                     type:"string",
                     default:"No comment given."
                 }
@@ -39,9 +39,9 @@ module.exports = class gstart extends Command {
             suggestdb.findOne({suggestnum:suggestion, guildname:message.guild.id}).then((suggestion2) => {
                 message.guild.channels.cache.find(c => c.name=== suggestchannel.channel).messages.fetch(suggestion2.messageid).then(msg => {
                     const embed = new Discord.MessageEmbed()
-							.setColor('#71EEB8')
+							.setColor('#add8e6')
 							.setAuthor(suggestion2.author, suggestion2.authorim)
-							.setTitle(`Suggestion #${suggestion2.suggestnum} Approved`)
+							.setTitle(`Suggestion #${suggestion2.suggestnum} Implemented`)
 							.setDescription(suggestion2.suggestion)
 							.addField(`Comment from ${message.author.tag}:`, comment);
                     msg.edit(embed)
