@@ -34,7 +34,8 @@ const express = require("express");
 const app = express();
 const moment = require("moment");
 require("moment-duration-format");
-
+const Keyv = require("keyv");
+const modules = new Keyv("sqlite:///home/rocky/Rockibot/databases/modules.sqlite");
 // Express Plugins
 // Specifically, passport helps with oauth2 in general.
 // passport-discord is a plugin for passport that handles Discord's specific implementation.
@@ -269,8 +270,8 @@ module.exports = (client) => {
     if (!guild) return res.status(404);
     const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has("MANAGE_GUILD") : false;
     if (!isManaged && !req.session.isAdmin) res.redirect("/");
-    const db = require('quick.db');
-    renderTemplate(res, req, "guild/manage.ejs", {guild, client2, db});
+    const choice = modules.get(guild.id);
+    renderTemplate(res, req, "guild/manage.ejs", {guild, client2, choice, modules});
   });
 
   // When a setting is changed, a POST occurs and this code runs

@@ -40,7 +40,7 @@ module.exports = class gstart extends Command {
                 message.guild.channels.cache.find(c => c.name=== suggestchannel.channel).messages.fetch(suggestion2.messageid).then(msg => {
                     const embed = new Discord.MessageEmbed()
 							.setColor('#add8e6')
-							.setAuthor(suggestion2.author, suggestion2.authorim)
+							.setAuthor(this.client.users.cache.get(suggestion2.author).tag, suggestion2.authorim)
 							.setTitle(`Suggestion #${suggestion2.suggestnum} Implemented`)
 							.setDescription(suggestion2.suggestion)
 							.addField(`Comment from ${message.author.tag}:`, comment);

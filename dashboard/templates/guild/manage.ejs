@@ -24,11 +24,12 @@
             <input type="text" class="form-control" style="text-align: left;" name="<%= key %>" id="<%= key %>" value="<%= settings[key] %>"
               placeholder="Enter <%= key %>">
               <%
-              const gdb = db.get(`guildsettings_${guild.id}`);
-				      if(gdb === null) {
-					      db.set(`guildsettings_${guild.id}`, 'Moderation, Suggestions');
-              }
-              db.set(`guildsettings_${guild.id}`, `${settings[key2]}`);
+		 if (choice === undefined) {
+                              const chosenModules = "moderation, suggestions, music, pizzatown";
+                              modules.set(guild.id, chosenModules)
+                            } else {
+                              modules.set(guild.id, settings[key2])
+                            }
               %>
           </div>
         </li>

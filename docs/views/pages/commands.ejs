@@ -205,19 +205,13 @@
                           <td>play</td>
                           <td>p</td>
                           <td>Song Link</td>
-                          <td>Play a song from youtube! For example: <code>!play https://www.youtube.com/watch?v=PKfxmFU3lWY&ab_channel=Monstercat%3AUncaged</code></td>
+                          <td>Play a song from youtube or Spotify! Even search for songs with just the song name! For example: <code>!play https://www.youtube.com/watch?v=PKfxmFU3lWY&ab_channel=Monstercat%3AUncaged</code></td>
                         </tr>
-                        <tr>
-                          <td>join</td>
-                          <td>j</td>
+			<tr>
+			  <td>stop>
+                          <td>dc, leave</td>
                           <td>N/A</td>
-                          <td>Allows bot to join user in voice channel.</td>
-                        </tr>
-                        <tr>
-                          <td>leave</td>
-                          <td>l</td>
-                          <td>N/A</td>
-                          <td>Makes the bot to leave the voice channel.</td>
+                          <td>Makes the bot to leave the voice channel and clears queue.</td>
                         </tr>
                         <tr>
                           <td>queue</td>
@@ -231,6 +225,66 @@
                           <td>N/A</td>
                           <td>Skips to the next song in the queue.</td>
                         </tr>
+			<tr>
+                          <td>loop</td>
+                          <td>N/A</td>
+                          <td>N/A</td>
+                          <td>Loops the queue.</td>
+                        </tr>
+                        <tr>
+                        <td>nowplaying</td>
+                        <td>np, nowplay</td>
+                        <td>N/A</td>
+                        <td>The song that's playing right now.</td>
+                      </tr>
+                      <tr>
+                        <td>pause</td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Pauses the song playing right now.</td>
+                      </tr>
+                      <tr>
+                        <td>resume</td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Resumes playing song.</td>
+                      </tr>
+                      <tr>
+                        <td>seek/td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Skip to a specific time point in a song.</td>
+                      </tr>
+                      <tr>
+                        <td>remove</td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Remove a song from the queue.</td>
+                      </tr>
+                      <tr>
+                        <td>volume</td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Change the volume of the player for the server.</td>
+                      </tr>
+                      <tr>
+                        <td>lyrics</td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Find the lyrics of a song!</td>
+                      </tr>
+                      <tr>
+                        <td>search</td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Search for a song from Youtube!</td>
+                      </tr>
+                      <tr>
+                        <td>shuffle</td>
+                        <td>N/A</td></td>
+                        <td>N/A</td>
+                        <td>Shuffle the queue.</td>
+                      </tr>
                         <tr id="Rockibot-commands-table-head">
                           <th colspan="4">PizzaTown</th>
                         </tr>
@@ -339,6 +393,28 @@
                           <td>Channel | Multiplier</td>
                           <td>Set a XP multiplier for specific channels in your server! Set the multiplier as 0 to disable gaining XP in channels that you can set! <code>!levelmulti #general 3</code><br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
                         </tr>
+<tr id="Rockibot-commands-table-head">
+                          <th colspan="4">Giveaways</th>
+                        </tr>
+                        <tr>
+                          <tr>
+                            <td>gstart</td>
+                            <td>N/A</td>
+                            <td>Channel | Prize | Time | Winner(s)</td>
+                            <td>Start a giveaway!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                          </tr>
+                          <tr>
+                            <td>gend</td>
+                            <td>N/A</td>
+                            <td>Message ID</td>
+                            <td>End a giveaway!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                          </tr>
+                          <td>groll</td>
+                          <td>N/A</td>
+                          <td>Message ID</td>
+                          <td>Reroll a giveaway for a new winner!<br><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8B0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span class="important">Requires user to have <strong id="warning">Administrator</strong> permissions.</span></td>
+                        </tr>
+
                     </tbody>
 
                 </table>
