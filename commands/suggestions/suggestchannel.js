@@ -32,20 +32,20 @@ module.exports = class gstart extends Command {
                 {
                     key: 'channel',
                     prompt: 'What channel do you want suggestions to be placed in? Please do not use "#".',
-                    type: 'string'
+                    type: 'channel'
                 }
             ],
-            userPermissions: ["ADMINISTRATOR", "MANAGE_MESSAGES"],
-            clientPermissions: ["ADMINISTRATOR"],
+            userPermissions: ["ADMINISTRATOR"],
+            clientPermissions: ["MANAGE_MESSAGES"],
             guildOnly: true
         });
     }
     async run(message, { channel }) {
         if (!await sChannel.findOne({ guildname: message.guild.id })) {
-            if (message.guild.channels.cache.find(c => c.name === channel)) {
-                const newchannel = new sChannel({ guildname: message.guild.id, channel: channel })
+            if (message.guild.channels.cache.find(c => c.id === channel.id)) {
+                const newchannel = new sChannel({ guildname: message.guild.id, channel: channel.id })
                 await newchannel.save()
-                message.reply(`#${channel} is now your suggestion channel.`)
+                message.reply(`${channel} is now your suggestion channel.`)
             }
             else {
                 message.reply("That channel does not exist.")

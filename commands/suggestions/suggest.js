@@ -33,9 +33,13 @@ module.exports = class gstart extends Command {
 		.setAuthor(message.author.tag, message.author.avatarURL({dynamic: true}))
 		.setTitle(`Suggestion #${suggestchannel.suggestnum}`)
 		.setDescription(suggestion)
-            message.guild.channels.cache.find(c => c.name=== suggestchannel.channel).send(embed).then(async embedMessage => {
+            var sChannel = message.guild.channels.cache.find(c => c.name=== suggestchannel.channel);
+	    if (sChannel === undefined) sChannel =  message.guild.channels.cache.find(c => c.id === suggestchannel.channel);
+	    if(!sChannel) return message.reply('This server does not have a suggestion channel!');
+sChannel.send(embed).then(async embedMessage => {
 		embedMessage.react('⬆️').then(
-        embedMessage.react('⬇️'));
+        embedMessage.react('⬇️'));	
+	
         const newsuggestion = new suggestdb({
             messageid:embedMessage.id,
             author:message.author.id,

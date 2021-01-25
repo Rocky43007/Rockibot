@@ -27,8 +27,8 @@ module.exports = class gstart extends Command {
                     default:"No comment given."
                 }
             ],
-            clientPermissions:["MANAGE_MESSAGES", "ADMINISTRATOR"],
-            userPermissions:["MANAGE_MESSAGES"],
+            clientPermissions:["MANAGE_MESSAGES"],
+            userPermissions:["ADMINISTRATOR"],
             guildOnly: true
         });
     }
@@ -37,7 +37,11 @@ module.exports = class gstart extends Command {
         const suggestchannel = await schannel.findOne({guildname:message.guild.id})
         if(suggestchannel){
             suggestdb.findOne({suggestnum:suggestion, guildname:message.guild.id}).then((suggestion2) => {
-                message.guild.channels.cache.find(c => c.name=== suggestchannel.channel).messages.fetch(suggestion2.messageid).then(msg => {
+var sChannel = message.guild.channels.cache.find(c => c.name=== suggestchannel.channel);
+            if (sChannel === undefined) sChannel =  message.guild.channels.cache.find(c => c.id === suggestchannel.channel);
+            if(!sChannel) return message.reply('This server does not have a suggestion channel!');
+
+sChannel.messages.fetch(suggestion2.messageid).then(msg => {
                     const embed = new Discord.MessageEmbed()
 							.setColor('#add8e6')
 							.setAuthor(this.client.users.cache.get(suggestion2.author).tag, suggestion2.authorim)
