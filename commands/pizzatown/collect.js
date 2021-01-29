@@ -30,22 +30,26 @@ module.exports = class gstart extends Command {
             memberName: 'collect',
             description: 'Collect 1% of your PizzaTokens',
             guildOnly: true,
-		    throttling:{ 
-                usages:1, 
-                duration:300
+            throttling: {
+                usages: 1,
+                duration: 300
             }
         });
     }
     async run(message) {
-        Seller.findOne({ discord_id:message.author.id }).then(async user => {
-            user.pizzaTokens += user.pizzaTokens/100
+        Seller.findOne({ discord_id: message.author.id }).then(async user => {
+            const onepercent = user.pizzaTokens / 100
+            user.pizzaTokens += onepercent
+            user.collects += 1
             await user.save()
-            message.reply("Money collected.")
+            message.reply(onepercent + "Pizzatokens collected.")
         }).catch(() => {
-            Advertiser.findOne({ discord_id:message.author.id }).then(async user => {
-                user.pizzaTokens += user.pizzaTokens/100
-            await user.save()
-            message.reply("Money collected.")
+            Advertiser.findOne({ discord_id: message.author.id }).then(async user => {
+                const onepercent = user.pizzaTokens / 100
+                user.pizzaTokens += onepercent
+                user.collects += 1
+                await user.save()
+                message.reply(onepercent + "Pizzatokens collected.")
             }).catch(() => {
                 const membed = new Discord.MessageEmbed()
                     .setColor('#ff0000')

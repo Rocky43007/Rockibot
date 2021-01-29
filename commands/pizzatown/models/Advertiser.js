@@ -44,6 +44,10 @@ const advertiserSchema = new mongoose.Schema({
     votingStreak:{
         type:Number,
         default:0
+    },
+    collects:{
+        type:Number,
+        default:0
     }
 })
 
