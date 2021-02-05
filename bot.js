@@ -521,7 +521,6 @@ process.on("unhandledRejection", err => {
 });
 
 setInterval(async () => {
-client.users.cache.get("742782250848092231").send("Hourly income given out")
   let users = await Seller.find()
   await Advertiser.find().then(async advertisers => {
     advertisers.forEach(async advertiser => {
@@ -531,6 +530,7 @@ client.users.cache.get("742782250848092231").send("Hourly income given out")
       })
     })
   })
+
   users.forEach(async user => {
     let uprofit = 0;
 			user.menu.forEach(pizza => {
