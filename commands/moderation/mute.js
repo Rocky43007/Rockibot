@@ -38,7 +38,7 @@ module.exports = class Mute extends Command {
                 });
         }
         async run(message, { user, reason, time }) {
-                const uri = "mongodb+srv://achakra:R0Cky.43007@rockibot-db.yiktd.mongodb.net/<dbname>?retryWrites=true&w=majority";
+                const uri = //
  
                 // create a client to mongodb
                 const MongoClient = require('mongodb').MongoClient;
