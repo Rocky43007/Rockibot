@@ -12,6 +12,8 @@
     <a href="http://rockibot.ml"><img src="https://img.shields.io/badge/Dashboard-Visit%20the%20dashboard!-informational" alt="Dashboard" /></a>
       </p>
 </div>
+# Archived
+This bot and project is now going to be archived as it is no longer maintained and no longer worked on by myself.
 
 # About
 
